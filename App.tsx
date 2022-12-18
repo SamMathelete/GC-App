@@ -108,24 +108,12 @@ export default function App() {
     <>
       <StatusBar style="light" />
       <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={{
-            headerStyle: {
-              backgroundColor: "#ef8100",
-            },
-            headerTintColor: "#ffd87d",
-            headerTitleAlign: "center",
-            headerShadowVisible: false,
-            contentStyle: {
-              backgroundColor: "#ef8100",
-            },
-          }}
-        >
+        <Stack.Navigator>
           <Stack.Screen
             name="LoginScreen"
             component={LoginScreen}
             options={{
-              title: "Login",
+              headerShown: false,
             }}
           />
           <Stack.Screen

@@ -6,7 +6,7 @@ interface Props {
   onPress: () => void;
 }
 
-const MainButton: FC<Props> = ({ children, onPress }) => {
+const SideButton: FC<Props> = ({ children, onPress }) => {
   return (
     <View style={styles.outerContainer}>
       <Pressable onPress={onPress}>
@@ -18,20 +18,21 @@ const MainButton: FC<Props> = ({ children, onPress }) => {
   );
 };
 
-export default MainButton;
+export default SideButton;
 
 const styles = StyleSheet.create({
   outerContainer: {
     width: 275,
     height: 60,
     marginBottom: 20,
-    backgroundColor: "white",
+    borderColor: "white",
+    borderWidth: 2,
     borderRadius: 30,
     justifyContent: "center",
     alignItems: "center",
   },
   buttonText: {
-    fontWeight: "bold",
     fontSize: 20,
+    color: "white",
   },
 });

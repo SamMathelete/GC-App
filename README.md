@@ -6,4 +6,4 @@ Go to the screens and start adding the content in the Views in the Functional Co
 
 ## Simulation Guidelines:
 
-As of 18th Dec 2022, the app opens on a login screen with one button called login. Just click it and it will take you to the home screen where you can navigate via the tabs.
+As of 19th Dec 2022, the app opens on a login screen with two buttons called student login and admin login. Just click any one it and it will take you to the home screen where you can navigate via the tabs.
