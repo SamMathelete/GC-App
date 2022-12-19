@@ -1,4 +1,3 @@
-import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import { FC } from "react";
 import { FlatList, Text, View } from "react-native";
 import { ImageBackground, StyleSheet } from "react-native";
