@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text } from "react-native";
 
 interface Props {
   children: React.ReactNode;
@@ -8,13 +8,9 @@ interface Props {
 
 const SideButton: FC<Props> = ({ children, onPress }) => {
   return (
-    <View style={styles.outerContainer}>
-      <Pressable onPress={onPress}>
-        <View>
-          <Text style={styles.buttonText}>{children}</Text>
-        </View>
-      </Pressable>
-    </View>
+    <Pressable style={styles.outerContainer} onPress={onPress}>
+      <Text style={styles.buttonText}>{children}</Text>
+    </Pressable>
   );
 };
 
