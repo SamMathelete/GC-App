@@ -34,18 +34,13 @@ const Tabbed = (): JSX.Element => {
         headerTintColor: "#ffd87d",
         headerTitleAlign: "center",
         headerShadowVisible: false,
-        tabBarInactiveBackgroundColor: "#ffd87d",
         tabBarActiveBackgroundColor: "#f8c616",
         tabBarStyle: {
+          backgroundColor: "#ffd87d",
           height: Platform.OS === "ios" ? 100 : 70,
-          borderTopLeftRadius: 30,
-          borderTopRightRadius: 30,
-          position: "absolute",
-          flex: 1,
         },
-
         tabBarLabelStyle: {
-          marginBottom: "10%",
+          marginBottom: 2,
         },
       }}
     >
