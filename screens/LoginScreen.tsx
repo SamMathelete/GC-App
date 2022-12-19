@@ -6,14 +6,14 @@ import SideButton from "../components/SideButton";
 
 type RootStackParamList = {
   LoginScreen: undefined;
-  Tabbed: undefined;
+  LoginFormScreen: undefined;
 };
 
 type Props = NativeStackScreenProps<RootStackParamList, "LoginScreen">;
 
-const LoginScreen: FC<Props> = ({ navigation, route }) => {
+const LoginScreen: FC<Props> = ({ navigation }) => {
   const loginHandler = () => {
-    navigation.navigate("Tabbed");
+    navigation.navigate("LoginFormScreen");
   };
 
   return (

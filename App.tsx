@@ -10,6 +10,7 @@ import RankingScreen from "./screens/RankingScreen";
 import ScheduleScreen from "./screens/ScheduleScreen";
 import { Platform } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import LoginFormScreen from "./screens/LoginFormScreen";
 
 type RootParamList = {
   HomeScreen: undefined;
@@ -18,6 +19,7 @@ type RootParamList = {
   RankingScreen: undefined;
   RegisterScreen: undefined;
   ScheduleScreen: undefined;
+  LoginFormScreen: undefined;
   Tabbed: undefined;
 };
 
@@ -109,6 +111,17 @@ export default function App() {
             component={LoginScreen}
             options={{
               headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="LoginFormScreen"
+            component={LoginFormScreen}
+            options={{
+              title: "Login",
+              headerStyle: {
+                backgroundColor: "#ef8100",
+              },
+              headerTintColor: "white",
             }}
           />
           <Stack.Screen

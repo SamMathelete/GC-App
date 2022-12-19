@@ -4,12 +4,14 @@ import { Pressable, StyleSheet, Text } from "react-native";
 interface Props {
   children: React.ReactNode;
   onPress: () => void;
+  style?: {};
+  styleText?: {};
 }
 
-const SideButton: FC<Props> = ({ children, onPress }) => {
+const SideButton: FC<Props> = ({ children, onPress, style, styleText }) => {
   return (
-    <Pressable style={styles.outerContainer} onPress={onPress}>
-      <Text style={styles.buttonText}>{children}</Text>
+    <Pressable style={[styles.outerContainer, style]} onPress={onPress}>
+      <Text style={[styles.buttonText, styleText]}>{children}</Text>
     </Pressable>
   );
 };
