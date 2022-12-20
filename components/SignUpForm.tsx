@@ -23,7 +23,11 @@ const SignUpForm: FC<Props> = ({ onSignUpPress, onLoginPress }) => {
       <KeyboardAvoidingView style={styles.rootContainer}>
         <Text style={styles.mainText}>Sign Up</Text>
         <TextInput style={styles.input} placeholder="Name" />
-        <TextInput style={styles.input} placeholder="Institute Roll Number" />
+        <TextInput
+          style={styles.input}
+          autoCapitalize="characters"
+          placeholder="Institute Roll Number"
+        />
         <TextInput style={styles.input} placeholder="Institute Email ID" />
         <TextInput style={styles.input} placeholder="Password" />
         <TextInput style={styles.input} placeholder="Confirm Password" />
