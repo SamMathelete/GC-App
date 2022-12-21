@@ -29,6 +29,7 @@ const Tabs = createBottomTabNavigator<RootParamList>();
 const Tabbed = (): JSX.Element => {
   return (
     <Tabs.Navigator
+      initialRouteName="HomeScreen"
       screenOptions={{
         headerStyle: {
           backgroundColor: "#ef8100",
@@ -40,6 +41,8 @@ const Tabbed = (): JSX.Element => {
         tabBarStyle: {
           backgroundColor: "#ffd87d",
           height: Platform.OS === "ios" ? 100 : 70,
+          borderTopLeftRadius: 35,
+          borderTopRightRadius: 35,
         },
         tabBarLabelStyle: {
           marginBottom: 2,
@@ -47,12 +50,12 @@ const Tabbed = (): JSX.Element => {
       }}
     >
       <Tabs.Screen
-        name="HomeScreen"
-        component={HomeScreen}
+        name="RegisterScreen"
+        component={RegisterScreen}
         options={{
-          title: "Home",
+          title: "Register",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="home" color={color} size={size} />
+            <Ionicons name="create" color={color} size={size} />
           ),
         }}
       />
@@ -67,12 +70,12 @@ const Tabbed = (): JSX.Element => {
         }}
       />
       <Tabs.Screen
-        name="RegisterScreen"
-        component={RegisterScreen}
+        name="HomeScreen"
+        component={HomeScreen}
         options={{
-          title: "Register",
+          title: "Home",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="create" color={color} size={size} />
+            <Ionicons name="home" color={color} size={size} />
           ),
         }}
       />

@@ -41,8 +41,8 @@ const LoginScreen: FC<Props> = ({ navigation }) => {
             <Text>IIT Bhubaneswar</Text>
           </View>
           <View style={styles.buttonContainer}>
-            <MainButton onPress={loginHandler}>Student Login</MainButton>
-            <SideButton onPress={loginHandler}>Admin Login</SideButton>
+            <MainButton onPress={loginHandler}>Student</MainButton>
+            <SideButton onPress={loginHandler}>Admin</SideButton>
           </View>
         </View>
       </ImageBackground>
@@ -65,6 +65,8 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     marginBottom: 80,
+    justifyContent: "center",
+    alignItems: "center",
   },
   image: {
     width: 75,
