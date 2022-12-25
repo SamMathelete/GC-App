@@ -1,12 +1,23 @@
 import { FC } from "react";
-import { Text, View } from "react-native";
+import { ImageBackground, StyleSheet, Text, View } from "react-native";
 
 const ScheduleScreen: FC = () => {
   return (
-    <View>
-      <Text>The Schedule Screen</Text>
-    </View>
+    <ImageBackground
+      source={require("../assets/Images/bg.jpg")}
+      style={styles.rootContainer}
+    >
+      <Text>Schedule Screen</Text>
+    </ImageBackground>
   );
 };
 
 export default ScheduleScreen;
+
+const styles = StyleSheet.create({
+  rootContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+})
