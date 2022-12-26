@@ -67,7 +67,7 @@ const Football: FC<Props> = ({
           <View style={styles.overContainer}>
             <Text style={styles.overText}>Over {generateOvers(balls)}</Text>
           </View>
-          <View style={styles.infoContainer}>
+          <View>
             <Text style={styles.infoText}>
               {striker.playerName} {"*  "}
               {striker.runs}
