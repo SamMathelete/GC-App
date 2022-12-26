@@ -15,14 +15,16 @@ export default Card;
 
 const styles = StyleSheet.create({
   rootContainer: {
+    flex: 1,
     borderRadius: 24,
     backgroundColor: "white",
     padding: 24,
     color: "black",
     width: "90%",
-    height: 190,
+    height: 200,
     elevation: 30,
-    marginTop: 10,
+    marginTop: "5%",
+    marginBottom: 40,
     marginLeft: 10,
     shadowColor: "black",
     shadowOpacity: 0.5,
