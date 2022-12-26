@@ -35,8 +35,8 @@ const EventCard: FC<Props> = ({ style, eventInfo }) => {
                     onPress={() => setIsPressed(!isPressed)}
                     >
                     {!isPressed 
-                     ? <AntDesign name="downcircle" size={30} color="#FFD38B"/> 
-                     : <AntDesign name="upcircle" size={30} color="#FFD38B"/>
+                     ? <AntDesign name="downcircle" size={34} color="#FFD38B"/> 
+                     : <AntDesign name="upcircle" size={34} color="#FFD38B"/>
                     }
                     </Pressable>
             </View>
@@ -81,9 +81,10 @@ const styles = StyleSheet.create({
         margin: 8,
         borderRadius: 24,
         justifyContent: "space-between",
-        backgroundColor: "#FD9A28",
+        backgroundColor: "#FF9215",
         elevation: 15,
-        shadowColor: "#6D0000",
+        shadowColor: "#3B0101",
+        borderColor: "#8E0000",
         overflow: "hidden",
     },
     cardView: {

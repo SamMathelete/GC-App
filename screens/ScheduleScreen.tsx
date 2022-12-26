@@ -98,6 +98,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   eventList: {
-    backgroundColor: "#F9C487",
+    backgroundColor: "#FDA664",
   },
 })
