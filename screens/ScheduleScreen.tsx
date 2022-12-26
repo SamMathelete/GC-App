@@ -51,19 +51,17 @@ const ScheduleScreen: FC = () => {
   }
 
   return (
-    <ImageBackground
-      source={require("../assets/Images/bg.jpg")}
-      style={styles.rootContainer}
-      resizeMode="cover"
-    >
+    <View style={styles.rootContainer}>
       <NavigationContainer independent={true}>
         <Tab.Navigator
         initialRouteName="Tech"
         screenOptions={{
-          tabBarActiveTintColor: '#AD0000',
+          tabBarActiveTintColor: '#CF0000',
           tabBarInactiveTintColor: '#F7DFA1',
-          tabBarLabelStyle: { fontSize: 12 },
+          tabBarLabelStyle: { fontSize: 12, fontWeight: 'bold' },
           tabBarStyle: { backgroundColor: '#FF961D' },
+          tabBarPressColor: '#FFBB6E',
+          tabBarIndicatorStyle: { backgroundColor: '#FD0000'},
         }}
       >
         <Tab.Screen
@@ -83,7 +81,7 @@ const ScheduleScreen: FC = () => {
         />
       </Tab.Navigator>
       </NavigationContainer>
-    </ImageBackground>
+    </View>
   );
 };
 
@@ -100,7 +98,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   eventList: {
-    backgroundColor: "#FFC37E",
-    paddingVertical: 10,
+    backgroundColor: "#F9C487",
   },
 })

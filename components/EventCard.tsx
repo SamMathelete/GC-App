@@ -31,7 +31,7 @@ const EventCard: FC<Props> = ({ style, eventInfo }) => {
             <View style={styles.topView}>
                 <Text style={styles.eventName}>{eventInfo?.name}</Text>
                     <Pressable 
-                    android_ripple={{color: "#AD0000"}}
+                    android_ripple={{color: "#FF4D00"}}
                     onPress={() => setIsPressed(!isPressed)}
                     >
                     {!isPressed 
@@ -81,9 +81,9 @@ const styles = StyleSheet.create({
         margin: 8,
         borderRadius: 24,
         justifyContent: "space-between",
-        backgroundColor: "#FF961D",
+        backgroundColor: "#FD9A28",
         elevation: 15,
-        shadowColor: "#910101",
+        shadowColor: "#6D0000",
         overflow: "hidden",
     },
     cardView: {
@@ -154,7 +154,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: 15,
         borderRadius: 24,
         backgroundColor: "#AD0000",
-        elevation: 5,
+        elevation: 10,
+        shadowColor: "#910101",
     },
     register: {
         fontSize: 24,
