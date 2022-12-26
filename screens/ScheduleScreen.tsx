@@ -1,49 +1,88 @@
 import { FC } from "react";
 import { FlatList, ImageBackground, ScrollView, StyleSheet, Text, View } from "react-native";
-
-import CardView from "../components/CardView";
+import { NavigationContainer } from "@react-navigation/native";
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import EventCard from "../components/EventCard";
 import { DUMMY_TECH_EVENTS, DUMMY_CULTURAL_EVENTS, DUMMY_SPORTS_EVENTS } from "../data/events";
+
+const Tab = createMaterialTopTabNavigator();
+
 const ScheduleScreen: FC = () => {
-  return (
-      <ImageBackground
-      source={require("../assets/Images/bg.jpg")}
-      style={styles.rootContainer}
-      resizeMode="cover"
-    >
-      <ScrollView style={styles.rootContainer}>
-        <View style={styles.rootContainer}>
-          <Text style={styles.eventHeading}>Tech Council</Text>
+  const TechScreen =(): JSX.Element => {
+    return(
+      <View style={styles.rootContainer}>
           <View style={styles.eventList}>
           <FlatList
               data={DUMMY_TECH_EVENTS}
-              renderItem={({item}) => <CardView eventInfo={item} />}
-              horizontal={true}
+              renderItem={({item}) => 
+              <EventCard eventInfo={item} />}
           />
           </View>  
-        </View>
-        <View style={styles.rootContainer}>
-          <Text style={styles.eventHeading}>Cultural Council</Text>
+    </View>
+    );
+  };
+
+  const CulturalScreen =(): JSX.Element => {
+    return(
+      <View style={styles.rootContainer}>
           <View style={styles.eventList}>
           <FlatList
               data={DUMMY_CULTURAL_EVENTS}
               renderItem={({item}) => 
-              <CardView eventInfo={item} />}
-              horizontal={true}
+              <EventCard eventInfo={item} />}
           />
           </View>  
-        </View>
-        <View style={styles.rootContainer}>
-          <Text style={styles.eventHeading}>Sports Council</Text>
-          <View style={styles.eventList}>
-          <FlatList
-              data={DUMMY_SPORTS_EVENTS}
-              renderItem={({item}) => 
-              <CardView eventInfo={item} />}
-              horizontal={true}
-          />
-          </View>  
-        </View>
-      </ScrollView>
+      </View>
+    );
+  }
+
+  const SportsScreen =(): JSX.Element => {
+    return(
+    <View style={styles.rootContainer}>
+      <View style={styles.eventList}>
+      <FlatList
+          data={DUMMY_SPORTS_EVENTS}
+          renderItem={({item}) => 
+          <EventCard eventInfo={item} />}
+      />
+      </View>  
+    </View>
+    );
+  }
+
+  return (
+    <ImageBackground
+      source={require("../assets/Images/bg.jpg")}
+      style={styles.rootContainer}
+      resizeMode="cover"
+    >
+      <NavigationContainer independent={true}>
+      <Tab.Navigator
+      initialRouteName="Tech"
+      screenOptions={{
+        tabBarActiveTintColor: '#AD0000',
+        tabBarInactiveTintColor: '#F7DFA1',
+        tabBarLabelStyle: { fontSize: 12 },
+        tabBarStyle: { backgroundColor: '#FF961D' },
+      }}
+    >
+      <Tab.Screen
+        name="Tech"
+        component={TechScreen}
+        options={{ tabBarLabel: 'Tech' }}
+      />
+      <Tab.Screen
+        name="Cultural"
+        component={CulturalScreen}
+        options={{ tabBarLabel: 'Cultural' }}
+      />
+      <Tab.Screen
+        name="Sports"
+        component={SportsScreen}
+        options={{ tabBarLabel: 'Sports' }}
+      />
+    </Tab.Navigator>
+      </NavigationContainer>
     </ImageBackground>
   );
 };
@@ -53,7 +92,6 @@ export default ScheduleScreen;
 const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
-    paddingVertical: 10,
   },
   eventHeading: {
     fontSize: 24,
