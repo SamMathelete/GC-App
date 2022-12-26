@@ -34,21 +34,22 @@ const EventCard: FC<Props> = ({ style, eventInfo }) => {
                     android_ripple={{color: "#AD0000"}}
                     onPress={() => setIsPressed(!isPressed)}
                     >
-                    {!isPressed ? 
-                        <AntDesign name="downcircle" size={30} color="#FFD38B"/> :
-                        <AntDesign name="upcircle" size={30} color="#FFD38B"/>
+                    {!isPressed 
+                     ? <AntDesign name="downcircle" size={30} color="#FFD38B"/> 
+                     : <AntDesign name="upcircle" size={30} color="#FFD38B"/>
                     }
                     </Pressable>
             </View>
             {   isPressed &&
                 <View>
                     <View style={styles.expanded}>
-                        <Text style={styles.text}>{eventInfo?.description}</Text>
+                        <Text style={styles.description}>{eventInfo?.description}
+                        </Text>
                     </View> 
                     <View style={styles.expandedBottom}>
                         <View>
-                            <Text style={styles.expandText}>{eventInfo?.date}</Text>
-                            <Text style={styles.expandText}>{eventInfo?.venue}
+                            <Text style={styles.expandedDate}>{eventInfo?.date}</Text>
+                            <Text style={styles.expandedVenue}>{eventInfo?.venue}
                             </Text>
                         </View>
                         <View style={styles.registerButton}>
@@ -77,11 +78,12 @@ export default EventCard;
 
 const styles = StyleSheet.create({
     rootContainer: {
-        margin: 5,
+        margin: 8,
         borderRadius: 24,
         justifyContent: "space-between",
         backgroundColor: "#FF961D",
-        elevation: 10,
+        elevation: 15,
+        shadowColor: "#910101",
         overflow: "hidden",
     },
     cardView: {
@@ -114,20 +116,38 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
     },
     eventDate: {
+        color: "#AD0000",
         justifyContent: "center",
         alignItems: "center",
+        fontWeight: 100,
     },
     eventVenue: {
+        color: "#AD0000",
         width: 55,
         justifyContent: "center",
         alignItems: "center",
     },
     text: {
         color: "#D60000",
+        fontWeight: "bold",
+    },
+    description: {
+        color: "#D60000",
     },
     expandText: {
         color: "#D60000",
         textAlign: "left",
+        fontWeight: "bold",
+    },
+    expandedDate: {
+        color: "#D60000",
+        textAlign: "left",
+        fontWeight: "bold",
+    },
+    expandedVenue: {
+        color: "#D60000",
+        textAlign: "left",
+        fontWeight: "bold",
     },
     registerButton: {
         paddingVertical: 10,
@@ -138,6 +158,6 @@ const styles = StyleSheet.create({
     },
     register: {
         fontSize: 24,
-        color: "#FD9D62",
+        color: "#FDC384",
     }
 })

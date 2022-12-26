@@ -57,31 +57,31 @@ const ScheduleScreen: FC = () => {
       resizeMode="cover"
     >
       <NavigationContainer independent={true}>
-      <Tab.Navigator
-      initialRouteName="Tech"
-      screenOptions={{
-        tabBarActiveTintColor: '#AD0000',
-        tabBarInactiveTintColor: '#F7DFA1',
-        tabBarLabelStyle: { fontSize: 12 },
-        tabBarStyle: { backgroundColor: '#FF961D' },
-      }}
-    >
-      <Tab.Screen
-        name="Tech"
-        component={TechScreen}
-        options={{ tabBarLabel: 'Tech' }}
-      />
-      <Tab.Screen
-        name="Cultural"
-        component={CulturalScreen}
-        options={{ tabBarLabel: 'Cultural' }}
-      />
-      <Tab.Screen
-        name="Sports"
-        component={SportsScreen}
-        options={{ tabBarLabel: 'Sports' }}
-      />
-    </Tab.Navigator>
+        <Tab.Navigator
+        initialRouteName="Tech"
+        screenOptions={{
+          tabBarActiveTintColor: '#AD0000',
+          tabBarInactiveTintColor: '#F7DFA1',
+          tabBarLabelStyle: { fontSize: 12 },
+          tabBarStyle: { backgroundColor: '#FF961D' },
+        }}
+      >
+        <Tab.Screen
+          name="Tech"
+          component={TechScreen}
+          options={{ tabBarLabel: 'Tech' }}
+        />
+        <Tab.Screen
+          name="Cultural"
+          component={CulturalScreen}
+          options={{ tabBarLabel: 'Cultural' }}
+        />
+        <Tab.Screen
+          name="Sports"
+          component={SportsScreen}
+          options={{ tabBarLabel: 'Sports' }}
+        />
+      </Tab.Navigator>
       </NavigationContainer>
     </ImageBackground>
   );
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   eventList: {
-    backgroundColor: "#FFB968",
+    backgroundColor: "#FFC37E",
     paddingVertical: 10,
   },
 })
