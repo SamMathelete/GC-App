@@ -6,6 +6,7 @@ interface Props {
     teamInfo: {
         name: string;
         score: number;
+        logo: any;
     }
     index: number;
 }
@@ -16,7 +17,7 @@ const TeamItem: FC<Props> = ({ style, teamInfo, index }) => {
             <Text style={styles.teamRank}>{index}.</Text>
             <View style={[styles.team, style]}>
                 <View style={styles.teamLogoView}>
-                    <Image source={require("../assets/Images/teamImage.png")} style={styles.teamLogo}
+                    <Image source={teamInfo.logo} style={styles.teamLogo}
                     />
                 </View>
                 <Text style={styles.teamName}>{teamInfo.name}</Text>
