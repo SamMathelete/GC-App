@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { FlatList, Text, View, StyleSheet } from "react-native";
+import { FlatList, Text, View, StyleSheet, Image } from "react-native";
 
 interface Props {
     style?: {};
@@ -9,12 +9,16 @@ interface Props {
     }
     index: number;
 }
-
+{/** Currently it shows sample image itself for all items. if we take address through a function or something, it gives stack error*/}
 const TeamItem: FC<Props> = ({ style, teamInfo, index }) => {
     return (
         <View style={styles.teamItem}>
             <Text style={styles.teamRank}>{index}.</Text>
             <View style={[styles.team, style]}>
+                <View style={styles.teamLogoView}>
+                    <Image source={require("../assets/Images/teamImage.png")} style={styles.teamLogo}
+                    />
+                </View>
                 <Text style={styles.teamName}>{teamInfo.name}</Text>
                 <View style={styles.scoreView}>
                     <Text style={styles.teamScoreHeading}>Score:</Text>
@@ -38,32 +42,47 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         borderRadius: 30,
-        backgroundColor: "#FFB300",
-        elevation: 16,
+        backgroundColor: "#FFC93E",
+        elevation: 10,
         shadowColor: "#000000",
-        margin: 3,
+        margin: 4,
+        marginVertical: 5,
+        marginRight: 10,
+        alignItems: "center",
     },
     teamScoreHeading: {
-        color: "#F30000",
+        color: "#E35F00",
         fontSize: 14,
         fontWeight: "bold",
+    },
+    teamLogoView: {
+        width: 55,
+        height: 55,
+        borderRadius: 28,
+        margin: 2,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    teamLogo: {
+        width: 55,
+        height: 55,
     },
     teamName: {
         fontSize: 30,
         fontWeight: "bold",
         paddingHorizontal: 15,
         alignSelf: "center",
-        color: "#C10202",
+        color: "#FF0000",
     },
     teamScore: {
-        fontSize: 25,
+        fontSize: 24,
         fontWeight: "bold",
         paddingHorizontal: 17,
-        color: "#9D0101",
+        color: "#FF0000",
     },
     teamRank: {
         color: "#FAEE69",
-        margin: 7,
+        margin: 3,
         marginLeft: 13,
         fontSize: 25,
         fontWeight: "bold",

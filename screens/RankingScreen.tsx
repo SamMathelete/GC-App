@@ -22,8 +22,8 @@ const RankingScreen: FC = () => {
         <View style={styles.winnerView}>
           {/* 2ND WINNER */}
           <View style={styles.winnerElement2}>
-              <View style={styles.imageView}>
-                <Image source={require("../assets/Images/silver.png")} 
+              <View style={styles.imageViewSilver}>
+                <Image source={require("../assets/Images/teamImage.png")} 
                   style={styles.image}
                 />
               </View>
@@ -33,7 +33,7 @@ const RankingScreen: FC = () => {
           {/* 1ST WINNER */}
           <View style={styles.winnerElement1}>
               <View style={styles.imageViewGold}>
-                <Image source={require("../assets/Images/gold.png")} 
+                <Image source={require("../assets/Images/teamImage.png")} 
                   style={styles.imageGold}
                 />
               </View>
@@ -42,8 +42,8 @@ const RankingScreen: FC = () => {
           </View>
           {/* 3RD WINNER */}
           <View style={styles.winnerElement3}>
-              <View style={styles.imageView}>
-                <Image source={require("../assets/Images/bronze.png")} 
+              <View style={styles.imageViewBronze}>
+                <Image source={require("../assets/Images/teamImage.png")} 
                   style={styles.image}
                 />
               </View>
@@ -71,30 +71,29 @@ const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center",
   },
   winnerView: {
-    flex: 1,
     flexDirection: "row",
-    alignContent: "center",
     justifyContent: "center",
-    margin: 3,
-    borderRadius: 35,
-    borderWidth: 2,
-    borderColor: "#002BA0",
-    backgroundColor: "#2CBDF2",
+    marginTop: 3,
+    width: "98%",
+    borderRadius: 25,
+    borderWidth: 4,
+    borderColor: "#FFCC73",
+    backgroundColor: "#FF8E09",
     elevation: 20,
   },
   winnerElement2: {
     //borderWidth: 1,
-    paddingTop: 75,
+    paddingTop: 100,
     position: "relative",
     zIndex: 1,
-    paddingRight: 65,
+    paddingRight: 55,
+    paddingLeft: 7,
     alignItems: "center",
   },
   winnerElement1: {
-    paddingTop: 15,
+    paddingTop: 7,
     position: "absolute",
     zIndex: 2,
     alignItems: "center",
@@ -104,22 +103,9 @@ const styles = StyleSheet.create({
     paddingTop: 100,
     position: "relative",
     alignItems: "center",
-    paddingLeft: 65,
+    paddingLeft: 55,
+    paddingRight: 7,
     zIndex: 1,
-  },
-  imageView: {
-    overflow: "hidden",
-    borderwidth: 1,
-    height: 125,
-    width: 125,
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 100,
-    //borderWidth: 1,
-  },
-  image: {
-    height: 125,
-    width: 125,
   },
   imageViewGold: {
     overflow: "hidden",
@@ -128,49 +114,77 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 100,
-    elevation: 20,
-    shadowColor: "#002BA0",
+    borderColor: "#FFEC40",
+    borderWidth: 6,
+    elevation: 30,
+    shadowColor: "#000000",
     //borderWidth: 1,
   },
   imageGold: {
     height: 175,
     width: 175,
   },
+  imageViewSilver: {
+    overflow: "hidden",
+    height: 125,
+    width: 125,
+    justifyContent: "center",
+    alignItems: "center",
+    borderColor: "#E6E6E6",
+    borderWidth: 6,
+    borderRadius: 100,
+    //borderWidth: 1,
+  },
+  imageViewBronze: {
+    overflow: "hidden",
+    height: 125,
+    width: 125,
+    justifyContent: "center",
+    alignItems: "center",
+    borderColor: "#CC6C05",
+    borderWidth: 6,
+    borderRadius: 100,
+    //borderWidth: 1,
+  },
+  image: {
+    height: 125,
+    width: 125,
+  },
   teamNameGold: {
     fontSize: 32,
     fontWeight: "bold",
-    color: "#FFF065",
+    color: "#FCFF58",
 
   },
   teamScoreGold: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "#FDE400EA",
+    color: "#FEF1DD",
   },
   teamNameSilver: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "#E9DFDF",
+    color: "#FFEB88",
 
   },
   teamScoreSilver: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "#C2C2C2",
+    color: "#FEF1DD",
   },
   teamNameBronze: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "#F4C04F",
+    color: "#FFEB88",
 
   },
   teamScoreBronze: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "#EC9E00",
+    color: "#FEF1DD",
   },
   leaderboard: {
-    flex: 1,
+    marginVertical: 10,
     width: "100%",
     alignContent: "stretch",
     alignItems: "stretch",
