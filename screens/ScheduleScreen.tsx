@@ -98,7 +98,7 @@ export default ScheduleScreen;
 const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
-    backgroundColor: "#FDA664",
+    backgroundColor: "#FFB55B",
   },
   eventHeading: {
     fontSize: 24,

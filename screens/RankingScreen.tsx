@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     borderWidth: 4,
     borderColor: "#FFCC73",
     backgroundColor: "#FF8E09",
-    elevation: 20,
+    elevation: 10,
   },
   winnerElement2: {
     //borderWidth: 1,

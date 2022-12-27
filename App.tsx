@@ -32,19 +32,19 @@ const Tabbed = (): JSX.Element => {
       initialRouteName="HomeScreen"
       screenOptions={{
         headerStyle: {
-          backgroundColor: "#ef8100",
+          backgroundColor: "#FF8800",
         },
-        headerTintColor: "#ffd87d",
+        headerTintColor: "#FFE15D",
         headerTitleAlign: "center",
         headerShadowVisible: false,
-        tabBarActiveBackgroundColor: "#f8c616",
+        tabBarActiveBackgroundColor: "#FFD67D",
         tabBarStyle: {
-          backgroundColor: "#ffd87d",
+          backgroundColor: "#FFAE35",
           height: Platform.OS === "ios" ? 100 : 70,
-          borderRadius: 20,
+          borderRadius: 15,
           position: "absolute",
           marginHorizontal: 10,
-          marginBottom: 10,
+          marginBottom: 7,
           elevation: 5,
         },
         tabBarLabelStyle: {
@@ -52,10 +52,11 @@ const Tabbed = (): JSX.Element => {
           fontSize: 12,
         },
         tabBarItemStyle: {
-          borderRadius: 20,
+          borderRadius: 15,
           margin: 5,
         },
-        tabBarActiveTintColor: "#ef8100",
+        tabBarActiveTintColor: "#E57A00",
+        tabBarInactiveTintColor: "#FFEF93",
       }}
     >
       <Tabs.Screen
