@@ -7,74 +7,66 @@ import {
   View,
 } from "react-native";
 
+type Team = {
+  teamName: string;
+  score: number;
+  penaltyScore: number | undefined;
+  logo: ImageSourcePropType;
+};
+
 interface Props {
   matchName: string;
-  team1: string;
-  teamLogo1: ImageSourcePropType;
-  team2: string;
-  teamLogo2: ImageSourcePropType;
-  score1: string;
-  score2: string;
+  team1: Team;
+  team2: Team;
   time: string;
   isPenalty: boolean;
-  penaltyScore1?: string;
-  penaltyScore2?: string;
   venue: string;
 }
 
 const Football: FC<Props> = ({
   matchName,
-  teamLogo1,
   team1,
-  teamLogo2,
   team2,
-  score1,
-  score2,
   time,
   isPenalty,
-  penaltyScore1,
-  penaltyScore2,
   venue,
 }) => {
   return (
     <View style={styles.rootContainer}>
-      <Text style={styles.mainText}>{matchName}</Text>
+      <Text style={styles.titleText}>{matchName}</Text>
+      <Text style={styles.venueText}>{venue}</Text>
       <View style={styles.mainContainer}>
         <View style={styles.teamContainer}>
-          <Image style={styles.teamImage} source={teamLogo1} />
-          <Text style={styles.subText}>{team1}</Text>
+          <Image style={styles.teamImage} source={team1.logo} />
+          <Text style={styles.subText}>{team1.teamName}</Text>
         </View>
-        <View style={styles.scoreContainer}>
-          <Text style={styles.score}>{score1}</Text>
-        </View>
+
         <View style={styles.midContainer}>
           <View style={styles.timeContainer}>
             <Text style={styles.timeText}>{time}</Text>
           </View>
-          <View>
-            <Text style={styles.barContainer}>-</Text>
+          <View style={styles.barContainer}>
+            <Text style={styles.scoreText}>{team1.score}</Text>
+            <Text style={styles.barText}>-</Text>
+            <Text style={styles.scoreText}>{team2.score}</Text>
           </View>
           {isPenalty && (
             <View style={styles.penaltyContainer}>
               <Text>
                 {`Penalty: `}
                 <Text style={styles.penaltyText}>
-                  {penaltyScore1} - {penaltyScore2}
+                  {team1.penaltyScore} - {team2.penaltyScore}
                 </Text>
               </Text>
             </View>
           )}
         </View>
-        <View style={styles.scoreContainer}>
-          <Text style={styles.score}>{score2}</Text>
-        </View>
 
         <View style={styles.teamContainer}>
-          <Image style={styles.teamImage} source={teamLogo2} />
-          <Text style={styles.subText}>{team2}</Text>
+          <Image style={styles.teamImage} source={team2.logo} />
+          <Text style={styles.subText}>{team2.teamName}</Text>
         </View>
       </View>
-      <Text style={styles.mainText}>{venue}</Text>
     </View>
   );
 };
@@ -87,12 +79,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
     margin: 12,
     backgroundColor: "orange",
-    borderRadius: 24,
+    borderRadius: 30,
+    elevation: 10,
   },
-  mainText: {
-    fontSize: 18,
-    margin: 10,
-    fontWeight: "500",
+  titleText: {
+    fontSize: 22,
+    fontFamily: "sans-serif-medium",
+    marginTop: 10,
+  },
+  venueText: {
+    fontSize: 16,
+    fontFamily: "sans-serif-light",
+    marginBottom: 10,
   },
   mainContainer: {
     flexDirection: "row",
@@ -101,6 +99,8 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     height: 175,
     borderRadius: 24,
+    marginBottom: 10,
+    marginHorizontal: 10,
   },
   teamContainer: {
     flex: 1,
@@ -110,31 +110,35 @@ const styles = StyleSheet.create({
     padding: 12,
   },
   teamImage: {
-    width: 80,
-    height: 80,
+    width: 50,
+    height: 50,
     margin: 10,
   },
-  scoreContainer: {
-    margin: 5,
-  },
-  score: {
-    fontSize: 40,
-    fontWeight: "bold",
+  scoreText: {
+    fontSize: 30,
+    fontFamily: "sans-serif-medium",
+    marginHorizontal: 5,
   },
   timeContainer: {
-    marginVertical: -9,
-    paddingTop: 0,
+    marginTop: 20,
+    marginBottom: 15,
   },
   midContainer: {
+    flex: 1,
     flexDirection: "column",
-    justifyContent: "space-between",
     alignItems: "center",
+    alignSelf: "flex-start",
+  },
+  barText: {
+    fontSize: 30,
+    marginHorizontal: 7,
   },
   barContainer: {
-    fontSize: 75,
+    flexDirection: "row",
+    marginBottom: 15,
   },
   penaltyContainer: {
-    marginVertical: -4,
+    marginVertical: 0,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -144,8 +148,8 @@ const styles = StyleSheet.create({
   },
   penaltyText: {
     fontSize: 18,
-    fontWeight: "bold",
     textAlign: "center",
+    fontFamily: "sans-serif-medium",
   },
   timeText: {
     color: "green",

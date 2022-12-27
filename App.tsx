@@ -41,12 +41,21 @@ const Tabbed = (): JSX.Element => {
         tabBarStyle: {
           backgroundColor: "#ffd87d",
           height: Platform.OS === "ios" ? 100 : 70,
-          borderTopLeftRadius: 35,
-          borderTopRightRadius: 35,
+          borderRadius: 20,
+          position: "absolute",
+          marginHorizontal: 10,
+          marginBottom: 10,
+          elevation: 5,
         },
         tabBarLabelStyle: {
-          marginBottom: 2,
+          marginBottom: 8,
+          fontSize: 12,
         },
+        tabBarItemStyle: {
+          borderRadius: 20,
+          margin: 5,
+        },
+        tabBarActiveTintColor: "#ef8100",
       }}
     >
       <Tabs.Screen

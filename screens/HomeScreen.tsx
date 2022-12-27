@@ -48,6 +48,8 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
               contentContainerCustomStyle={{
                 marginBottom: 40,
               }}
+              autoplay={true}
+              enableSnap={true}
             />
             <Pagination
               dotsLength={DUMMY_CAROUSEL_DATA.length}
@@ -71,15 +73,19 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
             <Text style={styles.titleText}>Live Now</Text>
             <Football
               matchName="GC Football Finals"
-              team1="FCB"
-              team2="RM"
-              teamLogo1={require("../assets/Images/Group13.png")}
-              teamLogo2={require("../assets/Images/Group12.png")}
-              score1="3"
-              score2="3"
+              team1={{
+                teamName: "FCB",
+                score: 3,
+                penaltyScore: 5,
+                logo: require("../assets/Images/Group13.png"),
+              }}
+              team2={{
+                teamName: "RM",
+                score: 3,
+                penaltyScore: 2,
+                logo: require("../assets/Images/Group12.png"),
+              }}
               isPenalty={true}
-              penaltyScore1="5"
-              penaltyScore2="3"
               time="Full Time"
               venue="SAC Football Ground"
             />
@@ -107,6 +113,12 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
           <View style={styles.liveContainer}>
             <Text style={styles.titleText}>Upcoming</Text>
           </View>
+          <View
+            style={{
+              flex: 1,
+              height: 100,
+            }}
+          />
         </ScrollView>
       </ImageBackground>
     </View>
@@ -138,7 +150,7 @@ const styles = StyleSheet.create({
   titleText: {
     color: "#FFDB7D",
     fontSize: 25,
-    marginVertical: 5,
+    marginBottom: 5,
     marginLeft: 15,
     fontWeight: "bold",
   },

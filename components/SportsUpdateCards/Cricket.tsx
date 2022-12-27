@@ -53,7 +53,8 @@ const Football: FC<Props> = ({
 }) => {
   return (
     <View style={styles.rootContainer}>
-      <Text style={styles.mainText}>{matchName}</Text>
+      <Text style={styles.titleText}>{matchName}</Text>
+      <Text style={styles.venueText}>{venue}</Text>
       <View style={styles.mainContainer}>
         <View style={styles.teamContainer}>
           <Image style={styles.teamImage} source={team1.logo} />
@@ -101,7 +102,6 @@ const Football: FC<Props> = ({
           </Text>
         </View>
       </View>
-      <Text style={styles.mainText}>{venue}</Text>
     </View>
   );
 };
@@ -114,12 +114,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
     margin: 12,
     backgroundColor: "orange",
-    borderRadius: 24,
+    borderRadius: 30,
+    elevation: 10,
   },
-  mainText: {
-    fontSize: 18,
-    margin: 10,
-    fontWeight: "500",
+  titleText: {
+    fontSize: 22,
+    fontFamily: "sans-serif-medium",
+    marginTop: 10,
+  },
+  venueText: {
+    fontSize: 16,
+    fontFamily: "sans-serif-light",
+    marginBottom: 10,
   },
   mainContainer: {
     flexDirection: "row",
@@ -128,6 +134,8 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     height: 175,
     borderRadius: 24,
+    marginHorizontal: 10,
+    marginBottom: 10,
   },
   teamContainer: {
     flex: 1,
@@ -146,7 +154,7 @@ const styles = StyleSheet.create({
   },
   scoreText: {
     fontSize: 25,
-    fontWeight: "bold",
+    fontFamily: "sans-serif-medium",
   },
   overContainer: {
     marginBottom: 15,
