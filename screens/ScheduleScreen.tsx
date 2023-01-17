@@ -15,6 +15,7 @@ import {
   DUMMY_CULTURAL_EVENTS,
   DUMMY_SPORTS_EVENTS,
 } from "../data/events";
+import Colors from "../constants/Colors";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -64,12 +65,12 @@ const ScheduleScreen: FC = () => {
         <Tab.Navigator
           initialRouteName="Tech"
           screenOptions={{
-            tabBarActiveTintColor: "#CF0000",
-            tabBarInactiveTintColor: "#F7DFA1",
+            tabBarActiveTintColor: Colors.red,
+            tabBarInactiveTintColor: Colors.OffWhite,
             tabBarLabelStyle: { fontSize: 12, fontWeight: "bold" },
-            tabBarStyle: { backgroundColor: "#FF961D" },
-            tabBarPressColor: "#FFBB6E",
-            tabBarIndicatorStyle: { backgroundColor: "#FD0000" },
+            tabBarStyle: { backgroundColor: Colors.purpleLight },
+            tabBarPressColor: Colors.purpleDark,
+            tabBarIndicatorStyle: { backgroundColor: Colors.red },
           }}
         >
           <Tab.Screen
@@ -98,7 +99,7 @@ export default ScheduleScreen;
 const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
-    backgroundColor: "#FFB55B",
+    backgroundColor: Colors.OffWhite,
   },
   eventHeading: {
     fontSize: 24,
@@ -108,5 +109,6 @@ const styles = StyleSheet.create({
   },
   eventList: {
     paddingBottom: 75,
+    backgroundColor: Colors.OffWhite,
   },
 });

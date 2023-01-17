@@ -4,6 +4,9 @@ import { Image, ImageBackground, StyleSheet, Text, View } from "react-native";
 import MainButton from "../components/MainButton";
 import SideButton from "../components/SideButton";
 
+import Colors from "../constants/Colors";
+import { FontAwesome5 } from '@expo/vector-icons'; 
+
 type RootStackParamList = {
   LoginScreen: undefined;
   LoginFormScreen: undefined;
@@ -19,7 +22,7 @@ const LoginScreen: FC<Props> = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <ImageBackground
-        source={require("../assets/Images/bg.jpg")}
+        source={require("../assets/Images/background.png")}
         style={styles.bgImage}
       >
         <View style={styles.rootContainer}>
@@ -27,18 +30,19 @@ const LoginScreen: FC<Props> = ({ navigation }) => {
             <Text style={styles.mainText}>General Championships</Text>
             <Text style={styles.mainText}>2023</Text>
           </View>
-          <Image
+          <FontAwesome5 name="trophy" size={70} color= {Colors.red} />
+          {/* <Image
             style={styles.mainImage}
             source={require("../assets/Images/gc-main.png")}
-          />
+          /> */}
           <View style={styles.imageContainer}>
-            <Text>Powered By</Text>
+            <Text style={{color: Colors.OffWhite}}>Powered By</Text>
             <Image
               source={require("../assets/Images/webd-logo.png")}
               style={styles.image}
             />
-            <Text>Web and Design Society</Text>
-            <Text>IIT Bhubaneswar</Text>
+            <Text style={{color: Colors.OffWhite}}>Web and Design Society</Text>
+            <Text style={{color: Colors.OffWhite}}>IIT Bhubaneswar</Text>
           </View>
           <View style={styles.buttonContainer}>
             <MainButton onPress={loginHandler}>Student</MainButton>
@@ -86,7 +90,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: "bold",
     margin: 2,
-    color: "#FFDB7D",
+    color: Colors.OffWhite,
   },
   mainImage: {
     width: 150,

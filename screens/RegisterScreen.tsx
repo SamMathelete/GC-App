@@ -1,15 +1,13 @@
 import { FC } from "react";
 import { ImageBackground, StyleSheet, Text, View } from "react-native";
 import RegistrationForm from "../components/RegistrationForm";
+import Colors from "../constants/Colors";
 
 const RegisterScreen: FC = () => {
   return (
-    <ImageBackground
-      source={require("../assets/Images/bg.jpg")}
-      style={styles.rootContainer}
-    >
+    <View style={styles.rootContainer}>
       <RegistrationForm />
-    </ImageBackground>
+    </View>
   );
 };
 
@@ -18,6 +16,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: Colors.OffWhite,
   },
 });
 

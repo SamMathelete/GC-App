@@ -6,6 +6,7 @@ import {
   TextInput,
 } from "react-native";
 import MainButton from "./MainButton";
+import Colors from "../constants/Colors";
 
 const RegistrationForm: FC = () => {
   const buttonHandler = () => {};
@@ -42,7 +43,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   container: {
-    backgroundColor: "#FFDB7D",
+    backgroundColor: Colors.OffWhite,
+    borderColor: Colors.red,
+    borderWidth: 2,
     paddingHorizontal: 32,
     paddingVertical: 50,
     borderRadius: 45,
@@ -55,7 +58,7 @@ const styles = StyleSheet.create({
     height: 85,
     borderRadius: 90,
     marginTop: 50,
-    backgroundColor: "#FD6A00",
+    backgroundColor: Colors.red,
     elevation: 10,
     shadowColor: "black",
     shadowOffset: {
@@ -67,7 +70,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 30,
-    color: "white",
+    color: Colors.OffWhite,
   },
 });
 

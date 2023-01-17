@@ -13,6 +13,7 @@ import Card from "../components/UI/CarouselCard";
 import Football from "../components/SportsUpdateCards/Football";
 import Cricket from "../components/SportsUpdateCards/Cricket";
 import { DUMMY_CAROUSEL_DATA } from "../data/carousel_data";
+import Colors from "../constants/Colors";
 
 type RootParamsList = {
   HomeScreen: undefined;
@@ -28,10 +29,6 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
   const windowWidth = Dimensions.width;
   return (
     <View style={styles.rootContainer}>
-      <ImageBackground
-        source={require("../assets/Images/bg.jpg")}
-        style={styles.bgImage}
-      >
         <ScrollView style={styles.scrollContainer}>
           <View style={styles.carouselContainer}>
             <Carousel
@@ -120,7 +117,6 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
             }}
           />
         </ScrollView>
-      </ImageBackground>
     </View>
   );
 };
@@ -130,6 +126,7 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
+    backgroundColor: Colors.OffWhite,
   },
   scrollContainer: {
     flex: 1,
@@ -148,7 +145,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   titleText: {
-    color: "#FFDB7D",
+    color: Colors.purpleDark,
     fontSize: 25,
     marginBottom: 5,
     marginLeft: 15,

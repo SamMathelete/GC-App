@@ -21,7 +21,7 @@ const LoginFormScreen: FC<Props> = ({ navigation }) => {
   };
   return (
     <ImageBackground
-      source={require("../assets/Images/bg.jpg")}
+      source={require("../assets/Images/background.png")}
       style={styles.bgImage}
     >
       {isLogin && (

@@ -11,6 +11,7 @@ import ScheduleScreen from "./screens/ScheduleScreen";
 import { Platform } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import LoginFormScreen from "./screens/LoginFormScreen";
+import Colors from "./constants/Colors";
 
 type RootParamList = {
   HomeScreen: undefined;
@@ -32,14 +33,14 @@ const Tabbed = (): JSX.Element => {
       initialRouteName="HomeScreen"
       screenOptions={{
         headerStyle: {
-          backgroundColor: "#FF8800",
+          backgroundColor: Colors.purpleDark,
         },
-        headerTintColor: "#FFE15D",
+        headerTintColor: Colors.OffWhite,
         headerTitleAlign: "center",
         headerShadowVisible: false,
-        tabBarActiveBackgroundColor: "#FFD67D",
+        tabBarActiveBackgroundColor: Colors.red,
         tabBarStyle: {
-          backgroundColor: "#FFAE35",
+          backgroundColor: Colors.purpleDark,
           height: Platform.OS === "ios" ? 100 : 70,
           borderRadius: 15,
           position: "absolute",
@@ -55,8 +56,8 @@ const Tabbed = (): JSX.Element => {
           borderRadius: 15,
           margin: 5,
         },
-        tabBarActiveTintColor: "#E57A00",
-        tabBarInactiveTintColor: "#FFEF93",
+        tabBarActiveTintColor: Colors.OffWhite,
+        tabBarInactiveTintColor: Colors.OffWhite,
       }}
     >
       <Tabs.Screen
@@ -132,9 +133,9 @@ export default function App() {
             options={{
               title: "Login",
               headerStyle: {
-                backgroundColor: "#ef8100",
+                backgroundColor: Colors.purpleDark,
               },
-              headerTintColor: "white",
+              headerTintColor: Colors.OffWhite,
             }}
           />
           <Stack.Screen

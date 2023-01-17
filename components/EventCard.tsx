@@ -1,6 +1,8 @@
 import { FC, useState } from "react";
 import { Text, StyleSheet, View, Pressable, ImageBackground, Linking, Alert } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
+import Colors from "../constants/Colors";
+
 interface Props {
   style?: {};
   eventInfo: {
@@ -35,8 +37,8 @@ const EventCard: FC<Props> = ({ style, eventInfo }) => {
                     onPress={() => setIsPressed(!isPressed)}
                     >
                     {!isPressed 
-                     ? <AntDesign name="downcircle" size={34} color="#FFD38B"/> 
-                     : <AntDesign name="upcircle" size={34} color="#FFD38B"/>
+                     ? <AntDesign name="downcircle" size={34} color={Colors.red}/> 
+                     : <AntDesign name="upcircle" size={34} color={Colors.red}/>
                     }
                     </Pressable>
             </View>
@@ -79,12 +81,10 @@ export default EventCard;
 const styles = StyleSheet.create({
     rootContainer: {
         margin: 8,
-        borderRadius: 24,
+        borderRadius: 18,
         justifyContent: "space-between",
-        backgroundColor: "#FF8800",
+        backgroundColor: Colors.purpleLight,
         elevation: 10,
-        shadowColor: "#000000",
-        borderColor: "#8E0000",
         overflow: "hidden",
     },
     cardView: {
@@ -112,41 +112,41 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },
     eventName: {
-        color: "#AD0000",
-        fontSize: 30,
+        color: Colors.OffWhite,
+        fontSize: 25,
         fontWeight: "bold",
     },
     eventDate: {
-        color: "#AD0000",
+        color: Colors.OffWhite,
         justifyContent: "center",
         alignItems: "center",
         fontWeight: 100,
     },
     eventVenue: {
-        color: "#AD0000",
+        color: Colors.OffWhite,
         width: 55,
         justifyContent: "center",
         alignItems: "center",
     },
     text: {
-        color: "#D60000",
+        color: Colors.OffWhite,
         fontWeight: "bold",
     },
     description: {
-        color: "#D60000",
+        color: Colors.OffWhite,
     },
     expandText: {
-        color: "#D60000",
+        color: Colors.OffWhite,
         textAlign: "left",
         fontWeight: "bold",
     },
     expandedDate: {
-        color: "#D60000",
+        color: Colors.OffWhite,
         textAlign: "left",
         fontWeight: "bold",
     },
     expandedVenue: {
-        color: "#D60000",
+        color: Colors.OffWhite,
         textAlign: "left",
         fontWeight: "bold",
     },
@@ -154,12 +154,12 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         paddingHorizontal: 15,
         borderRadius: 24,
-        backgroundColor: "#AD0000",
+        backgroundColor: Colors.red,
         elevation: 10,
         shadowColor: "#910101",
     },
     register: {
         fontSize: 24,
-        color: "#FDC384",
+        color: Colors.OffWhite,
     }
 })

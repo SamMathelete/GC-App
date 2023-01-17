@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { Pressable, StyleSheet, Text } from "react-native";
-
+import Colors from "../constants/Colors";
 interface Props {
   children: React.ReactNode;
   onPress: () => void;
@@ -23,7 +23,8 @@ const styles = StyleSheet.create({
     width: 275,
     height: 60,
     marginBottom: 20,
-    borderColor: "white",
+    borderColor: Colors.red,
+    backgroundColor: Colors.purpleDark,
     borderWidth: 2,
     borderRadius: 30,
     justifyContent: "center",
@@ -31,6 +32,6 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 20,
-    color: "white",
+    color: Colors.red,
   },
 });

@@ -1,5 +1,6 @@
 import { FC } from "react";
-import { FlatList, Text, View, StyleSheet, Image } from "react-native";
+import { Text, View, StyleSheet, Image } from "react-native";
+import Colors from "../constants/Colors";
 
 interface Props {
     style?: {};
@@ -43,7 +44,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         borderRadius: 30,
-        backgroundColor: "#FFC93E",
+        backgroundColor: Colors.purpleLight,
         elevation: 10,
         shadowColor: "#000000",
         margin: 4,
@@ -52,7 +53,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     teamScoreHeading: {
-        color: "#E35F00",
+        color: Colors.OffWhite,
         fontSize: 14,
         fontWeight: "bold",
     },
@@ -73,16 +74,16 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         paddingHorizontal: 15,
         alignSelf: "center",
-        color: "#FF0000",
+        color: Colors.red,
     },
     teamScore: {
         fontSize: 24,
         fontWeight: "bold",
         paddingHorizontal: 17,
-        color: "#FF0000",
+        color: Colors.red,
     },
     teamRank: {
-        color: "#FAEE69",
+        color: Colors.red,
         margin: 3,
         marginLeft: 13,
         fontSize: 25,

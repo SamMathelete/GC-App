@@ -1,14 +1,11 @@
 import { FC } from "react";
 import { ScrollView, View, ImageBackground, StyleSheet } from "react-native";
 import Football from "../components/SportsUpdateCards/Football";
+import Colors from "../constants/Colors";
 
 const LiveUpdatesScreen: FC = () => {
   return (
     <View style={styles.rootContainer}>
-      <ImageBackground
-        source={require("../assets/Images/bg.jpg")}
-        style={styles.bgImage}
-      >
         <ScrollView>
           <Football
             matchName="GC Football Finals"
@@ -71,7 +68,6 @@ const LiveUpdatesScreen: FC = () => {
             }}
           />
         </ScrollView>
-      </ImageBackground>
     </View>
   );
 };
@@ -79,6 +75,7 @@ const LiveUpdatesScreen: FC = () => {
 const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
+    backgroundColor: Colors.OffWhite,
   },
   bgImage: {
     flex: 1,

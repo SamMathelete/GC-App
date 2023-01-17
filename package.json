@@ -24,7 +24,8 @@
     "react-native-screens": "~3.18.0",
     "react-native-snap-carousel": "^4.0.0-beta.6",
     "react-native-tab-view": "^3.3.4",
-    "react-native-web": "~0.18.9"
+    "react-native-web": "~0.18.9",
+    "expo-linear-gradient": "~12.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

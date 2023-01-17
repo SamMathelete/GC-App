@@ -1,9 +1,12 @@
 import { FC } from "react";
 import { FlatList, Text, View, Image } from "react-native";
-import { ImageBackground, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 
 import { TEAM_RANKINGS } from "../data/ranking";
 import TeamItem from "../components/TeamItem";
+import Colors from "../constants/Colors";
+import { LinearGradient } from 'expo-linear-gradient';
+
 const RankingScreen: FC = () => {
   type Team = {
     name: string;
@@ -15,11 +18,8 @@ const RankingScreen: FC = () => {
   });
   const LEADERBOARD = sortedTeamRanking.slice(3);
   return (
-      <ImageBackground
-        source={require("../assets/Images/bg.jpg")}
-        style={styles.rootContainer}
-      >
-        <View style={styles.winnerView}>
+      <View style={styles.rootContainer}>
+        <LinearGradient colors={[Colors.purpleDark,'#383d96']} style={styles.winnerView}>
           {/* 2ND WINNER */}
           <View style={styles.winnerElement2}>
               <View style={styles.imageViewSilver}>
@@ -50,7 +50,7 @@ const RankingScreen: FC = () => {
               <Text style={styles.teamNameBronze}>{sortedTeamRanking[2].name}</Text>
               <Text style={styles.teamScoreBronze}>{sortedTeamRanking[2].score}</Text>
           </View>
-        </View>
+        </LinearGradient>
         <View style={styles.leaderboard}>
           <FlatList
             data={LEADERBOARD}
@@ -61,7 +61,7 @@ const RankingScreen: FC = () => {
             )}
           />
         </View>
-      </ImageBackground>
+      </View>
   );
 };
 
@@ -71,6 +71,7 @@ const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
     alignItems: "center",
+    backgroundColor: Colors.OffWhite,
   },
   winnerView: {
     flexDirection: "row",
@@ -79,8 +80,8 @@ const styles = StyleSheet.create({
     width: "98%",
     borderRadius: 25,
     borderWidth: 4,
-    borderColor: "#FFCC73",
-    backgroundColor: "#FF8E09",
+    borderColor: Colors.red,
+    backgroundColor: Colors.purpleLight,
     elevation: 10,
   },
   winnerElement2: {
@@ -89,7 +90,6 @@ const styles = StyleSheet.create({
     position: "relative",
     zIndex: 1,
     paddingRight: 55,
-    paddingLeft: 7,
     alignItems: "center",
   },
   winnerElement1: {
@@ -104,13 +104,12 @@ const styles = StyleSheet.create({
     position: "relative",
     alignItems: "center",
     paddingLeft: 55,
-    paddingRight: 7,
     zIndex: 1,
   },
   imageViewGold: {
     overflow: "hidden",
-    height: 175,
-    width: 175,
+    height: 165,
+    width: 165,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 100,
@@ -121,13 +120,13 @@ const styles = StyleSheet.create({
     //borderWidth: 1,
   },
   imageGold: {
-    height: 175,
-    width: 175,
+    height: 165,
+    width: 165,
   },
   imageViewSilver: {
     overflow: "hidden",
-    height: 125,
-    width: 125,
+    height: 115,
+    width: 115,
     justifyContent: "center",
     alignItems: "center",
     borderColor: "#E6E6E6",
@@ -137,8 +136,8 @@ const styles = StyleSheet.create({
   },
   imageViewBronze: {
     overflow: "hidden",
-    height: 125,
-    width: 125,
+    height: 115,
+    width: 115,
     justifyContent: "center",
     alignItems: "center",
     borderColor: "#CC6C05",
@@ -151,7 +150,7 @@ const styles = StyleSheet.create({
     width: 125,
   },
   teamNameGold: {
-    fontSize: 32,
+    fontSize: 30,
     fontWeight: "bold",
     color: "#FCFF58",
 

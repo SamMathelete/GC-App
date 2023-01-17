@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import MainButton from "./MainButton";
 import SideButton from "./SideButton";
+import Colors from "../constants/Colors";
 
 interface Props {
   onSignUpPress: () => void;
@@ -53,7 +54,7 @@ const styles = StyleSheet.create({
   rootContainer: {
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "white",
+    backgroundColor: Colors.OffWhite,
     padding: 20,
     borderRadius: 24,
     marginTop: "30%",
@@ -63,18 +64,18 @@ const styles = StyleSheet.create({
     height: 50,
     marginTop: 25,
     marginBottom: 15,
-    backgroundColor: "#FD6A00",
+    backgroundColor: Colors.purpleDark,
   },
   sideButton: {
     width: 225,
     height: 50,
-    borderColor: "#FD6A00",
+    borderColor: Colors.red,
   },
   mainButtonText: {
-    color: "white",
+    color: Colors.red,
   },
   sideButtonText: {
-    color: "#FD6A00",
+    color: Colors.red,
   },
   input: {
     width: 300,

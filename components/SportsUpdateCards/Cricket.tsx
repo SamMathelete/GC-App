@@ -6,6 +6,7 @@ import {
   Text,
   View,
 } from "react-native";
+import Colors from "../../constants/Colors";
 
 type Batsman = {
   playerName: string;
@@ -113,7 +114,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     margin: 12,
-    backgroundColor: "orange",
+    backgroundColor: Colors.purpleLight,
     borderRadius: 30,
     elevation: 10,
   },
@@ -121,17 +122,19 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontFamily: "sans-serif-medium",
     marginTop: 10,
+    color: Colors.OffWhite,
   },
   venueText: {
     fontSize: 16,
     fontFamily: "sans-serif-light",
     marginBottom: 10,
+    color: Colors.OffWhite,
   },
   mainContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "white",
+    backgroundColor: Colors.OffWhite,
     height: 175,
     borderRadius: 24,
     marginHorizontal: 10,
