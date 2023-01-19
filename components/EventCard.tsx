@@ -1,8 +1,11 @@
-import { FC, useState } from "react";
-import { Text, StyleSheet, View, Pressable, ImageBackground, Linking, Alert } from "react-native";
+import { FC, useState, useRef } from "react";
+import { Text, StyleSheet, View, Pressable, Linking, ScrollView } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import Colors from "../constants/Colors";
 
+import Modal  from "react-native-modal";
+import EventSubPage from "./EventSubPage";
+import { NativeSyntheticEvent, NativeScrollEvent } from 'react-native';
 interface Props {
   style?: {};
   eventInfo: {
@@ -15,17 +18,34 @@ interface Props {
   };
 }
 const EventCard: FC<Props> = ({ style, eventInfo }) => {
+
+    const [isModalVisible, setModalVisible] = useState(false);
+    const modalCloseHandler = () => {setModalVisible(false); setIsPressed(false);}
+    const [scrollOffset, setScrollOffset] = useState(0);
+    const scrollViewRef = useRef(null);
+
+    const handleOnScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+        setScrollOffset(event.nativeEvent.contentOffset.y);
+    };
+    
+    
+    const handleScrollTo = (p: {x: number, y: number, animated: boolean}) => {
+        if (scrollViewRef.current) {
+            scrollViewRef.current.scrollTo(p);
+        }
+    };    
+
     const [isPressed, setIsPressed] = useState(false);
 
     const handlePress = async () => {
         const supported = await Linking.canOpenURL(eventInfo.link);
     
         if (supported) {
-          Linking.openURL(eventInfo.link);
+            Linking.openURL(eventInfo.link);
         } else {
-          console.log("Can't open URL");
+            console.log("Can't open URL");
         }
-      };
+    };
 
     return (
         
@@ -34,44 +54,34 @@ const EventCard: FC<Props> = ({ style, eventInfo }) => {
                 <Text style={styles.eventName}>{eventInfo?.name}</Text>
                     <Pressable 
                     android_ripple={{color: "#FF4D00"}}
-                    onPress={() => setIsPressed(!isPressed)}
+                    onPress={() => {setIsPressed(true); setModalVisible(true);}}
                     >
-                    {!isPressed 
-                     ? <AntDesign name="downcircle" size={34} color={Colors.red}/> 
-                     : <AntDesign name="upcircle" size={34} color={Colors.red}/>
-                    }
+                    <AntDesign name="downcircle" size={34} color={Colors.red}/> 
                     </Pressable>
             </View>
             {   isPressed &&
-                <View>
-                    <View style={styles.expanded}>
-                        <Text style={styles.description}>{eventInfo?.description}
-                        </Text>
-                    </View> 
-                    <View style={styles.expandedBottom}>
-                        <View>
-                            <Text style={styles.expandedDate}>{eventInfo?.date}</Text>
-                            <Text style={styles.expandedVenue}>{eventInfo?.venue}
-                            </Text>
-                        </View>
-                        <View style={styles.registerButton}>
-                            <Pressable onPress={handlePress}>
-                                <Text style={styles.register}>Register</Text>
-                            </Pressable>
-                        </View>
-                    </View>
-                </View>
+                <Modal
+                    isVisible={isModalVisible}
+                    style={{marginHorizontal: 0, marginBottom: 0, marginTop: 50, borderTopRightRadius: 20, borderTopLeftRadius: 20}}   
+                    onSwipeComplete={modalCloseHandler}
+                    useNativeDriverForBackdrop
+                    swipeDirection={['down']}
+                    scrollTo={handleScrollTo}
+                    scrollOffset={scrollOffset}
+                    scrollOffsetMax={400 - 300} // content height - ScrollView height
+                    propagateSwipe={true}
+                >
+                    <EventSubPage onPress={modalCloseHandler} eventInfo={eventInfo} scrollViewRef={scrollViewRef} onScroll={handleOnScroll}/>
+                </Modal>
             }
-            {!isPressed &&
-                <View style={styles.bottomView}>
+            <View style={styles.bottomView}>
                     <View style={styles.eventDate}>
                         <Text style={styles.text}>{eventInfo?.date}</Text>
                     </View>
                     <View style={styles.eventVenue}>
                         <Text style={styles.text}>{eventInfo?.venue}</Text>
                     </View>
-                </View>
-            }
+            </View>
         </View>
     );
 }
@@ -161,5 +171,12 @@ const styles = StyleSheet.create({
     register: {
         fontSize: 24,
         color: Colors.OffWhite,
+    },
+
+
+    modalView: {
+        flex: 1,
+        alignContent: "center",
+        backgroundColor: Colors.purpleLight,
     }
 })
