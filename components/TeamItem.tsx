@@ -23,7 +23,7 @@ const TeamItem: FC<Props> = ({ style, teamInfo, index }) => {
                 </View>
                 <Text style={styles.teamName}>{teamInfo.name}</Text>
                 <View style={styles.scoreView}>
-                    <Text style={styles.teamScoreHeading}>Score:</Text>
+                    {/* <Text style={styles.teamScoreHeading}>Score:</Text> */}
                     <Text style={styles.teamScore}>{teamInfo.score}</Text>
                 </View>
             </View>
@@ -37,7 +37,6 @@ const styles = StyleSheet.create({
     teamItem: {
         flexDirection: "row",
         alignItems: "center",
-
     },
     team: {
         flex: 1,
@@ -49,14 +48,16 @@ const styles = StyleSheet.create({
         shadowColor: "#000000",
         margin: 4,
         marginVertical: 5,
-        marginRight: 10,
+        marginRight: 7,
         alignItems: "center",
+        borderWidth: 1,
+        borderColor: Colors.red,
     },
-    teamScoreHeading: {
-        color: Colors.OffWhite,
-        fontSize: 14,
-        fontWeight: "bold",
-    },
+    // teamScoreHeading: {
+    //     color: Colors.OffWhite,
+    //     fontSize: 14,
+    //     fontWeight: "bold",
+    // },
     teamLogoView: {
         width: 55,
         height: 55,
@@ -70,14 +71,14 @@ const styles = StyleSheet.create({
         height: 55,
     },
     teamName: {
-        fontSize: 30,
+        fontSize: 28,
         fontWeight: "bold",
         paddingHorizontal: 15,
         alignSelf: "center",
-        color: Colors.red,
+        color: Colors.OffWhite,
     },
     teamScore: {
-        fontSize: 24,
+        fontSize: 26,
         fontWeight: "bold",
         paddingHorizontal: 17,
         color: Colors.red,

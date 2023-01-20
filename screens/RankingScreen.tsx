@@ -19,7 +19,7 @@ const RankingScreen: FC = () => {
   const LEADERBOARD = sortedTeamRanking.slice(3);
   return (
       <View style={styles.rootContainer}>
-        <LinearGradient colors={[Colors.purpleDark,'#383d96']} style={styles.winnerView}>
+        <LinearGradient colors={[Colors.purpleDark,Colors.purpleLight,'#414598']} style={styles.winnerView}>
           {/* 2ND WINNER */}
           <View style={styles.winnerElement2}>
               <View style={styles.imageViewSilver}>
@@ -76,13 +76,16 @@ const styles = StyleSheet.create({
   winnerView: {
     flexDirection: "row",
     justifyContent: "center",
-    marginTop: 3,
-    width: "98%",
-    borderRadius: 25,
-    borderWidth: 4,
-    borderColor: Colors.red,
+    //marginTop: 3,
+    //borderRadius: 25,
+    //borderWidth: 4,
+    //borderColor: Colors.red,
+    borderBottomRightRadius: 50,
+    borderBottomLeftRadius: 50,
+    alignSelf: 'stretch',
     backgroundColor: Colors.purpleLight,
-    elevation: 10,
+    elevation: 8,
+    paddingBottom: 10,
   },
   winnerElement2: {
     //borderWidth: 1,
@@ -182,10 +185,20 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#FEF1DD",
   },
+  // teamScoreHeading: {
+  //   color: Colors.purpleDark,
+  //   fontSize: 20,
+  //   fontWeight: "bold",
+  //   textAlign: "right",
+  //   alignSelf: "stretch",
+  //   paddingRight: 20,
+  // },
   leaderboard: {
     marginVertical: 10,
     width: "100%",
     alignContent: "stretch",
     alignItems: "stretch",
+    marginBottom: 10,
+    paddingBottom: 10,
   },
 });

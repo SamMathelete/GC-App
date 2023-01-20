@@ -1,11 +1,12 @@
 import { FC, useState, useRef } from "react";
-import { Text, StyleSheet, View, Pressable, Linking, ScrollView } from "react-native";
+import { Text, StyleSheet, View, Pressable, Linking, } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import Colors from "../constants/Colors";
 
 import Modal  from "react-native-modal";
 import EventSubPage from "./EventSubPage";
 import { NativeSyntheticEvent, NativeScrollEvent } from 'react-native';
+import { PageScrollState } from "react-native-pager-view";
 interface Props {
   style?: {};
   eventInfo: {
@@ -31,7 +32,7 @@ const EventCard: FC<Props> = ({ style, eventInfo }) => {
     
     const handleScrollTo = (p: {x: number, y: number, animated: boolean}) => {
         if (scrollViewRef.current) {
-            scrollViewRef.current.scrollTo(p);
+            (scrollViewRef.current as any).scrollTo(p);
         }
     };    
 
@@ -70,6 +71,8 @@ const EventCard: FC<Props> = ({ style, eventInfo }) => {
                     scrollOffset={scrollOffset}
                     scrollOffsetMax={400 - 300} // content height - ScrollView height
                     propagateSwipe={true}
+                    onBackButtonPress={modalCloseHandler}
+                    onBackdropPress={modalCloseHandler}
                 >
                     <EventSubPage onPress={modalCloseHandler} eventInfo={eventInfo} scrollViewRef={scrollViewRef} onScroll={handleOnScroll}/>
                 </Modal>

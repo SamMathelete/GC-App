@@ -25,22 +25,24 @@ const EventSubPage: FC<Props> = ({ style, eventInfo, onPress, scrollViewRef, onS
 
     return(
         <View style={styles.modalView}>
+            <Pressable onPress={onPress}>
+                    <View style={{borderWidth: 3, borderColor: Colors.red, width: 100, alignSelf: 'center', borderRadius: 10}}></View>
+            </Pressable>
+            <Text style={styles.EventName}>{eventInfo.name}</Text>
             <ScrollView
                 ref={scrollViewRef}
                 onScroll={onScroll}
-                scrollEventThrottle={16}   
+                scrollEventThrottle={16} 
+                style={styles.ScrollingView}  
             >
-                <Pressable onPress={onPress}>
-                    <View style={{borderWidth: 3, borderColor: Colors.red, width: 100, alignSelf: 'center', borderRadius: 10}}></View>
-                </Pressable>
-                <Text style={styles.EventName}>{eventInfo.name}</Text>
                 <Text style={styles.Heading}>Description</Text>
                 <Text style={styles.description}>{eventInfo?.description}</Text> 
                 <Text style={styles.Heading}>Guidelines</Text>
                 <Text style={styles.description}>{eventInfo?.description}</Text> 
                 <Text style={styles.Heading}>Who can Participate?</Text>
                 <Text style={styles.description}>{eventInfo?.description}</Text>
-                <View style={styles.Bottom}>
+            </ScrollView>
+            <View style={styles.Bottom}>
                     <View>
                         <Text style={styles.Date}>{eventInfo?.date}</Text>
                         <Text style={styles.Venue}>{eventInfo?.venue}
@@ -51,8 +53,7 @@ const EventSubPage: FC<Props> = ({ style, eventInfo, onPress, scrollViewRef, onS
                             <Text style={styles.register}>Register</Text>
                         </Pressable>
                     </View>
-                </View>
-            </ScrollView>
+            </View>
         </View>
     );
 };
@@ -63,6 +64,7 @@ const styles = StyleSheet.create({
     modalView: {
         flex: 1,
         alignContent: "center",
+        justifyContent: "center",
         backgroundColor: Colors.purpleLight,
         borderTopRightRadius: 20,
         borderTopLeftRadius: 20,
@@ -70,10 +72,19 @@ const styles = StyleSheet.create({
     },
     EventName: {
         color: Colors.OffWhite,
-        fontSize: 40,
-        marginVertical: 6,
+        fontSize: 35,
+        margin: 5,
         textAlign: "center",
         fontWeight: "bold",
+    },
+    ScrollingView: {
+        //borderWidth: 2,
+        borderColor: Colors.red,
+        borderRadius: 20,
+        paddingVertical: 6,
+        paddingHorizontal: 6,
+        marginHorizontal: 7,
+        backgroundColor: Colors.purpleDark,
     },
     Heading: {
         color: Colors.red,
@@ -84,7 +95,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-        borderTopWidth: 2, 
+        //borderTopWidth: 2, 
         borderColor: Colors.red, 
         marginHorizontal: 10,
         paddingVertical: 10,
