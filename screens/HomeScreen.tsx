@@ -15,6 +15,9 @@ import Cricket from "../components/SportsUpdateCards/Cricket";
 import { DUMMY_CAROUSEL_DATA } from "../data/carousel_data";
 import Colors from "../constants/Colors";
 
+import EventResultCard from "../components/EventResultCard";
+import { EventResult } from "../data/EventResult";
+
 type RootParamsList = {
   HomeScreen: undefined;
 };
@@ -109,6 +112,7 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
           </View>
           <View style={styles.liveContainer}>
             <Text style={styles.titleText}>Upcoming</Text>
+            <EventResultCard result={EventResult}/>
           </View>
           <View
             style={{

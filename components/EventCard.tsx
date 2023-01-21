@@ -17,6 +17,7 @@ interface Props {
     link: string;
     description?: string;
   };
+  
 }
 const EventCard: FC<Props> = ({ style, eventInfo }) => {
 
