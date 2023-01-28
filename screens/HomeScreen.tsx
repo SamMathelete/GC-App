@@ -111,8 +111,8 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
             />
           </View>
           <View style={styles.liveContainer}>
-            <Text style={styles.titleText}>Upcoming</Text>
-            <EventResultCard result={EventResult}/>
+            <Text style={styles.titleText}>Results</Text>
+            <EventResultCard result={EventResult} heading={'RoboWars'} textColor={Colors.purpleLight}/>
           </View>
           <View
             style={{

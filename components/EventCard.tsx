@@ -1,12 +1,12 @@
 import { FC, useState, useRef } from "react";
 import { Text, StyleSheet, View, Pressable, Linking, } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
+import { MaterialIcons } from '@expo/vector-icons';
 import Colors from "../constants/Colors";
 
 import Modal  from "react-native-modal";
 import EventSubPage from "./EventSubPage";
 import { NativeSyntheticEvent, NativeScrollEvent } from 'react-native';
-import { PageScrollState } from "react-native-pager-view";
 interface Props {
   style?: {};
   eventInfo: {
@@ -16,6 +16,7 @@ interface Props {
     venue?: string;
     link: string;
     description?: string;
+    isHeld: boolean;
   };
   
 }
@@ -57,8 +58,15 @@ const EventCard: FC<Props> = ({ style, eventInfo }) => {
                     <Pressable 
                     android_ripple={{color: "#FF4D00"}}
                     onPress={() => {setIsPressed(true); setModalVisible(true);}}
+                    style={{justifyContent: "center", alignItems: "center"}}
                     >
-                    <AntDesign name="downcircle" size={34} color={Colors.red}/> 
+                    {!eventInfo.isHeld && <AntDesign name="downcircle" size={34} color={Colors.red}/> }
+                    {eventInfo.isHeld &&
+                        <View style={{flexDirection: 'row', backgroundColor: Colors.red, borderRadius: 15, justifyContent: 'center', alignItems: 'center', paddingHorizontal: 5, paddingVertical: 3}}>
+                            <Text style={{color: Colors.purpleLight, fontSize: 18, fontWeight: "bold", textAlign: 'center', textAlignVertical: 'center', paddingHorizontal: 3}}>Results</Text>
+                            <MaterialIcons name="insert-chart" size={24} color={Colors.purpleLight} />
+                        </View> 
+                    }
                     </Pressable>
             </View>
             {   isPressed &&

@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, Pressable, Linking, ScrollView } from "react-na
 import { AntDesign } from "@expo/vector-icons";
 import Modal from 'react-native-modal';
 import Colors from "../constants/Colors";
+import EventResultCard from "./EventResultCard";
 interface Props {
     style?: {};
     eventInfo: any;
@@ -29,6 +30,9 @@ const EventSubPage: FC<Props> = ({ style, eventInfo, onPress, scrollViewRef, onS
                     <View style={{borderWidth: 3, borderColor: Colors.red, width: 100, alignSelf: 'center', borderRadius: 10}}></View>
             </Pressable>
             <Text style={styles.EventName}>{eventInfo.name}</Text>
+            {eventInfo.isHeld && 
+            <EventResultCard heading={'Result'} result={eventInfo.result} textColor={Colors.OffWhite}/>
+            } 
             <ScrollView
                 ref={scrollViewRef}
                 onScroll={onScroll}
