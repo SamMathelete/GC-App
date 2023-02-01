@@ -8,10 +8,13 @@ import LiveUpdatesScreen from "./screens/LiveUpdatesScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 import RankingScreen from "./screens/RankingScreen";
 import ScheduleScreen from "./screens/ScheduleScreen";
-import { Platform } from "react-native";
+import { Alert, Platform } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import LoginFormScreen from "./screens/LoginFormScreen";
 import Colors from "./constants/Colors";
+import { View, Pressable } from "react-native";
+
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 type RootParamList = {
   HomeScreen: undefined;
@@ -108,6 +111,13 @@ const Tabbed = (): JSX.Element => {
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="calendar" color={color} size={size} />
           ),
+          headerRight() {
+            return (<View style={{paddingRight: 20}}>
+              <Pressable onPress={() => alert("hi bro")} >
+                <Ionicons name="calendar" color={Colors.red} size={35} />
+              </Pressable>
+            </View>);
+          },
         }}
       />
     </Tabs.Navigator>

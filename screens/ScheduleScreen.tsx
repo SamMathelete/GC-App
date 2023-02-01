@@ -20,6 +20,8 @@ import Colors from "../constants/Colors";
 const Tab = createMaterialTopTabNavigator();
 
 const ScheduleScreen: FC = () => {
+
+
   const TechScreen = (): JSX.Element => {
     return (
       <View style={styles.rootContainer}>
@@ -60,7 +62,6 @@ const ScheduleScreen: FC = () => {
   };
 
   return (
-    <View style={styles.rootContainer}>
       <NavigationContainer independent={true}>
         <Tab.Navigator
           initialRouteName="Tech"
@@ -90,7 +91,6 @@ const ScheduleScreen: FC = () => {
           />
         </Tab.Navigator>
       </NavigationContainer>
-    </View>
   );
 };
 

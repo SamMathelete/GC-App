@@ -16,7 +16,7 @@ interface Props {
     venue?: string;
     link: string;
     description?: string;
-    isHeld: boolean;
+    isHeld?: boolean;
   };
   
 }
