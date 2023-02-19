@@ -15,6 +15,7 @@ import Colors from "./constants/Colors";
 import { View, Pressable } from "react-native";
 
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import AuthContextProvider from "./store/google-auth";
 
 type RootParamList = {
   HomeScreen: undefined;
@@ -112,11 +113,13 @@ const Tabbed = (): JSX.Element => {
             <Ionicons name="calendar" color={color} size={size} />
           ),
           headerRight() {
-            return (<View style={{paddingRight: 20}}>
-              <Pressable onPress={() => alert("hi bro")} >
-                <Ionicons name="calendar" color={Colors.red} size={35} />
-              </Pressable>
-            </View>);
+            return (
+              <View style={{ paddingRight: 20 }}>
+                <Pressable onPress={() => alert("hi bro")}>
+                  <Ionicons name="calendar" color={Colors.red} size={35} />
+                </Pressable>
+              </View>
+            );
           },
         }}
       />
@@ -126,7 +129,7 @@ const Tabbed = (): JSX.Element => {
 
 export default function App() {
   return (
-    <>
+    <AuthContextProvider>
       <StatusBar style="light" />
       <NavigationContainer>
         <Stack.Navigator>
@@ -157,6 +160,6 @@ export default function App() {
           />
         </Stack.Navigator>
       </NavigationContainer>
-    </>
+    </AuthContextProvider>
   );
 }

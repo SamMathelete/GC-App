@@ -1,22 +1,51 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { FC } from "react";
+import { FC, useContext, useEffect } from "react";
 import { Image, ImageBackground, StyleSheet, Text, View } from "react-native";
 import MainButton from "../components/MainButton";
 import SideButton from "../components/SideButton";
 
 import Colors from "../constants/Colors";
-import { FontAwesome5 } from '@expo/vector-icons'; 
+import { FontAwesome5 } from "@expo/vector-icons";
+
+import * as WebBrowser from "expo-web-browser";
+import * as Google from "expo-auth-session/providers/google";
+
+import { AuthContext } from "../store/google-auth";
+
+WebBrowser.maybeCompleteAuthSession();
 
 type RootStackParamList = {
   LoginScreen: undefined;
   LoginFormScreen: undefined;
+  Tabbed: undefined;
 };
 
 type Props = NativeStackScreenProps<RootStackParamList, "LoginScreen">;
 
 const LoginScreen: FC<Props> = ({ navigation }) => {
-  const loginHandler = () => {
+  const ctx = useContext(AuthContext);
+
+  const [request, response, promptAsync] = Google.useAuthRequest({
+    expoClientId:
+      "596650469574-0j6qvdbptel04tl45e4p9na8ho8qhl62.apps.googleusercontent.com",
+    androidClientId:
+      "596650469574-hrgippoog7usobrfdrh0gvsig2kfro2n.apps.googleusercontent.com",
+  });
+
+  useEffect(() => {
+    if (response?.type === "success") {
+      const { authentication } = response;
+      ctx.authenticate(authentication!.accessToken);
+      navigation.navigate("Tabbed");
+    }
+  }, [response]);
+
+  const bypassHandler = () => {
     navigation.navigate("LoginFormScreen");
+  };
+
+  const loginHandler = () => {
+    promptAsync();
   };
 
   return (
@@ -30,23 +59,25 @@ const LoginScreen: FC<Props> = ({ navigation }) => {
             <Text style={styles.mainText}>General Championships</Text>
             <Text style={styles.mainText}>2023</Text>
           </View>
-          <FontAwesome5 name="trophy" size={70} color= {Colors.red} />
+          <FontAwesome5 name="trophy" size={70} color={Colors.red} />
           {/* <Image
             style={styles.mainImage}
             source={require("../assets/Images/gc-main.png")}
           /> */}
           <View style={styles.imageContainer}>
-            <Text style={{color: Colors.OffWhite}}>Powered By</Text>
+            <Text style={{ color: Colors.OffWhite }}>Powered By</Text>
             <Image
               source={require("../assets/Images/webd-logo.png")}
               style={styles.image}
             />
-            <Text style={{color: Colors.OffWhite}}>Web and Design Society</Text>
-            <Text style={{color: Colors.OffWhite}}>IIT Bhubaneswar</Text>
+            <Text style={{ color: Colors.OffWhite }}>
+              Web and Design Society
+            </Text>
+            <Text style={{ color: Colors.OffWhite }}>IIT Bhubaneswar</Text>
           </View>
           <View style={styles.buttonContainer}>
             <MainButton onPress={loginHandler}>Student</MainButton>
-            <SideButton onPress={loginHandler}>Admin</SideButton>
+            <SideButton onPress={bypassHandler}>Admin</SideButton>
           </View>
         </View>
       </ImageBackground>
