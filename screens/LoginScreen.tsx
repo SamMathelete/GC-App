@@ -27,9 +27,9 @@ const LoginScreen: FC<Props> = ({ navigation }) => {
 
   const [request, response, promptAsync] = Google.useAuthRequest({
     expoClientId:
-      "596650469574-0j6qvdbptel04tl45e4p9na8ho8qhl62.apps.googleusercontent.com",
+      "663917460037-u83fd8fucki47ph4jg0igpofuhpuds9v.apps.googleusercontent.com",
     androidClientId:
-      "596650469574-hrgippoog7usobrfdrh0gvsig2kfro2n.apps.googleusercontent.com",
+      "663917460037-bqtmb5ne2tq1mmb8c1qkdt1d4re58e9l.apps.googleusercontent.com",
   });
 
   useEffect(() => {
@@ -55,15 +55,11 @@ const LoginScreen: FC<Props> = ({ navigation }) => {
         style={styles.bgImage}
       >
         <View style={styles.rootContainer}>
-          <View style={styles.mainContainer}>
-            <Text style={styles.mainText}>General Championships</Text>
-            <Text style={styles.mainText}>2023</Text>
-          </View>
-          <FontAwesome5 name="trophy" size={70} color={Colors.red} />
-          {/* <Image
+          <View style={styles.mainContainer}></View>
+          <Image
             style={styles.mainImage}
-            source={require("../assets/Images/gc-main.png")}
-          /> */}
+            source={require("../assets/Images/GClogo2023.jpg")}
+          />
           <View style={styles.imageContainer}>
             <Text style={{ color: Colors.OffWhite }}>Powered By</Text>
             <Image
@@ -99,6 +95,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   buttonContainer: {
+    marginTop: 20,
     marginBottom: 80,
     justifyContent: "center",
     alignItems: "center",
@@ -124,8 +121,10 @@ const styles = StyleSheet.create({
     color: Colors.OffWhite,
   },
   mainImage: {
-    width: 150,
-    height: 150,
+    width: 270,
+    height: 270,
+    marginBottom: 20,
+    borderRadius: 135,
   },
 });
 

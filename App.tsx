@@ -1,4 +1,7 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import {
+  createNativeStackNavigator,
+  NativeStackNavigationProp,
+} from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
@@ -13,9 +16,14 @@ import { Ionicons } from "@expo/vector-icons";
 import LoginFormScreen from "./screens/LoginFormScreen";
 import Colors from "./constants/Colors";
 import { View, Pressable } from "react-native";
-
+import CalendarScreen from "./screens/CalendarScreen";
+import AdminScreen from "./screens/AdminScreen";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import AuthContextProvider from "./store/google-auth";
+import { useNavigation } from "@react-navigation/native";
+import LiveEventCreationScreen from "./screens/LiveEventCreationForm";
+import { Provider } from "react-native-paper";
+import CricketLiveEditScreen from "./screens/CricketLiveEditScreen";
 
 type RootParamList = {
   HomeScreen: undefined;
@@ -26,12 +34,22 @@ type RootParamList = {
   ScheduleScreen: undefined;
   LoginFormScreen: undefined;
   Tabbed: undefined;
+  AdminHome: undefined;
+  CalendarScreen: undefined;
+  LiveEventCreationScreen: undefined;
+  CricketLiveEditScreen: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootParamList>();
 const Tabs = createBottomTabNavigator<RootParamList>();
 
 const Tabbed = (): JSX.Element => {
+  const navigate = useNavigation<NativeStackNavigationProp<RootParamList>>();
+
+  const calendarNavigate = () => {
+    navigate.navigate("CalendarScreen");
+  };
+
   return (
     <Tabs.Navigator
       initialRouteName="HomeScreen"
@@ -115,7 +133,7 @@ const Tabbed = (): JSX.Element => {
           headerRight() {
             return (
               <View style={{ paddingRight: 20 }}>
-                <Pressable onPress={() => alert("hi bro")}>
+                <Pressable onPress={calendarNavigate}>
                   <Ionicons name="calendar" color={Colors.red} size={35} />
                 </Pressable>
               </View>
@@ -130,36 +148,82 @@ const Tabbed = (): JSX.Element => {
 export default function App() {
   return (
     <AuthContextProvider>
-      <StatusBar style="light" />
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
-            name="LoginScreen"
-            component={LoginScreen}
-            options={{
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
-            name="LoginFormScreen"
-            component={LoginFormScreen}
-            options={{
-              title: "Login",
-              headerStyle: {
-                backgroundColor: Colors.purpleDark,
-              },
-              headerTintColor: Colors.OffWhite,
-            }}
-          />
-          <Stack.Screen
-            name="Tabbed"
-            component={Tabbed}
-            options={{
-              headerShown: false,
-            }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <Provider>
+        <StatusBar style="light" />
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen
+              name="LoginScreen"
+              component={LoginScreen}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="LoginFormScreen"
+              component={LoginFormScreen}
+              options={{
+                title: "Login",
+                headerStyle: {
+                  backgroundColor: Colors.purpleDark,
+                },
+                headerTintColor: Colors.OffWhite,
+              }}
+            />
+            <Stack.Screen
+              name="AdminHome"
+              component={AdminScreen}
+              options={{
+                title: "Admin Home",
+                headerStyle: {
+                  backgroundColor: Colors.purpleDark,
+                },
+                headerTintColor: Colors.OffWhite,
+              }}
+            />
+            <Stack.Screen
+              name="Tabbed"
+              component={Tabbed}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="CalendarScreen"
+              component={CalendarScreen}
+              options={{
+                title: "Calendar",
+                headerStyle: {
+                  backgroundColor: Colors.purpleDark,
+                },
+                headerTintColor: Colors.OffWhite,
+              }}
+            />
+            <Stack.Screen
+              name="LiveEventCreationScreen"
+              component={LiveEventCreationScreen}
+              options={{
+                title: "Create Live Event",
+                headerStyle: {
+                  backgroundColor: Colors.purpleDark,
+                },
+                headerTintColor: Colors.OffWhite,
+              }}
+            />
+            <Stack.Screen
+              name="CricketLiveEditScreen"
+              component={CricketLiveEditScreen}
+              options={{
+                title: "Edit Live Event",
+                headerStyle: {
+                  backgroundColor: Colors.purpleDark,
+                },
+                headerTintColor: Colors.OffWhite,
+              }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </Provider>
     </AuthContextProvider>
   );
 }
