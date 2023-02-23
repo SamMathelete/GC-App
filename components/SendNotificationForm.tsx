@@ -1,28 +1,42 @@
-import { FC } from "react";
-import {
-  KeyboardAvoidingView,
-  ScrollView,
-  StyleSheet,
-  TextInput,
-} from "react-native";
+import { FC, useState } from "react";
+import { KeyboardAvoidingView, ScrollView, StyleSheet } from "react-native";
+import { TextInput } from "react-native-paper";
 import MainButton from "./MainButton";
 import Colors from "../constants/Colors";
 
-const RegistrationForm: FC = () => {
+const SendNotificationForm: FC = () => {
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+
   const buttonHandler = () => {};
+
   return (
     <ScrollView>
       <KeyboardAvoidingView style={styles.container}>
-        <TextInput style={styles.input} placeholder="Name" />
-        <TextInput style={styles.input} placeholder="Institute Roll Number" />
-        <TextInput style={styles.input} placeholder="Council" />
-        <TextInput style={styles.input} placeholder="Event" />
+        <TextInput
+          mode="outlined"
+          label="Title"
+          style={styles.input}
+          placeholder="Title"
+          value={title}
+          onChangeText={(title) => setTitle(title)}
+        />
+        <TextInput
+          mode="outlined"
+          label="Description"
+          style={styles.bigInput}
+          placeholder="Description"
+          multiline={true}
+          numberOfLines={10}
+          value={description}
+          onChangeText={(description) => setDescription(description)}
+        />
         <MainButton
           onPress={buttonHandler}
           style={styles.button}
           styleText={styles.buttonText}
         >
-          Register
+          Send Notification
         </MainButton>
       </KeyboardAvoidingView>
     </ScrollView>
@@ -33,6 +47,18 @@ const styles = StyleSheet.create({
   input: {
     width: 300,
     height: 60,
+    textAlign: "left",
+    backgroundColor: "transparent",
+    borderBottomWidth: 2,
+    paddingHorizontal: 16,
+    marginBottom: 20,
+    fontSize: 18,
+    marginHorizontal: 5,
+    borderRadius: 10,
+  },
+  bigInput: {
+    width: 300,
+    height: 100,
     textAlign: "left",
     backgroundColor: "transparent",
     borderBottomWidth: 2,
@@ -69,9 +95,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.75,
   },
   buttonText: {
-    fontSize: 30,
+    fontSize: 20,
     color: Colors.OffWhite,
   },
 });
 
-export default RegistrationForm;
+export default SendNotificationForm;

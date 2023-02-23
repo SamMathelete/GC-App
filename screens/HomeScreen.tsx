@@ -101,17 +101,17 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
             matchName="GC Cricket Finals"
             team1={{
               teamName: "India",
-              runs: 120,
-              wickets: 1,
               logo: require("../assets/Images/Group13.png"),
             }}
+            team1Score={200}
+            team1Wickets={5}
+            team2Score={190}
+            team2Wickets={3}
+            overs={20}
             team2={{
               teamName: "Pakistan",
-              runs: 119,
-              wickets: 9,
               logo: require("../assets/Images/Group12.png"),
             }}
-            balls={119}
             venue="MHR Ground"
             striker={{ playerName: "V. Kohli", runs: 45, balls: 34 }}
             nonStriker={{ playerName: "S. Yadav", runs: 48, balls: 24 }}

@@ -22,8 +22,6 @@ type Bowler = {
 
 type Team = {
   teamName: string;
-  runs: number;
-  wickets: number;
   logo: ImageSourcePropType | undefined;
 };
 
@@ -31,26 +29,30 @@ interface Props {
   matchName: string;
   team1: Team;
   team2: Team;
+  team1Score: number;
+  team2Score: number;
+  team1Wickets: number;
+  team2Wickets: number;
   striker: Batsman;
   nonStriker: Batsman;
   bowler: Bowler;
-  balls: number;
   venue: string;
+  overs: number;
 }
-
-const generateOvers = (balls: number): string => {
-  return Math.floor(balls / 6).toString() + "." + (balls % 6).toString();
-};
 
 const Football: FC<Props> = ({
   matchName,
   team1,
   team2,
+  team1Score,
+  team2Score,
+  team1Wickets,
+  team2Wickets,
   striker,
   nonStriker,
   bowler,
-  balls,
   venue,
+  overs,
 }) => {
   return (
     <View style={styles.rootContainer}>
@@ -61,20 +63,20 @@ const Football: FC<Props> = ({
           <Image style={styles.teamImage} source={team1.logo} />
           <Text style={styles.teamText}>{team1.teamName}</Text>
           <Text style={styles.scoreText}>
-            {team1.runs}/{team1.wickets}
+            {team1Score}/{team1Wickets}
           </Text>
         </View>
 
         <View style={styles.midContainer}>
           <View style={styles.overContainer}>
-            <Text style={styles.overText}>Over {generateOvers(balls)}</Text>
+            <Text style={styles.overText}>Over {overs}</Text>
           </View>
           <View>
             <Text style={styles.infoText}>
               {striker.playerName} {"*  "}
               {striker.runs}
               {"("}
-              {generateOvers(striker.balls)}
+              {overs}
               {")"}
             </Text>
             <Text style={styles.infoText}>
@@ -82,7 +84,7 @@ const Football: FC<Props> = ({
               {"  "}
               {nonStriker.runs}
               {"("}
-              {generateOvers(nonStriker.balls)}
+              {overs}
               {")"}
             </Text>
             <Text style={[styles.infoText, { paddingTop: 14 }]}>
@@ -99,7 +101,7 @@ const Football: FC<Props> = ({
           <Image style={styles.teamImage} source={team2.logo} />
           <Text style={styles.teamText}>{team2.teamName}</Text>
           <Text style={styles.scoreText}>
-            {team2.runs}/{team2.wickets}
+            {team2Score}/{team2Wickets}
           </Text>
         </View>
       </View>
@@ -120,13 +122,11 @@ const styles = StyleSheet.create({
   },
   titleText: {
     fontSize: 22,
-    fontFamily: "sans-serif-medium",
     marginTop: 10,
     color: Colors.OffWhite,
   },
   venueText: {
     fontSize: 16,
-    fontFamily: "sans-serif-light",
     marginBottom: 10,
     color: Colors.OffWhite,
   },
@@ -157,7 +157,6 @@ const styles = StyleSheet.create({
   },
   scoreText: {
     fontSize: 25,
-    fontFamily: "sans-serif-medium",
   },
   overContainer: {
     marginBottom: 15,

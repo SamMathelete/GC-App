@@ -1,12 +1,12 @@
 import { FC } from "react";
 import { ImageBackground, StyleSheet, Text, View } from "react-native";
-import RegistrationForm from "../components/RegistrationForm";
+import LiveEventCreationForm from "../components/LiveEventCreationForm";
 import Colors from "../constants/Colors";
 
-const RegisterScreen: FC = () => {
+const LiveEventCreationScreen: FC = () => {
   return (
     <View style={styles.rootContainer}>
-      <RegistrationForm />
+      <LiveEventCreationForm />
     </View>
   );
 };
@@ -20,4 +20,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RegisterScreen;
+export default LiveEventCreationScreen;

@@ -1,5 +1,5 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { FC, useContext, useEffect } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import { Image, ImageBackground, StyleSheet, Text, View } from "react-native";
 import MainButton from "../components/MainButton";
 import SideButton from "../components/SideButton";
@@ -18,35 +18,80 @@ type RootStackParamList = {
   LoginScreen: undefined;
   LoginFormScreen: undefined;
   Tabbed: undefined;
+  AdminHome: undefined;
 };
 
 type Props = NativeStackScreenProps<RootStackParamList, "LoginScreen">;
 
+const allowedEmails = [
+  "21ec01021@iitbbs.ac.in",
+  "vpresident.sg@iitbbs.ac.in",
+  "gsecsnt.sg@iitbbs.ac.in",
+  "ugrep.sg@iitbbs.ac.in",
+  "secyfebs.sg@iitbbs.ac.in",
+  "secyrobotics.sg@iitbbs.ac.in",
+  "secyastronomy.sg@iitbbs.ac.in",
+  "secyprogsoc.sg@iitbbs.ac.in",
+  "secyweb.sg@iitbbs.ac.in",
+  "gseccul.sg@iitbbs.ac.in",
+  "secydance.sg@iitbbs.ac.in",
+  "secysfs.sg@iitbbs.ac.in",
+  "quizclub@iitbbs.ac.in",
+  "secyfinearts.sg@iitbbs.ac.in",
+  "secydrams.sg@iitbbs.ac.in",
+  "secylitsoc.sg@iitbbs.ac.in",
+  "secycinesoc.sg@iitbbs.ac.in",
+  "secymusic.sg@iitbbs.ac.in",
+  "clix.photosoc@iitbbs.ac.in",
+  "gsecsports.sg@iitbbs.ac.in",
+  "secyathletics.sg@iitbbs.ac.in",
+  "secybasketball.sg@iitbbs.ac.in",
+  "secyvolleyball.sg@iitbbs.ac.in",
+  "secytennis.sg@iitbbs.ac.in",
+  "secycricket.sg@iitbbs.ac.in",
+  "secyfootball.sg@iitbbs.ac.in",
+  "secytabletennis.sg@iitbbs.ac.in",
+  "secybadminton.sg@iitbbs.ac.in",
+  "secyboardgames.sg@iitbbs.ac.in",
+  "secygym.sg@iitbbs.ac.in",
+  "coord.wissenaire@iitbbs.ac.in",
+  "coord.almafiesta@iitbbs.ac.in",
+  "coord.esummit@iitbbs.ac.in",
+  "coord.ashvamedha@iitbbs.ac.in",
+];
+
 const LoginScreen: FC<Props> = ({ navigation }) => {
+  const [admin, setAdmin] = useState(false);
   const ctx = useContext(AuthContext);
 
   const [request, response, promptAsync] = Google.useAuthRequest({
     expoClientId:
-      "596650469574-0j6qvdbptel04tl45e4p9na8ho8qhl62.apps.googleusercontent.com",
+      "663917460037-u83fd8fucki47ph4jg0igpofuhpuds9v.apps.googleusercontent.com",
     androidClientId:
-      "596650469574-hrgippoog7usobrfdrh0gvsig2kfro2n.apps.googleusercontent.com",
+      "663917460037-bqtmb5ne2tq1mmb8c1qkdt1d4re58e9l.apps.googleusercontent.com",
   });
+
+  const bypassHandler = () => {
+    setAdmin(() => true);
+    promptAsync();
+  };
+
+  const loginHandler = () => {
+    setAdmin(() => false);
+    promptAsync();
+  };
 
   useEffect(() => {
     if (response?.type === "success") {
       const { authentication } = response;
       ctx.authenticate(authentication!.accessToken);
-      navigation.navigate("Tabbed");
+      if (admin) {
+        navigation.navigate("AdminHome");
+      } else {
+        navigation.navigate("Tabbed");
+      }
     }
   }, [response]);
-
-  const bypassHandler = () => {
-    navigation.navigate("LoginFormScreen");
-  };
-
-  const loginHandler = () => {
-    promptAsync();
-  };
 
   return (
     <View style={styles.container}>
@@ -55,15 +100,11 @@ const LoginScreen: FC<Props> = ({ navigation }) => {
         style={styles.bgImage}
       >
         <View style={styles.rootContainer}>
-          <View style={styles.mainContainer}>
-            <Text style={styles.mainText}>General Championships</Text>
-            <Text style={styles.mainText}>2023</Text>
-          </View>
-          <FontAwesome5 name="trophy" size={70} color={Colors.red} />
-          {/* <Image
+          <View style={styles.mainContainer}></View>
+          <Image
             style={styles.mainImage}
-            source={require("../assets/Images/gc-main.png")}
-          /> */}
+            source={require("../assets/Images/GClogo2023.jpg")}
+          />
           <View style={styles.imageContainer}>
             <Text style={{ color: Colors.OffWhite }}>Powered By</Text>
             <Image
@@ -99,6 +140,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   buttonContainer: {
+    marginTop: 20,
     marginBottom: 80,
     justifyContent: "center",
     alignItems: "center",
@@ -124,8 +166,10 @@ const styles = StyleSheet.create({
     color: Colors.OffWhite,
   },
   mainImage: {
-    width: 150,
-    height: 150,
+    width: 270,
+    height: 270,
+    marginBottom: 20,
+    borderRadius: 135,
   },
 });
 

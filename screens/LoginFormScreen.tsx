@@ -7,6 +7,7 @@ import SignUpForm from "../components/SignUpForm";
 type RootParamList = {
   LoginFormScreen: undefined;
   Tabbed: undefined;
+  AdminHome: undefined;
 };
 
 type Props = NativeStackScreenProps<RootParamList, "LoginFormScreen">;
@@ -17,7 +18,7 @@ const LoginFormScreen: FC<Props> = ({ navigation }) => {
     setIsLogin((isLogin) => !isLogin);
   };
   const onLoginPress = () => {
-    navigation.navigate("Tabbed");
+    navigation.navigate("AdminHome");
   };
   return (
     <ImageBackground
