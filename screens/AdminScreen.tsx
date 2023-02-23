@@ -7,6 +7,7 @@ type RootParamList = {
   AdminHome: undefined;
   LiveEventCreationScreen: undefined;
   CricketLiveEditScreen: undefined;
+  SendNotificationScreen: undefined;
 };
 
 type Props = NativeStackScreenProps<RootParamList, "AdminHome">;
@@ -22,15 +23,22 @@ const AdminScreen: FC<Props> = ({ navigation }) => {
     navigation.navigate("CricketLiveEditScreen");
   };
 
+  const onSendNotification = () => {
+    console.log("Send Notification");
+    navigation.navigate("SendNotificationScreen");
+  };
+
   return (
     <View style={styles.container}>
-      <Text>Admin</Text>
       <View>
         <MainButton style={styles.buttons} onPress={onAddLiveEvent}>
           Add Live Event
         </MainButton>
         <MainButton style={styles.buttons} onPress={onUpdateLiveEvents}>
           Update Live Events
+        </MainButton>
+        <MainButton style={styles.buttons} onPress={onSendNotification}>
+          Send Notification
         </MainButton>
       </View>
     </View>

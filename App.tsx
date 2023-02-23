@@ -8,7 +8,6 @@ import { NavigationContainer } from "@react-navigation/native";
 import LoginScreen from "./screens/LoginScreen";
 import HomeScreen from "./screens/HomeScreen";
 import LiveUpdatesScreen from "./screens/LiveUpdatesScreen";
-import RegisterScreen from "./screens/RegisterScreen";
 import RankingScreen from "./screens/RankingScreen";
 import ScheduleScreen from "./screens/ScheduleScreen";
 import { Alert, Platform } from "react-native";
@@ -24,13 +23,14 @@ import { useNavigation } from "@react-navigation/native";
 import LiveEventCreationScreen from "./screens/LiveEventCreationForm";
 import { Provider } from "react-native-paper";
 import CricketLiveEditScreen from "./screens/CricketLiveEditScreen";
+import SendNotificationScreen from "./screens/SendNotificationScreen";
 
 type RootParamList = {
   HomeScreen: undefined;
   LiveUpdates: undefined;
   LoginScreen: undefined;
   RankingScreen: undefined;
-  RegisterScreen: undefined;
+  SendNotificationScreen: undefined;
   ScheduleScreen: undefined;
   LoginFormScreen: undefined;
   Tabbed: undefined;
@@ -82,16 +82,6 @@ const Tabbed = (): JSX.Element => {
         tabBarInactiveTintColor: Colors.OffWhite,
       }}
     >
-      <Tabs.Screen
-        name="RegisterScreen"
-        component={RegisterScreen}
-        options={{
-          title: "Register",
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="create" color={color} size={size} />
-          ),
-        }}
-      />
       <Tabs.Screen
         name="LiveUpdates"
         component={LiveUpdatesScreen}
@@ -215,6 +205,17 @@ export default function App() {
               component={CricketLiveEditScreen}
               options={{
                 title: "Edit Live Event",
+                headerStyle: {
+                  backgroundColor: Colors.purpleDark,
+                },
+                headerTintColor: Colors.OffWhite,
+              }}
+            />
+            <Stack.Screen
+              name="SendNotificationScreen"
+              component={SendNotificationScreen}
+              options={{
+                title: "Send Notification",
                 headerStyle: {
                   backgroundColor: Colors.purpleDark,
                 },

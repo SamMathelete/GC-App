@@ -1,12 +1,12 @@
 import { FC } from "react";
 import { ImageBackground, StyleSheet, Text, View } from "react-native";
-import RegistrationForm from "../components/RegistrationForm";
+import SendNotificationForm from "../components/SendNotificationForm";
 import Colors from "../constants/Colors";
 
-const RegisterScreen: FC = () => {
+const SendNotificationScreen: FC = () => {
   return (
     <View style={styles.rootContainer}>
-      <RegistrationForm />
+      <SendNotificationForm />
     </View>
   );
 };
@@ -20,4 +20,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RegisterScreen;
+export default SendNotificationScreen;
