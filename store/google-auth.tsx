@@ -23,12 +23,13 @@ interface Props {
 const AuthContextProvider: FC<Props> = ({ children }) => {
   const [token, setToken] = useState<string | null>(null);
 
-  const authenticate = (token: string) => {
-    setToken(token);
+  const authenticate = async (token: string) => {
+    setToken(() => token);
+    console.log(token);
   };
 
   const logout = () => {
-    setToken(null);
+    setToken(() => null);
   };
 
   const value: Context = {

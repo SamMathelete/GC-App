@@ -85,13 +85,11 @@ const styles = StyleSheet.create({
   },
   titleText: {
     fontSize: 22,
-    fontFamily: "sans-serif-medium",
     marginTop: 10,
     color: Colors.OffWhite,
   },
   venueText: {
     fontSize: 16,
-    fontFamily: "sans-serif-light",
     marginBottom: 10,
     color: Colors.OffWhite,
   },
@@ -119,7 +117,6 @@ const styles = StyleSheet.create({
   },
   scoreText: {
     fontSize: 30,
-    fontFamily: "sans-serif-medium",
     marginHorizontal: 5,
   },
   timeContainer: {
@@ -152,7 +149,6 @@ const styles = StyleSheet.create({
   penaltyText: {
     fontSize: 18,
     textAlign: "center",
-    fontFamily: "sans-serif-medium",
   },
   timeText: {
     color: "green",

@@ -122,13 +122,11 @@ const styles = StyleSheet.create({
   },
   titleText: {
     fontSize: 22,
-    fontFamily: "sans-serif-medium",
     marginTop: 10,
     color: Colors.OffWhite,
   },
   venueText: {
     fontSize: 16,
-    fontFamily: "sans-serif-light",
     marginBottom: 10,
     color: Colors.OffWhite,
   },
@@ -159,7 +157,6 @@ const styles = StyleSheet.create({
   },
   scoreText: {
     fontSize: 25,
-    fontFamily: "sans-serif-medium",
   },
   overContainer: {
     marginBottom: 15,
