@@ -16,6 +16,7 @@ type Props = NativeStackScreenProps<RootParamList, "AdminHome">;
 const allowedEmails = [
   "21ec01021@iitbbs.ac.in",
   "21cs01061@iitbbs.ac.in",
+  "21mm02005@iitbbs.ac.in",
   "vpresident.sg@iitbbs.ac.in",
   "gsecsnt.sg@iitbbs.ac.in",
   "ugrep.sg@iitbbs.ac.in",
