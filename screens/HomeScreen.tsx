@@ -18,6 +18,7 @@ import Colors from "../constants/Colors";
 import EventResultCard from "../components/EventResultCard";
 import { EventResult } from "../data/EventResult";
 import { AuthContext } from "../store/google-auth";
+import { IconButton } from "react-native-paper";
 
 type RootParamsList = {
   HomeScreen: undefined;
@@ -37,6 +38,39 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
   useEffect(() => {
     console.log(ctx.token);
   }, []);
+
+  const [CricketEvents, setCricketEvents] = useState<any>([]);
+  const [FootballEvents, setFootballEvents] = useState<any>([]);
+
+  const fetchLiveUpdates = async () => {
+    const response = await fetch(
+      "https://gc-app-76138-default-rtdb.firebaseio.com/liveEvents.json"
+    );
+    const data = await response.json();
+    const events = Object.keys(data);
+    const cricketEvents = [];
+    for (const event of events) {
+      if (data[event].type === "Cricket") {
+        cricketEvents.push(data[event]);
+      }
+    }
+    setCricketEvents(cricketEvents);
+    const footballEvents = [];
+    for (const event of events) {
+      if (data[event].type === "Football") {
+        footballEvents.push(data[event]);
+      }
+    }
+    setFootballEvents(footballEvents);
+  };
+
+  useEffect(() => {
+    fetchLiveUpdates();
+  }, []);
+
+  const refreshHandler = () => {
+    fetchLiveUpdates();
+  };
 
   return (
     <View style={styles.rootContainer}>
@@ -78,45 +112,77 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
           />
         </View>
         <View style={styles.liveContainer}>
-          <Text style={styles.titleText}>Live Now</Text>
-          <Football
-            matchName="GC Football Finals"
-            team1={{
-              teamName: "FCB",
-              score: 3,
-              penaltyScore: 5,
-              logo: require("../assets/Images/Group13.png"),
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
             }}
-            team2={{
-              teamName: "RM",
-              score: 3,
-              penaltyScore: 2,
-              logo: require("../assets/Images/Group12.png"),
-            }}
-            isPenalty={true}
-            time="Full Time"
-            venue="SAC Football Ground"
-          />
-          <Cricket
-            matchName="GC Cricket Finals"
-            team1={{
-              teamName: "India",
-              logo: require("../assets/Images/Group13.png"),
-            }}
-            team1Score={200}
-            team1Wickets={5}
-            team2Score={190}
-            team2Wickets={3}
-            overs={20}
-            team2={{
-              teamName: "Pakistan",
-              logo: require("../assets/Images/Group12.png"),
-            }}
-            venue="MHR Ground"
-            striker={{ playerName: "V. Kohli", runs: 45, balls: 34 }}
-            nonStriker={{ playerName: "S. Yadav", runs: 48, balls: 24 }}
-            bowler={{ playerName: "Pak Bowler", runs: 23, wickets: 1 }}
-          />
+          >
+            <Text style={styles.titleText}>Live Now</Text>
+            <IconButton
+              icon="refresh"
+              iconColor={Colors.purpleLight}
+              size={30}
+              onPress={refreshHandler}
+            />
+          </View>
+          {FootballEvents.map((event: any) => (
+            <Football
+              key={event.id}
+              matchName={event.matchName}
+              team1={{
+                teamName: event.team1,
+                score: event.score1,
+                penaltyScore: event.penaltyscore1,
+                logo: event.team1Logo,
+              }}
+              team2={{
+                teamName: event.team2,
+                score: event.score2,
+                penaltyScore: event.penaltyscore2,
+                logo: event.team2Logo,
+              }}
+              isPenalty={event.isPenalty}
+              time={event.matchTime}
+              venue={event.venue}
+            />
+          ))}
+          {CricketEvents.map((event: any) => (
+            <Cricket
+              key={event.id}
+              matchName={event.matchName}
+              team1={{
+                teamName: event.team1,
+                logo: event.team1Logo,
+              }}
+              team1Score={parseInt(event.score1)}
+              team1Wickets={parseInt(event.wickets1)}
+              team2={{
+                teamName: event.team2,
+                logo: event.team2Logo,
+              }}
+              team2Score={parseInt(event.score2)}
+              team2Wickets={parseInt(event.wickets2)}
+              venue={event.venue}
+              striker={{
+                playerName: event.striker,
+                runs: parseInt(event.strikerScore),
+                balls: parseInt(event.strikerBalls),
+              }}
+              nonStriker={{
+                playerName: event.nonStriker,
+                runs: parseInt(event.nonStrikerScore),
+                balls: parseInt(event.nonStrikerBalls),
+              }}
+              bowler={{
+                playerName: event.bowler,
+                runs: parseInt(event.bowlerRuns),
+                wickets: parseInt(event.bowlerWickets),
+              }}
+              overs={parseFloat(event.overs)}
+            />
+          ))}
         </View>
         <View style={styles.liveContainer}>
           <Text style={styles.titleText}>Results</Text>

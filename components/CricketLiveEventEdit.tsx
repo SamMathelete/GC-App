@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useLayoutEffect, useState } from "react";
 import {
   View,
   KeyboardAvoidingView,
@@ -9,41 +9,222 @@ import { TextInput } from "react-native-paper";
 import MainButton from "./MainButton";
 import Colors from "../constants/Colors";
 import Cricket from "./SportsUpdateCards/Cricket";
+import CSE from "../assets/Images/CSE.png";
+import ECEMETA from "../assets/Images/ECEMETA.png";
+import EE from "../assets/Images/EE.png";
+import ME from "../assets/Images/ME.png";
+import CE from "../assets/Images/CE.png";
+import MTECH from "../assets/Images/MTECH.png";
+import MSC from "../assets/Images/MSC.png";
+import PHD from "../assets/Images/PHD.png";
 
-const CricketLiveEventEdit: FC = () => {
-  const [score1, setScore1] = useState("0");
-  const [wickets1, setWickets1] = useState("0");
-  const [score2, setScore2] = useState("0");
-  const [wickets2, setWickets2] = useState("0");
-  const [striker, setStriker] = useState("Striker 1");
-  const [strikerScore, setStrikerScore] = useState("0");
-  const [strikerBalls, setStrikerBalls] = useState("0");
-  const [nonStriker, setNonStriker] = useState("Striker 2");
-  const [nonStrikerScore, setNonStrikerScore] = useState("0");
-  const [nonStrikerBalls, setNonStrikerBalls] = useState("0");
-  const [overs, setOvers] = useState("0.0");
-  const [bowler, setBowler] = useState("Bowler 1");
-  const [bowlerRuns, setBowlerRuns] = useState("0");
-  const [bowlerWickets, setBowlerWickets] = useState("0");
+interface Props {
+  matchName: string;
+  team1: string;
+  score1: string;
+  wickets1: string;
+  team2: string;
+  score2: string;
+  wickets2: string;
+  bowler: string;
+  bowlerRuns: string;
+  bowlerWickets: string;
+  striker: string;
+  strikerScore: string;
+  strikerBalls: string;
+  nonStriker: string;
+  nonStrikerScore: string;
+  nonStrikerBalls: string;
+  overs: string;
+  time: string;
+  venue: string;
+  date: string;
+  id: string;
+}
 
-  const buttonHandler = () => {};
+const CricketLiveEventEdit: FC<Props> = (props) => {
+  const [matchName, setMatchName] = useState(props.matchName);
+  const [team1, setTeam1] = useState(props.team1);
+  const [team2, setTeam2] = useState(props.team2);
+  const [score1, setScore1] = useState(props.score1);
+  const [wickets1, setWickets1] = useState(props.wickets1);
+  const [score2, setScore2] = useState(props.score2);
+  const [wickets2, setWickets2] = useState(props.wickets2);
+  const [striker, setStriker] = useState(props.striker);
+  const [strikerScore, setStrikerScore] = useState(props.strikerScore);
+  const [strikerBalls, setStrikerBalls] = useState(props.strikerBalls);
+  const [nonStriker, setNonStriker] = useState(props.nonStriker);
+  const [nonStrikerScore, setNonStrikerScore] = useState(props.nonStrikerScore);
+  const [nonStrikerBalls, setNonStrikerBalls] = useState(props.nonStrikerBalls);
+  const [overs, setOvers] = useState(props.overs);
+  const [bowler, setBowler] = useState(props.bowler);
+  const [bowlerRuns, setBowlerRuns] = useState(props.bowlerRuns);
+  const [bowlerWickets, setBowlerWickets] = useState(props.bowlerWickets);
+  const [venue, setVenue] = useState(props.venue);
+
+  const buttonHandler = async () => {
+    fetch(
+      `https://gc-app-76138-default-rtdb.firebaseio.com/liveEvents/${props.id}.json`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          score1: score1,
+          wickets1: wickets1,
+          score2: score2,
+          wickets2: wickets2,
+          striker: striker,
+          strikerScore: strikerScore,
+          strikerBalls: strikerBalls,
+          nonStriker: nonStriker,
+          nonStrikerScore: nonStrikerScore,
+          nonStrikerBalls: nonStrikerBalls,
+          overs: overs,
+          bowler: bowler,
+          bowlerRuns: bowlerRuns,
+          bowlerWickets: bowlerWickets,
+        }),
+      }
+    );
+  };
+
+  const [matchData, setMatchData] = useState({
+    matchName: "",
+    team1: "",
+    team2: "",
+    venue: "",
+    score1: "",
+    wickets1: "",
+    score2: "",
+    wickets2: "",
+    striker: "",
+    strikerScore: "",
+    strikerBalls: "",
+    nonStriker: "",
+    nonStrikerScore: "",
+    nonStrikerBalls: "",
+    overs: "",
+    bowler: "",
+    bowlerRuns: "",
+    bowlerWickets: "",
+    team1Logo: require("../assets/Images/teamImage.png"),
+    team2Logo: require("../assets/Images/teamImage.png"),
+  });
+
+  const fetchLiveEvent = async () => {
+    const response = await fetch(
+      `https://gc-app-76138-default-rtdb.firebaseio.com/liveEvents/${props.id}.json`
+    );
+    const data = await response.json();
+    setMatchData(data);
+    console.log(data);
+  };
+
+  useEffect(() => {
+    fetchLiveEvent();
+  }, []);
+
+  useEffect(() => {
+    setScore1(matchData.score1);
+    setWickets1(matchData.wickets1);
+    setScore2(matchData.score2);
+    setWickets2(matchData.wickets2);
+    setStriker(matchData.striker);
+    setStrikerScore(matchData.strikerScore);
+    setStrikerBalls(matchData.strikerBalls);
+    setNonStriker(matchData.nonStriker);
+    setNonStrikerScore(matchData.nonStrikerScore);
+    setNonStrikerBalls(matchData.nonStrikerBalls);
+    setOvers(matchData.overs);
+    setBowler(matchData.bowler);
+    setBowlerRuns(matchData.bowlerRuns);
+    setBowlerWickets(matchData.bowlerWickets);
+    setMatchName(matchData.matchName);
+    setTeam1(matchData.team1);
+    setTeam2(matchData.team2);
+    setVenue(matchData.venue);
+  }, [matchData]);
+
+  let logo1;
+  let logo2;
+
+  switch (team1) {
+    case "CSE":
+      logo1 = CSE;
+      break;
+    case "ECEMETA":
+      logo1 = ECEMETA;
+      break;
+    case "EE":
+      logo1 = EE;
+      break;
+    case "ME":
+      logo1 = ME;
+      break;
+    case "CE":
+      logo1 = CE;
+      break;
+    case "MTECH":
+      logo1 = MTECH;
+      break;
+    case "MSC":
+      logo1 = MSC;
+      break;
+    case "PHD":
+      logo1 = PHD;
+      break;
+    default:
+      logo1 = require("../assets/Images/teamImage.png");
+  }
+
+  switch (team2) {
+    case "CSE":
+      logo2 = CSE;
+      break;
+    case "ECEMETA":
+      logo2 = ECEMETA;
+      break;
+    case "EE":
+      logo2 = EE;
+      break;
+    case "ME":
+      logo2 = ME;
+      break;
+    case "CE":
+      logo2 = CE;
+      break;
+    case "MTECH":
+      logo2 = MTECH;
+      break;
+    case "MSC":
+      logo2 = MSC;
+      break;
+    case "PHD":
+      logo2 = PHD;
+      break;
+    default:
+      logo2 = require("../assets/Images/teamImage.png");
+  }
+
   return (
     <ScrollView>
       <Cricket
-        matchName="GC Cricket Finals"
+        matchName={matchName}
         team1={{
-          teamName: "India",
-          logo: require("../assets/Images/Group13.png"),
+          teamName: team1,
+          logo: matchData.team1Logo,
         }}
         team1Score={parseInt(score1)}
         team1Wickets={parseInt(wickets1)}
         team2={{
-          teamName: "Pakistan",
-          logo: require("../assets/Images/Group12.png"),
+          teamName: team2,
+          logo: matchData.team2Logo,
         }}
         team2Score={parseInt(score2)}
         team2Wickets={parseInt(wickets2)}
-        venue="MHR Ground"
+        venue={venue}
         striker={{
           playerName: striker,
           runs: parseInt(strikerScore),

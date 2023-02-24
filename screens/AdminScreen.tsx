@@ -7,7 +7,7 @@ import { AuthContext } from "../store/google-auth";
 type RootParamList = {
   AdminHome: undefined;
   LiveEventCreationScreen: undefined;
-  CricketLiveEditScreen: undefined;
+  LiveEventEditScreen: undefined;
   SendNotificationScreen: undefined;
 };
 
@@ -85,7 +85,7 @@ const AdminScreen: FC<Props> = ({ navigation }) => {
 
   const onUpdateLiveEvents = () => {
     console.log("Update Live Events");
-    navigation.navigate("CricketLiveEditScreen");
+    navigation.navigate("LiveEventEditScreen");
   };
 
   const onSendNotification = () => {

@@ -23,7 +23,9 @@ import { useNavigation } from "@react-navigation/native";
 import LiveEventCreationScreen from "./screens/LiveEventCreationForm";
 import { Provider } from "react-native-paper";
 import CricketLiveEditScreen from "./screens/CricketLiveEditScreen";
+import FootballLiveEditScreen from "./screens/FootballLiveEditScreen";
 import SendNotificationScreen from "./screens/SendNotificationScreen";
+import LiveEventEditScreen from "./screens/LiveEventEditScreen";
 
 type RootParamList = {
   HomeScreen: undefined;
@@ -37,7 +39,13 @@ type RootParamList = {
   AdminHome: undefined;
   CalendarScreen: undefined;
   LiveEventCreationScreen: undefined;
-  CricketLiveEditScreen: undefined;
+  CricketLiveEditScreen: {
+    id: string;
+  };
+  FootballLiveEditScreen: {
+    id: string;
+  };
+  LiveEventEditScreen: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootParamList>();
@@ -212,10 +220,32 @@ export default function App() {
               }}
             />
             <Stack.Screen
+              name="FootballLiveEditScreen"
+              component={FootballLiveEditScreen}
+              options={{
+                title: "Edit Live Event",
+                headerStyle: {
+                  backgroundColor: Colors.purpleDark,
+                },
+                headerTintColor: Colors.OffWhite,
+              }}
+            />
+            <Stack.Screen
               name="SendNotificationScreen"
               component={SendNotificationScreen}
               options={{
                 title: "Send Notification",
+                headerStyle: {
+                  backgroundColor: Colors.purpleDark,
+                },
+                headerTintColor: Colors.OffWhite,
+              }}
+            />
+            <Stack.Screen
+              name="LiveEventEditScreen"
+              component={LiveEventEditScreen}
+              options={{
+                title: "Edit Live Event",
                 headerStyle: {
                   backgroundColor: Colors.purpleDark,
                 },

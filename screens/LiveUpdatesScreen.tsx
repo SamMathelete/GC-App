@@ -1,73 +1,131 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { ScrollView, View, ImageBackground, StyleSheet } from "react-native";
 import Football from "../components/SportsUpdateCards/Football";
 import Colors from "../constants/Colors";
+import Cricket from "../components/SportsUpdateCards/Cricket";
+import MainButton from "../components/MainButton";
+import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
+import { IconButton } from "react-native-paper";
 
-const LiveUpdatesScreen: FC = () => {
+type RootParamList = {
+  LiveUpdates: undefined;
+  Cricket: undefined;
+  Football: undefined;
+};
+
+type Props = BottomTabScreenProps<RootParamList, "LiveUpdates">;
+
+const LiveUpdatesScreen: FC<Props> = ({ navigation }) => {
+  const [CricketEvents, setCricketEvents] = useState<any>([]);
+  const [FootballEvents, setFootballEvents] = useState<any>([]);
+
+  const fetchLiveUpdates = async () => {
+    const response = await fetch(
+      "https://gc-app-76138-default-rtdb.firebaseio.com/liveEvents.json"
+    );
+    const data = await response.json();
+    const events = Object.keys(data);
+    const cricketEvents = [];
+    for (const event of events) {
+      if (data[event].type === "Cricket") {
+        cricketEvents.push(data[event]);
+      }
+    }
+    setCricketEvents(cricketEvents);
+    const footballEvents = [];
+    for (const event of events) {
+      if (data[event].type === "Football") {
+        footballEvents.push(data[event]);
+      }
+    }
+    setFootballEvents(footballEvents);
+  };
+
+  useEffect(() => {
+    fetchLiveUpdates();
+  }, []);
+
+  const refreshHandler = () => {
+    fetchLiveUpdates();
+  };
+
+  navigation.setOptions({
+    headerRight: () => (
+      <IconButton
+        icon="refresh"
+        size={30}
+        onPress={refreshHandler}
+        iconColor="white"
+      />
+    ),
+  });
+
   return (
     <View style={styles.rootContainer}>
-        <ScrollView>
+      <ScrollView>
+        {FootballEvents.map((event: any) => (
           <Football
-            matchName="GC Football Finals"
+            key={event.id}
+            matchName={event.matchName}
             team1={{
-              teamName: "FCB",
-              score: 3,
-              penaltyScore: 5,
-              logo: require("../assets/Images/Group13.png"),
+              teamName: event.team1,
+              score: event.score1,
+              penaltyScore: event.penaltyscore1,
+              logo: event.team1Logo,
             }}
             team2={{
-              teamName: "RM",
-              score: 3,
-              penaltyScore: 2,
-              logo: require("../assets/Images/Group12.png"),
+              teamName: event.team2,
+              score: event.score2,
+              penaltyScore: event.penaltyscore2,
+              logo: event.team2Logo,
             }}
-            isPenalty={true}
-            time="Full Time"
-            venue="SAC Football Ground"
+            isPenalty={event.isPenalty}
+            time={event.matchTime}
+            venue={event.venue}
           />
-          <Football
-            matchName="GC Football Finals"
+        ))}
+        {CricketEvents.map((event: any) => (
+          <Cricket
+            key={event.id}
+            matchName={event.matchName}
             team1={{
-              teamName: "FCB",
-              score: 3,
-              penaltyScore: 5,
-              logo: require("../assets/Images/Group13.png"),
+              teamName: event.team1,
+              logo: event.team1Logo,
             }}
+            team1Score={parseInt(event.score1)}
+            team1Wickets={parseInt(event.wickets1)}
             team2={{
-              teamName: "RM",
-              score: 3,
-              penaltyScore: 2,
-              logo: require("../assets/Images/Group12.png"),
+              teamName: event.team2,
+              logo: event.team2Logo,
             }}
-            isPenalty={true}
-            time="Full Time"
-            venue="SAC Football Ground"
+            team2Score={parseInt(event.score2)}
+            team2Wickets={parseInt(event.wickets2)}
+            venue={event.venue}
+            striker={{
+              playerName: event.striker,
+              runs: parseInt(event.strikerScore),
+              balls: parseInt(event.strikerBalls),
+            }}
+            nonStriker={{
+              playerName: event.nonStriker,
+              runs: parseInt(event.nonStrikerScore),
+              balls: parseInt(event.nonStrikerBalls),
+            }}
+            bowler={{
+              playerName: event.bowler,
+              runs: parseInt(event.bowlerRuns),
+              wickets: parseInt(event.bowlerWickets),
+            }}
+            overs={parseFloat(event.overs)}
           />
-          <Football
-            matchName="GC Football Finals"
-            team1={{
-              teamName: "FCB",
-              score: 3,
-              penaltyScore: 5,
-              logo: require("../assets/Images/Group13.png"),
-            }}
-            team2={{
-              teamName: "RM",
-              score: 3,
-              penaltyScore: 2,
-              logo: require("../assets/Images/Group12.png"),
-            }}
-            isPenalty={true}
-            time="Full Time"
-            venue="SAC Football Ground"
-          />
-          <View
-            style={{
-              flex: 1,
-              height: 100,
-            }}
-          />
-        </ScrollView>
+        ))}
+        <View
+          style={{
+            flex: 1,
+            height: 100,
+          }}
+        />
+      </ScrollView>
     </View>
   );
 };

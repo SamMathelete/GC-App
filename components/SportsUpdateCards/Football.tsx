@@ -10,8 +10,8 @@ import Colors from "../../constants/Colors";
 
 type Team = {
   teamName: string;
-  score: number;
-  penaltyScore: number | undefined;
+  score: string;
+  penaltyScore: string | undefined;
   logo: ImageSourcePropType;
 };
 
@@ -20,7 +20,7 @@ interface Props {
   team1: Team;
   team2: Team;
   time: string;
-  isPenalty: boolean;
+  isPenalty: string;
   venue: string;
 }
 
@@ -51,7 +51,7 @@ const Football: FC<Props> = ({
             <Text style={styles.barText}>-</Text>
             <Text style={styles.scoreText}>{team2.score}</Text>
           </View>
-          {isPenalty && (
+          {isPenalty === "Yes" && (
             <View style={styles.penaltyContainer}>
               <Text>
                 {`Penalty: `}
