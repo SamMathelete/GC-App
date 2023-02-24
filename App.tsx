@@ -26,6 +26,7 @@ import CricketLiveEditScreen from "./screens/CricketLiveEditScreen";
 import FootballLiveEditScreen from "./screens/FootballLiveEditScreen";
 import SendNotificationScreen from "./screens/SendNotificationScreen";
 import LiveEventEditScreen from "./screens/LiveEventEditScreen";
+import AppCredits from "./screens/AppCredits";
 
 type RootParamList = {
   HomeScreen: undefined;
@@ -46,6 +47,7 @@ type RootParamList = {
     id: string;
   };
   LiveEventEditScreen: undefined;
+  AppCredits: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootParamList>();
@@ -155,6 +157,17 @@ export default function App() {
               component={LoginScreen}
               options={{
                 headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="AppCredits"
+              component={AppCredits}
+              options={{
+                title: "App Credits",
+                headerStyle: {
+                  backgroundColor: Colors.purpleDark,
+                },
+                headerTintColor: Colors.OffWhite,
               }}
             />
             <Stack.Screen

@@ -1,6 +1,13 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { FC, useContext, useEffect, useState } from "react";
-import { Image, ImageBackground, StyleSheet, Text, View } from "react-native";
+import {
+  Image,
+  ImageBackground,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import MainButton from "../components/MainButton";
 import SideButton from "../components/SideButton";
 
@@ -19,6 +26,7 @@ type RootStackParamList = {
   LoginFormScreen: undefined;
   Tabbed: undefined;
   AdminHome: undefined;
+  AppCredits: undefined;
 };
 
 type Props = NativeStackScreenProps<RootStackParamList, "LoginScreen">;
@@ -33,6 +41,10 @@ const LoginScreen: FC<Props> = ({ navigation }) => {
     androidClientId:
       "663917460037-bqtmb5ne2tq1mmb8c1qkdt1d4re58e9l.apps.googleusercontent.com",
   });
+
+  const creditNavigator = () => {
+    navigation.navigate("AppCredits");
+  };
 
   const bypassHandler = () => {
     setAdmin(() => true);
@@ -81,6 +93,9 @@ const LoginScreen: FC<Props> = ({ navigation }) => {
             <MainButton onPress={loginHandler}>Student</MainButton>
             <SideButton onPress={bypassHandler}>Admin</SideButton>
           </View>
+          <Pressable style={styles.bottom} onPress={creditNavigator}>
+            <Text style={styles.bottomText}>App Credits</Text>
+          </Pressable>
         </View>
       </ImageBackground>
     </View>
@@ -101,14 +116,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   buttonContainer: {
-    marginTop: 20,
-    marginBottom: 80,
+    marginTop: 30,
+    marginBottom: 50,
     justifyContent: "center",
     alignItems: "center",
   },
   image: {
     width: 75,
     height: 75,
+    margin: 5,
   },
   imageContainer: {
     flex: 1,
@@ -129,8 +145,15 @@ const styles = StyleSheet.create({
   mainImage: {
     width: 270,
     height: 270,
-    marginBottom: 20,
+    marginBottom: 30,
     borderRadius: 135,
+  },
+  bottom: {
+    marginBottom: 80,
+  },
+  bottomText: {
+    fontSize: 24,
+    color: Colors.OffWhite,
   },
 });
 
