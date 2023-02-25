@@ -112,13 +112,13 @@ const styles = StyleSheet.create({
     },
     Date: {
         fontSize: 20,
-        color: Colors.red,
+        color: Colors.OffWhite,
         textAlign: "left",
         fontWeight: "bold",
     },
     Venue: {
         fontSize: 20,
-        color: Colors.red,
+        color: Colors.OffWhite,
         textAlign: "left",
         fontWeight: "bold",
     },

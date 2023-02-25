@@ -19,7 +19,7 @@ const RankingScreen: FC = () => {
   const LEADERBOARD = sortedTeamRanking.slice(3);
   return (
       <View style={styles.rootContainer}>
-        <LinearGradient colors={[Colors.purpleDark,Colors.purpleLight,'#414598']} style={styles.winnerView}>
+        <LinearGradient colors={[Colors.purpleDark,Colors.purpleLight]} style={styles.winnerView}>
           {/* 2ND WINNER */}
           <View style={styles.winnerElement2}>
               <View style={styles.imageViewSilver}>
@@ -155,35 +155,35 @@ const styles = StyleSheet.create({
   teamNameGold: {
     fontSize: 30,
     fontWeight: "bold",
-    color: "#FCFF58",
+    color: Colors.OffWhite,
 
   },
   teamScoreGold: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "#FEF1DD",
+    color: Colors.red,
   },
   teamNameSilver: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "#FFEB88",
+    color: Colors.OffWhite,
 
   },
   teamScoreSilver: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "#FEF1DD",
+    color: Colors.red,
   },
   teamNameBronze: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "#FFEB88",
+    color: Colors.OffWhite,
 
   },
   teamScoreBronze: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "#FEF1DD",
+    color: Colors.red,
   },
   // teamScoreHeading: {
   //   color: Colors.purpleDark,

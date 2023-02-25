@@ -1,5 +1,5 @@
 export const DUMMY_CAROUSEL_DATA = [
-  { text: "Text 1" },
-  { text: "Text 2" },
-  { text: "Text 3" },
+  { text: "Basketball Match" },
+  { text: "Volleyball Match" },
+  { text: "Football Match" },
 ];

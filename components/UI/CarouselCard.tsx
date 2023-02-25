@@ -1,12 +1,14 @@
 import { FC } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Image } from "react-native";
 
 type Props = any;
 
 const Card: FC<Props> = ({ item, index }) => {
   return (
     <View style={styles.rootContainer} key={index}>
-      <Text>{item.text}</Text>
+      <View>
+      <Image source={require("../../assets/Images/sportsBG.jpg")} style={{height: 200, borderRadius: 50}} resizeMode={'contain'}/>
+      </View>
     </View>
   );
 };
@@ -35,5 +37,6 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     justifyContent: "center",
     alignItems: "center",
+    overflow: "hidden",
   },
 });

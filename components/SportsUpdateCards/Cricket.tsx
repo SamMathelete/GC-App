@@ -124,6 +124,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
     marginTop: 10,
     color: Colors.OffWhite,
+    fontWeight: "bold",
   },
   venueText: {
     fontSize: 16,

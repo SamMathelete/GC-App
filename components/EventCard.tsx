@@ -58,13 +58,15 @@ const EventCard: FC<Props> = ({ style, eventInfo }) => {
                     <Pressable 
                     android_ripple={{color: "#FF4D00"}}
                     onPress={() => {setIsPressed(true); setModalVisible(true);}}
-                    style={{justifyContent: "center", alignItems: "center"}}
+                    style={{justifyContent: "center", alignItems: "center",}}
                     >
-                    {!eventInfo.isHeld && <AntDesign name="downcircle" size={34} color={Colors.red}/> }
+                    {!eventInfo.isHeld && <View style={{backgroundColor: Colors.OffWhite, borderRadius:45}}>
+                        <AntDesign name="circledown" size={34} color={Colors.red}/>
+                    </View> }
                     {eventInfo.isHeld &&
                         <View style={{flexDirection: 'row', backgroundColor: Colors.red, borderRadius: 15, justifyContent: 'center', alignItems: 'center', paddingHorizontal: 5, paddingVertical: 3}}>
-                            <Text style={{color: Colors.purpleLight, fontSize: 18, fontWeight: "bold", textAlign: 'center', textAlignVertical: 'center', paddingHorizontal: 3}}>Results</Text>
-                            <MaterialIcons name="insert-chart" size={24} color={Colors.purpleLight} />
+                            <Text style={{color: Colors.OffWhite, fontSize: 18, fontWeight: "bold", textAlign: 'center', textAlignVertical: 'center', paddingHorizontal: 3}}>Results</Text>
+                            <MaterialIcons name="insert-chart" size={24} color={Colors.OffWhite} />
                         </View> 
                     }
                     </Pressable>

@@ -8,14 +8,14 @@ interface Props {
         name: string;
         score: number;
         logo: any;
-    }
+    };
     index: number;
 }
 {/** Currently it shows sample image itself for all items. if we take address through a function or something, it gives stack error*/}
 const TeamItem: FC<Props> = ({ style, teamInfo, index }) => {
     return (
         <View style={styles.teamItem}>
-            <Text style={styles.teamRank}>{index}.</Text>
+            
             <View style={[styles.team, style]}>
                 <View style={styles.teamLogoView}>
                     <Image source={teamInfo.logo} style={styles.teamLogo}
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
         shadowColor: "#000000",
         margin: 4,
         marginVertical: 5,
-        marginRight: 7,
+        marginHorizontal: 7,
         alignItems: "center",
         borderWidth: 1,
         borderColor: Colors.red,
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
         width: 55,
         height: 55,
         borderRadius: 28,
-        margin: 2,
+        margin: 3,
         justifyContent: "center",
         alignItems: "center",
     },
