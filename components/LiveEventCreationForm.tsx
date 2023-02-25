@@ -5,6 +5,7 @@ import {
   ScrollView,
   StyleSheet,
   TextInput,
+  ActivityIndicator,
 } from "react-native";
 import MainButton from "./MainButton";
 import Colors from "../constants/Colors";
@@ -61,6 +62,8 @@ const LiveEventCreationForm: FC = () => {
   const [time, setTime] = useState("");
   const [team1, setTeam1] = useState("");
   const [team2, setTeam2] = useState("");
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const typeList = [
     {
@@ -175,6 +178,7 @@ const LiveEventCreationForm: FC = () => {
     };
     console.log(liveEvent);
     try {
+      setIsLoading(true);
       await fetch(
         `https://gc-app-76138-default-rtdb.firebaseio.com/liveEvents/${liveEvent.id}.json`,
         {
@@ -185,6 +189,7 @@ const LiveEventCreationForm: FC = () => {
           body: JSON.stringify(liveEvent),
         }
       );
+      setIsLoading(false);
       console.log("Live Event Created");
       alert(
         `Live Event Created. ID is "${liveEvent.id}". Remember this ID(without the quotes) and use it to update the event.`
@@ -276,13 +281,17 @@ const LiveEventCreationForm: FC = () => {
             onDismiss={() => setShowDropDown3(false)}
           />
         </View>
-        <MainButton
+        {isLoading && <View style={{marginVertical: 40}}>
+          <ActivityIndicator size="large" color={Colors.red} /></View>}
+        {!isLoading && 
+          <MainButton
           onPress={createLiveEvent}
           style={styles.button}
           styleText={styles.buttonText}
-        >
-          Create Event
-        </MainButton>
+          >
+            Create Event
+          </MainButton>
+        }
       </KeyboardAvoidingView>
     </ScrollView>
   );

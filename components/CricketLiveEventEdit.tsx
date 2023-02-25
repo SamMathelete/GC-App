@@ -62,6 +62,8 @@ const CricketLiveEventEdit: FC<Props> = (props) => {
   const [bowlerWickets, setBowlerWickets] = useState(props.bowlerWickets);
   const [venue, setVenue] = useState(props.venue);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const buttonHandler = async () => {
     fetch(
       `https://gc-app-76138-default-rtdb.firebaseio.com/liveEvents/${props.id}.json`,
@@ -88,6 +90,7 @@ const CricketLiveEventEdit: FC<Props> = (props) => {
         }),
       }
     );
+    alert("Event Updated Successfully!");
   };
 
   const [matchData, setMatchData] = useState({

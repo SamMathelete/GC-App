@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, ScrollView } from "react-native";
-
+import Colors from "../constants/Colors";
 const AppCredits = () => {
   return (
     <ScrollView>
@@ -8,8 +8,9 @@ const AppCredits = () => {
         <View style={styles.textContainer}>
           <Text style={styles.subHeading}>Developed by</Text>
           <Text style={styles.bigText}>
-            Students' Gymkhana, IIT Bhubaneswar
+            Students' Gymkhana
           </Text>
+          <Text style={styles.bigText}>IIT Bhubaneswar</Text>
         </View>
         <View style={styles.textContainer}>
           <Text style={styles.subHeading}>App Development Team</Text>
@@ -93,13 +94,12 @@ const AppCredits = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: Colors.OffWhite,
     alignItems: "center",
     justifyContent: "center",
   },
   textContainer: {
     flex: 1,
-    backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
     margin: 10,

@@ -1,8 +1,9 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { FC, useState } from "react";
-import { View } from "react-native";
+import { View, ActivityIndicator } from "react-native";
 import { TextInput } from "react-native-paper";
 import MainButton from "../components/MainButton";
+import Colors from "../constants/Colors";
 
 type RootParamList = {
   LiveEventEditScreen: undefined;
@@ -25,8 +26,11 @@ type Props = NativeStackScreenProps<RootParamList, "LiveEventEditScreen">;
 const LiveEventEditScreen: FC<Props> = ({ navigation }) => {
   const [id, setId] = useState("");
 
+  const [IsLoading, setIsLoading] = useState(false);
+
   const updateLiveEvent = async () => {
     try {
+      setIsLoading(true);
       const response = await fetch(
         `https://gc-app-76138-default-rtdb.firebaseio.com/liveEvents/${id}.json`
       );
@@ -52,6 +56,7 @@ const LiveEventEditScreen: FC<Props> = ({ navigation }) => {
       console.log(error);
       alert("Invalid ID");
     }
+    setIsLoading(false);
   };
 
   return (
@@ -60,6 +65,7 @@ const LiveEventEditScreen: FC<Props> = ({ navigation }) => {
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
+        backgroundColor: Colors.OffWhite,
       }}
     >
       <TextInput
@@ -69,18 +75,21 @@ const LiveEventEditScreen: FC<Props> = ({ navigation }) => {
         mode="outlined"
         style={{ margin: 10, width: 300 }}
       />
-      <MainButton
-        style={{
-          margin: 10,
-          width: 150,
-          height: 50,
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-        onPress={updateLiveEvent}
-      >
-        Update
-      </MainButton>
+      {IsLoading && <ActivityIndicator size="large" color={Colors.red} />}
+      {!IsLoading && 
+        <MainButton
+          style={{
+            margin: 10,
+            width: 150,
+            height: 50,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+          onPress={updateLiveEvent}
+        >
+          Update
+        </MainButton>
+      }
     </View>
   );
 };

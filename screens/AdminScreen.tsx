@@ -3,7 +3,7 @@ import { FC, useContext, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import MainButton from "../components/MainButton";
 import { AuthContext } from "../store/google-auth";
-
+import Colors from "../constants/Colors";
 type RootParamList = {
   AdminHome: undefined;
   LiveEventCreationScreen: undefined;
@@ -115,7 +115,7 @@ export default AdminScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: Colors.OffWhite,
     alignItems: "center",
     justifyContent: "center",
   },

@@ -65,6 +65,7 @@ const FootballLiveEventEdit: FC<Props> = (props) => {
         }),
       }
     );
+    alert("Event Updated Successfully!");
   };
 
   const [matchData, setMatchData] = useState({

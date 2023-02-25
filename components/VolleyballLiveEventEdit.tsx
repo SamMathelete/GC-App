@@ -65,6 +65,7 @@ const VolleyballLiveEventEdit: FC<Props> = (props) => {
         }),
       }
     );
+    alert("Event Updated Successfully!");
   };
 
   const [matchData, setMatchData] = useState({
