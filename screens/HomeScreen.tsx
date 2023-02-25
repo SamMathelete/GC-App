@@ -1,5 +1,5 @@
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
-import { FC, useContext, useEffect, useRef, useState } from "react";
+import { FC, useContext, useEffect, useRef, useState, } from "react";
 import {
   ScrollView,
   StyleSheet,
@@ -7,11 +7,14 @@ import {
   useWindowDimensions,
   View,
   ImageBackground,
+  ActivityIndicator,
 } from "react-native";
 import Carousel, { Pagination } from "react-native-snap-carousel";
 import Card from "../components/UI/CarouselCard";
 import Football from "../components/SportsUpdateCards/Football";
 import Cricket from "../components/SportsUpdateCards/Cricket";
+import Basketball from "../components/SportsUpdateCards/Basketball";
+import Volleyball from "../components/SportsUpdateCards/Volleyball";
 import { DUMMY_CAROUSEL_DATA } from "../data/carousel_data";
 import Colors from "../constants/Colors";
 
@@ -30,6 +33,8 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
   const [index, setIndex] = useState(0);
   const isCarousel = useRef<any>(null);
 
+  const[isLiveNowLoading, setIsLiveNowLoading] = useState<any>(false);
+
   const Dimensions = useWindowDimensions();
   const windowWidth = Dimensions.width;
 
@@ -41,13 +46,17 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
 
   const [CricketEvents, setCricketEvents] = useState<any>([]);
   const [FootballEvents, setFootballEvents] = useState<any>([]);
+  const [BasketballEvents, setBasketballEvents] = useState<any>([]);
+  const [VolleyballEvents, setVolleyballEvents] = useState<any>([]);
 
   const fetchLiveUpdates = async () => {
+    setIsLiveNowLoading(true);
     const response = await fetch(
       "https://gc-app-76138-default-rtdb.firebaseio.com/liveEvents.json"
     );
     const data = await response.json();
     const events = Object.keys(data);
+
     const cricketEvents = [];
     for (const event of events) {
       if (data[event].type === "Cricket") {
@@ -55,6 +64,7 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
       }
     }
     setCricketEvents(cricketEvents);
+    
     const footballEvents = [];
     for (const event of events) {
       if (data[event].type === "Football") {
@@ -62,6 +72,24 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
       }
     }
     setFootballEvents(footballEvents);
+
+    const basketballEvents = [];
+    for (const event of events) {
+      if (data[event].type === "Basketball") {
+        basketballEvents.push(data[event]);
+      }
+    }
+    setBasketballEvents(basketballEvents);
+
+    const volleyballEvents = [];
+    for (const event of events) {
+      if (data[event].type === "Volleyball") {
+        volleyballEvents.push(data[event]);
+      }
+    }
+    setVolleyballEvents(volleyballEvents);
+
+    setIsLiveNowLoading(false);
   };
 
   useEffect(() => {
@@ -127,62 +155,109 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
               onPress={refreshHandler}
             />
           </View>
-          {FootballEvents.map((event: any) => (
-            <Football
-              key={event.id}
-              matchName={event.matchName}
-              team1={{
-                teamName: event.team1,
-                score: event.score1,
-                penaltyScore: event.penaltyscore1,
-                logo: event.team1Logo,
-              }}
-              team2={{
-                teamName: event.team2,
-                score: event.score2,
-                penaltyScore: event.penaltyscore2,
-                logo: event.team2Logo,
-              }}
-              isPenalty={event.isPenalty}
-              time={event.matchTime}
-              venue={event.venue}
-            />
-          ))}
-          {CricketEvents.map((event: any) => (
-            <Cricket
-              key={event.id}
-              matchName={event.matchName}
-              team1={{
-                teamName: event.team1,
-                logo: event.team1Logo,
-              }}
-              team1Score={parseInt(event.score1)}
-              team1Wickets={parseInt(event.wickets1)}
-              team2={{
-                teamName: event.team2,
-                logo: event.team2Logo,
-              }}
-              team2Score={parseInt(event.score2)}
-              team2Wickets={parseInt(event.wickets2)}
-              venue={event.venue}
-              striker={{
-                playerName: event.striker,
-                runs: parseInt(event.strikerScore),
-                balls: parseInt(event.strikerBalls),
-              }}
-              nonStriker={{
-                playerName: event.nonStriker,
-                runs: parseInt(event.nonStrikerScore),
-                balls: parseInt(event.nonStrikerBalls),
-              }}
-              bowler={{
-                playerName: event.bowler,
-                runs: parseInt(event.bowlerRuns),
-                wickets: parseInt(event.bowlerWickets),
-              }}
-              overs={parseFloat(event.overs)}
-            />
-          ))}
+          {isLiveNowLoading && <ActivityIndicator size="large" color={Colors.red} />}
+          {!isLiveNowLoading && 
+            <View>
+              {FootballEvents.map((event: any) => (
+                <Football
+                  key={event.id}
+                  matchName={event.matchName}
+                  team1={{
+                    teamName: event.team1,
+                    score: event.score1,
+                    penaltyScore: event.penaltyscore1,
+                    logo: event.team1Logo,
+                  }}
+                  team2={{
+                    teamName: event.team2,
+                    score: event.score2,
+                    penaltyScore: event.penaltyscore2,
+                    logo: event.team2Logo,
+                  }}
+                  isPenalty={event.isPenalty}
+                  time={event.matchTime}
+                  venue={event.venue}
+                />
+              ))}
+              {CricketEvents.map((event: any) => (
+                <Cricket
+                  key={event.id}
+                  matchName={event.matchName}
+                  team1={{
+                    teamName: event.team1,
+                    logo: event.team1Logo,
+                  }}
+                  team1Score={parseInt(event.score1)}
+                  team1Wickets={parseInt(event.wickets1)}
+                  team2={{
+                    teamName: event.team2,
+                    logo: event.team2Logo,
+                  }}
+                  team2Score={parseInt(event.score2)}
+                  team2Wickets={parseInt(event.wickets2)}
+                  venue={event.venue}
+                  striker={{
+                    playerName: event.striker,
+                    runs: parseInt(event.strikerScore),
+                    balls: parseInt(event.strikerBalls),
+                  }}
+                  nonStriker={{
+                    playerName: event.nonStriker,
+                    runs: parseInt(event.nonStrikerScore),
+                    balls: parseInt(event.nonStrikerBalls),
+                  }}
+                  bowler={{
+                    playerName: event.bowler,
+                    runs: parseInt(event.bowlerRuns),
+                    wickets: parseInt(event.bowlerWickets),
+                  }}
+                  overs={parseFloat(event.overs)}
+                />
+              ))}
+              {BasketballEvents.map((event: any) => (
+              <Basketball
+                key={event.id}
+                matchName={event.matchName}
+                team1={{
+                  teamName: event.team1,
+                  score: event.score1,
+                  // penaltyScore: event.penaltyscore1,
+                  logo: event.team1Logo,
+                }}
+                team2={{
+                  teamName: event.team2,
+                  score: event.score2,
+                  // penaltyScore: event.penaltyscore2,
+                  logo: event.team2Logo,
+                }}
+                // isPenalty={event.isPenalty}
+                time={event.matchTime}
+                venue={event.venue}
+              />
+            ))}
+            {VolleyballEvents.map((event: any) => (
+              <Volleyball
+                key={event.id}
+                matchName={event.matchName}
+                team1={{
+                  teamName: event.team1,
+                  score: event.score1,
+                  // penaltyScore: event.penaltyscore1,
+                  logo: event.team1Logo,
+                }}
+                team2={{
+                  teamName: event.team2,
+                  score: event.score2,
+                  // penaltyScore: event.penaltyscore2,
+                  logo: event.team2Logo,
+                }}
+                // isPenalty={event.isPenalty}
+                time={event.matchTime}
+                venue={event.venue}
+              />
+            ))}
+          </View>
+          }
         </View>
         <View style={styles.liveContainer}>
           <Text style={styles.titleText}>Results</Text>
@@ -191,6 +266,7 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
             heading={"RoboWars"}
             textColor={Colors.purpleLight}
           />
+          
         </View>
         <View
           style={{
