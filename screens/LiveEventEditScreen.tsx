@@ -12,6 +12,12 @@ type RootParamList = {
   FootballLiveEditScreen: {
     id: string;
   };
+  BasketballLiveEditScreen: {
+    id: string;
+  };
+  VolleyballLiveEditScreen: {
+    id: string;
+  };
 };
 
 type Props = NativeStackScreenProps<RootParamList, "LiveEventEditScreen">;
@@ -33,6 +39,12 @@ const LiveEventEditScreen: FC<Props> = ({ navigation }) => {
         case "Football":
           navigation.navigate("FootballLiveEditScreen", { id });
           break;
+        case "Basketball":
+          navigation.navigate("BasketballLiveEditScreen", { id });
+          break;
+        case "Volleyball":
+          navigation.navigate("VolleyballLiveEditScreen", { id });
+          break;  
         default:
           alert("Invalid ID");
       }

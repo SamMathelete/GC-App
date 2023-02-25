@@ -70,13 +70,13 @@ const AdminScreen: FC<Props> = ({ navigation }) => {
 
   getEmail();
 
-  if (email === null || !allowedEmails.includes(email)) {
-    return (
-      <View style={styles.container}>
-        <Text>You are not authorized to access this page.</Text>
-      </View>
-    );
-  }
+  // if (email === null || !allowedEmails.includes(email)) {
+  //   return (
+  //     <View style={styles.container}>
+  //       <Text>You are not authorized to access this page.</Text>
+  //     </View>
+  //   );
+  // }
 
   const onAddLiveEvent = () => {
     console.log("Add Live Event");

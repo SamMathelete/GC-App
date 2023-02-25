@@ -71,6 +71,14 @@ const LiveEventCreationForm: FC = () => {
       label: "Football",
       value: "Football",
     },
+    {
+      label: "Basketball",
+      value: "Basketball",
+    },
+    {
+      label: "Volleyball",
+      value: "Volleyball",
+    },
   ];
 
   let logo1;
