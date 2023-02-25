@@ -47,15 +47,13 @@ const LoginScreen: FC<Props> = ({ navigation }) => {
   };
 
   const bypassHandler = () => {
-    // setAdmin(() => true);
-    // promptAsync();
-    navigation.navigate("AdminHome");
+    setAdmin(() => true);
+    promptAsync();
   };
 
   const loginHandler = () => {
-    // setAdmin(() => false);
-    // promptAsync();
-    navigation.navigate("Tabbed");
+    setAdmin(() => false);
+    promptAsync();
   };
 
   useEffect(() => {
