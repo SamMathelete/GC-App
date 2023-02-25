@@ -13,22 +13,45 @@ const AppCredits = () => {
         </View>
         <View style={styles.textContainer}>
           <Text style={styles.subHeading}>App Development Team</Text>
-          <Text style={styles.text}>Sambit Mishra, Development Lead</Text>
-          <Text style={styles.text}>
-            Ayush Tiwari, Frontend Development Lead
-          </Text>
-          <Text style={styles.text}>Indrayudh Ghosh, Fullstack Developer</Text>
-          <Text style={styles.text}>Jatin Yadav, Backend Development Lead</Text>
-          <Text style={styles.text}>Aniket Roy, Backend Developer</Text>
-          <Text style={styles.text}>
-            Lalit Lalchand Mohanani, Backend Developer
-          </Text>
+          <View style={styles.textContainer}>
+            <Text style={styles.bigText}>Sambit Mishra</Text>
+            <Text style={styles.smallText}>Development Lead</Text>
+          </View>
+          <View style={styles.textContainer}>
+            <Text style={styles.bigText}>Ayush Tiwari</Text>
+            <Text style={styles.smallText}>Frontend Development Lead</Text>
+          </View>
+          <View style={styles.textContainer}>
+            <Text style={styles.bigText}>Indrayudh Ghosh</Text>
+            <Text style={styles.smallText}>Fullstack Developer</Text>
+          </View>
+          <View style={styles.textContainer}>
+            <Text style={styles.bigText}>Jatin Yadav</Text>
+            <Text style={styles.smallText}>Backend Development Lead</Text>
+          </View>
+          <View style={styles.textContainer}>
+            <Text style={styles.bigText}>Aniket Roy</Text>
+            <Text style={styles.smallText}>Backend Developer</Text>
+          </View>
+          <View style={styles.textContainer}>
+            <Text style={styles.bigText}>Lalit Lalchand Mohanani</Text>
+            <Text style={styles.smallText}>Backend Developer</Text>
+          </View>
         </View>
         <View style={styles.textContainer}>
           <Text style={styles.subHeading}>App Design Team</Text>
-          <Text style={styles.text}>Chinmay Mathur, Design Lead</Text>
-          <Text style={styles.text}>Ayush Tiwari, Frontend Designer</Text>
-          <Text style={styles.text}>Sambit Mishra, Frontend Designer</Text>
+          <View style={styles.textContainer}>
+            <Text style={styles.bigText}>Chinmay Mathur</Text>
+            <Text style={styles.smallText}>Design Lead</Text>
+          </View>
+          <View style={styles.textContainer}>
+            <Text style={styles.bigText}>Ayush Tiwari</Text>
+            <Text style={styles.smallText}>Frontend Designer</Text>
+          </View>
+          <View style={styles.textContainer}>
+            <Text style={styles.bigText}>Sambit Mishra</Text>
+            <Text style={styles.smallText}>Frontend Designer</Text>
+          </View>
         </View>
         <View style={styles.textContainer}>
           <Text style={styles.subHeading}>Under the Guidance of</Text>

@@ -150,10 +150,10 @@ const styles = StyleSheet.create({
     borderRadius: 135,
   },
   bottom: {
-    marginBottom: 80,
+    marginBottom: 60,
   },
   bottomText: {
-    fontSize: 24,
+    fontSize: 20,
     color: Colors.OffWhite,
   },
 });
