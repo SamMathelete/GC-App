@@ -21,7 +21,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import AuthContextProvider from "./store/google-auth";
 import { useNavigation } from "@react-navigation/native";
 import LiveEventCreationScreen from "./screens/LiveEventCreationForm";
-import { Provider } from "react-native-paper";
+import { MD3LightTheme, Provider } from "react-native-paper";
 import CricketLiveEditScreen from "./screens/CricketLiveEditScreen";
 import FootballLiveEditScreen from "./screens/FootballLiveEditScreen";
 import BasketballLiveEditScreen from "./screens/BasketballLiveEditScreen";
@@ -156,7 +156,7 @@ const Tabbed = (): JSX.Element => {
 export default function App() {
   return (
     <AuthContextProvider>
-      <Provider>
+      <Provider theme={MD3LightTheme}>
         <StatusBar style="light" />
         <NavigationContainer>
           <Stack.Navigator>
