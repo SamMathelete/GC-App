@@ -17,6 +17,8 @@ import CE from "../assets/Images/CE.png";
 import MTECH from "../assets/Images/MTECH.png";
 import MSC from "../assets/Images/MSC.png";
 import PHD from "../assets/Images/PHD.png";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { useNavigation } from "@react-navigation/native";
 
 interface Props {
   matchName: string;
@@ -42,6 +44,10 @@ interface Props {
   id: string;
 }
 
+type RootParamList = {
+  LiveEventEditScreen: undefined;
+};
+
 const CricketLiveEventEdit: FC<Props> = (props) => {
   const [matchName, setMatchName] = useState(props.matchName);
   const [team1, setTeam1] = useState(props.team1);
@@ -63,6 +69,8 @@ const CricketLiveEventEdit: FC<Props> = (props) => {
   const [venue, setVenue] = useState(props.venue);
 
   const [isLoading, setIsLoading] = useState(false);
+
+  const navigation = useNavigation<NativeStackScreenProps<RootParamList>>();
 
   const buttonHandler = async () => {
     fetch(
@@ -91,6 +99,17 @@ const CricketLiveEventEdit: FC<Props> = (props) => {
       }
     );
     alert("Event Updated Successfully!");
+  };
+
+  const deleteHandler = async () => {
+    fetch(
+      `https://gc-app-76138-default-rtdb.firebaseio.com/liveEvents/${props.id}.json`,
+      {
+        method: "DELETE",
+      }
+    );
+    alert("Event Ended Successfully!");
+    navigation.navigate("LiveEventEditScreen");
   };
 
   const [matchData, setMatchData] = useState({
@@ -459,6 +478,13 @@ const CricketLiveEventEdit: FC<Props> = (props) => {
           styleText={styles.buttonText}
         >
           Save
+        </MainButton>
+        <MainButton
+          onPress={deleteHandler}
+          style={styles.button}
+          styleText={styles.buttonText}
+        >
+          End
         </MainButton>
       </KeyboardAvoidingView>
     </ScrollView>

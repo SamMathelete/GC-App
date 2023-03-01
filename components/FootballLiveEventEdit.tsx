@@ -18,6 +18,8 @@ import CE from "../assets/Images/CE.png";
 import MTECH from "../assets/Images/MTECH.png";
 import MSC from "../assets/Images/MSC.png";
 import PHD from "../assets/Images/PHD.png";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { useNavigation } from "@react-navigation/native";
 
 interface Props {
   matchName: string;
@@ -34,6 +36,10 @@ interface Props {
   id: string;
 }
 
+type RootParamList = {
+  LiveEventEditScreen: undefined;
+};
+
 const FootballLiveEventEdit: FC<Props> = (props) => {
   const [matchName, setMatchName] = useState(props.matchName);
   const [team1, setTeam1] = useState(props.team1);
@@ -46,6 +52,8 @@ const FootballLiveEventEdit: FC<Props> = (props) => {
   const [penaltyscore1, setPenaltyscore1] = useState(props.penaltyscore1);
   const [penaltyscore2, setPenaltyscore2] = useState(props.penaltyscore2);
   const [showDropDown, setShowDropDown] = useState(false);
+
+  const navigation = useNavigation<NativeStackScreenProps<RootParamList>>();
 
   const buttonHandler = async () => {
     fetch(
@@ -66,6 +74,17 @@ const FootballLiveEventEdit: FC<Props> = (props) => {
       }
     );
     alert("Event Updated Successfully!");
+  };
+
+  const deleteHandler = async () => {
+    fetch(
+      `https://gc-app-76138-default-rtdb.firebaseio.com/liveEvents/${props.id}.json`,
+      {
+        method: "DELETE",
+      }
+    );
+    alert("Event Ended Successfully!");
+    navigation.navigate("LiveEventEditScreen");
   };
 
   const [matchData, setMatchData] = useState({
@@ -302,6 +321,13 @@ const FootballLiveEventEdit: FC<Props> = (props) => {
           styleText={styles.buttonText}
         >
           Save
+        </MainButton>
+        <MainButton
+          onPress={deleteHandler}
+          style={styles.button}
+          styleText={styles.buttonText}
+        >
+          End
         </MainButton>
       </KeyboardAvoidingView>
     </ScrollView>
