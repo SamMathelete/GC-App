@@ -6,6 +6,7 @@ import { TEAM_RANKINGS } from "../data/ranking";
 import TeamItem from "../components/TeamItem";
 import Colors from "../constants/Colors";
 import { LinearGradient } from 'expo-linear-gradient';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const RankingScreen: FC = () => {
   type Team = {
@@ -22,6 +23,7 @@ const RankingScreen: FC = () => {
         <LinearGradient colors={[Colors.purpleDark,Colors.purpleLight]} style={styles.winnerView}>
           {/* 2ND WINNER */}
           <View style={styles.winnerElement2}>
+              <MaterialCommunityIcons name="crown" size={24} color="#E6E6E6" />
               <View style={styles.imageViewSilver}>
                 <Image source={require("../assets/Images/teamImage.png")} 
                   style={styles.image}
@@ -32,6 +34,7 @@ const RankingScreen: FC = () => {
           </View>
           {/* 1ST WINNER */}
           <View style={styles.winnerElement1}>
+              <MaterialCommunityIcons name="crown" size={30} color="#FFEC40" />
               <View style={styles.imageViewGold}>
                 <Image source={require("../assets/Images/teamImage.png")} 
                   style={styles.imageGold}
@@ -42,6 +45,7 @@ const RankingScreen: FC = () => {
           </View>
           {/* 3RD WINNER */}
           <View style={styles.winnerElement3}>
+              <MaterialCommunityIcons name="crown" size={24} color="#CC6C05" />
               <View style={styles.imageViewBronze}>
                 <Image source={require("../assets/Images/teamImage.png")} 
                   style={styles.image}
@@ -89,21 +93,21 @@ const styles = StyleSheet.create({
   },
   winnerElement2: {
     //borderWidth: 1,
-    paddingTop: 100,
+    paddingTop: 95,
     position: "relative",
     zIndex: 1,
     paddingRight: 55,
     alignItems: "center",
   },
   winnerElement1: {
-    paddingTop: 7,
+    //paddingTop: 5,
     position: "absolute",
     zIndex: 2,
     alignItems: "center",
   },
   winnerElement3: {
     //borderWidth: 1,
-    paddingTop: 100,
+    paddingTop: 95,
     position: "relative",
     alignItems: "center",
     paddingLeft: 55,
@@ -153,10 +157,9 @@ const styles = StyleSheet.create({
     width: 125,
   },
   teamNameGold: {
-    fontSize: 30,
+    fontSize: 29,
     fontWeight: "bold",
     color: Colors.OffWhite,
-
   },
   teamScoreGold: {
     fontSize: 24,
@@ -164,7 +167,7 @@ const styles = StyleSheet.create({
     color: Colors.red,
   },
   teamNameSilver: {
-    fontSize: 24,
+    fontSize: 23,
     fontWeight: "bold",
     color: Colors.OffWhite,
 
@@ -175,7 +178,7 @@ const styles = StyleSheet.create({
     color: Colors.red,
   },
   teamNameBronze: {
-    fontSize: 24,
+    fontSize: 23,
     fontWeight: "bold",
     color: Colors.OffWhite,
 
