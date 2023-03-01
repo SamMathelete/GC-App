@@ -1,9 +1,11 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { FC, useContext } from "react";
+import { FC, useContext, useState } from "react";
+import { Portal, Provider } from "react-native-paper";
 import { StyleSheet, Text, View } from "react-native";
 import MainButton from "../components/MainButton";
 import { AuthContext } from "../store/google-auth";
 import Colors from "../constants/Colors";
+import ScheduledEvent from "../modals/ScheduledEvent/ScheduledEvent";
 
 type RootParamList = {
   AdminHome: undefined;
@@ -15,6 +17,7 @@ type RootParamList = {
 type Props = NativeStackScreenProps<RootParamList, "AdminHome">;
 
 const allowedEmails = [
+  "21ec01054@iitbbs.ac.in",
   "21ec01021@iitbbs.ac.in",
   "21cs01061@iitbbs.ac.in",
   "21mm02005@iitbbs.ac.in",
@@ -55,6 +58,8 @@ const allowedEmails = [
 
 const AdminScreen: FC<Props> = ({ navigation }) => {
   const ctx = useContext(AuthContext);
+  //   const [email, setEmail] = useState<string | null>(null);
+  const [scheduledEventModal, setScheduledEventModal] = useState(false);
 
   const email = ctx?.email;
 
@@ -82,19 +87,31 @@ const AdminScreen: FC<Props> = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <View>
-        <MainButton style={styles.buttons} onPress={onAddLiveEvent}>
-          Add Live Event
-        </MainButton>
-        <MainButton style={styles.buttons} onPress={onUpdateLiveEvents}>
-          Update Live Events
-        </MainButton>
-        <MainButton style={styles.buttons} onPress={onSendNotification}>
-          Send Notification
-        </MainButton>
+    <Provider>
+      <View style={styles.container}>
+        <View>
+          <ScheduledEvent
+            visible={scheduledEventModal}
+            setVisible={setScheduledEventModal}
+          />
+          <MainButton
+            style={styles.buttons}
+            onPress={() => setScheduledEventModal(true)}
+          >
+            Add Scheduled Event
+          </MainButton>
+          <MainButton style={styles.buttons} onPress={onAddLiveEvent}>
+            Add Live Event
+          </MainButton>
+          <MainButton style={styles.buttons} onPress={onUpdateLiveEvents}>
+            Update Live Events
+          </MainButton>
+          <MainButton style={styles.buttons} onPress={onSendNotification}>
+            Send Notification
+          </MainButton>
+        </View>
       </View>
-    </View>
+    </Provider>
   );
 };
 
