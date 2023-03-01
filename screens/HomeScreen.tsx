@@ -6,7 +6,6 @@ import {
   Text,
   useWindowDimensions,
   View,
-  ImageBackground,
   ActivityIndicator,
   Linking,
 } from "react-native";

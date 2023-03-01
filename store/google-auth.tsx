@@ -38,6 +38,7 @@ const AuthContextProvider: FC<Props> = ({ children }) => {
 
   const logout = () => {
     setToken(() => null);
+    setEmail(() => null);
   };
 
   const value: Context = {
