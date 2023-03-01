@@ -18,6 +18,8 @@ import CE from "../assets/Images/CE.png";
 import MTECH from "../assets/Images/MTECH.png";
 import MSC from "../assets/Images/MSC.png";
 import PHD from "../assets/Images/PHD.png";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { useNavigation } from "@react-navigation/native";
 
 interface Props {
   matchName: string;
@@ -25,14 +27,18 @@ interface Props {
   score1: string;
   team2: string;
   score2: string;
-//   isPenalty: string;
-//   penaltyscore1: string;
-//   penaltyscore2: string;
+  //   isPenalty: string;
+  //   penaltyscore1: string;
+  //   penaltyscore2: string;
   matchTime: string;
   venue: string;
   date: string;
   id: string;
 }
+
+type RootParamList = {
+  LiveEventEditScreen: undefined;
+};
 
 const VolleyballLiveEventEdit: FC<Props> = (props) => {
   const [matchName, setMatchName] = useState(props.matchName);
@@ -42,10 +48,13 @@ const VolleyballLiveEventEdit: FC<Props> = (props) => {
   const [score2, setScore2] = useState(props.score2);
   const [venue, setVenue] = useState(props.venue);
   const [matchTime, setMatchTime] = useState(props.matchTime);
-//   const [isPenalty, setIsPenalty] = useState(props.isPenalty);
-//   const [penaltyscore1, setPenaltyscore1] = useState(props.penaltyscore1);
-//   const [penaltyscore2, setPenaltyscore2] = useState(props.penaltyscore2);
-//   const [showDropDown, setShowDropDown] = useState(false);
+  //   const [isPenalty, setIsPenalty] = useState(props.isPenalty);
+  //   const [penaltyscore1, setPenaltyscore1] = useState(props.penaltyscore1);
+  //   const [penaltyscore2, setPenaltyscore2] = useState(props.penaltyscore2);
+
+  //   const [showDropDown, setShowDropDown] = useState(false);
+
+  const navigation = useNavigation<NativeStackScreenProps<RootParamList>>();
 
   const buttonHandler = async () => {
     fetch(
@@ -58,14 +67,25 @@ const VolleyballLiveEventEdit: FC<Props> = (props) => {
         body: JSON.stringify({
           score1: score1,
           score2: score2,
-        //   penaltyscore1: penaltyscore1,
-        //   penaltyscore2: penaltyscore2,
-        //   isPenalty: isPenalty,
+          //   penaltyscore1: penaltyscore1,
+          //   penaltyscore2: penaltyscore2,
+          //   isPenalty: isPenalty,
           matchTime: matchTime,
         }),
       }
     );
     alert("Event Updated Successfully!");
+  };
+
+  const deleteHandler = async () => {
+    fetch(
+      `https://gc-app-76138-default-rtdb.firebaseio.com/liveEvents/${props.id}.json`,
+      {
+        method: "DELETE",
+      }
+    );
+    alert("Event Ended Successfully!");
+    navigation.navigate("LiveEventEditScreen");
   };
 
   const [matchData, setMatchData] = useState({
@@ -178,13 +198,13 @@ const VolleyballLiveEventEdit: FC<Props> = (props) => {
         team1={{
           teamName: team1,
           score: score1,
-        //   penaltyScore: penaltyscore1,
+          //   penaltyScore: penaltyscore1,
           logo: matchData.team1Logo,
         }}
         team2={{
           teamName: team2,
           score: score2,
-        //   penaltyScore: penaltyscore2,
+          //   penaltyScore: penaltyscore2,
           logo: matchData.team2Logo,
         }}
         // isPenalty={isPenalty}
@@ -302,6 +322,13 @@ const VolleyballLiveEventEdit: FC<Props> = (props) => {
           styleText={styles.buttonText}
         >
           Save
+        </MainButton>
+        <MainButton
+          onPress={deleteHandler}
+          style={styles.button}
+          styleText={styles.buttonText}
+        >
+          End
         </MainButton>
       </KeyboardAvoidingView>
     </ScrollView>

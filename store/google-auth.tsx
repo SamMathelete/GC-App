@@ -2,15 +2,19 @@ import { createContext, FC, useState } from "react";
 
 interface Context {
   token: string | null;
+  email: string | null;
   isAuth: boolean;
   authenticate: (token: string) => void;
+  emailSetter: (email: string) => void;
   logout: () => void;
 }
 
 const initialContext: Context = {
   token: "",
+  email: "",
   isAuth: false,
   authenticate: (token: string) => {},
+  emailSetter: (email: string) => {},
   logout: () => {},
 };
 
@@ -22,20 +26,27 @@ interface Props {
 
 const AuthContextProvider: FC<Props> = ({ children }) => {
   const [token, setToken] = useState<string | null>(null);
+  const [email, setEmail] = useState<string | null>(null);
 
-  const authenticate = async (token: string) => {
+  const authenticate = (token: string) => {
     setToken(() => token);
-    console.log(token);
+  };
+
+  const emailSetter = (email: string) => {
+    setEmail(() => email);
   };
 
   const logout = () => {
     setToken(() => null);
+    setEmail(() => null);
   };
 
   const value: Context = {
     token,
+    email,
     isAuth: !!token,
     authenticate,
+    emailSetter,
     logout,
   };
 

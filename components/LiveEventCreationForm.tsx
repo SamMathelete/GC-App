@@ -84,8 +84,8 @@ const LiveEventCreationForm: FC = () => {
     },
   ];
 
-  let logo1;
-  let logo2;
+  let logo1: string;
+  let logo2: string;
 
   switch (team1) {
     case "CSE":
@@ -146,6 +146,20 @@ const LiveEventCreationForm: FC = () => {
   }
 
   const createLiveEvent = async () => {
+    const valid =
+      name.trim().length > 0 &&
+      type.trim().length > 0 &&
+      venue.trim().length > 0 &&
+      date.trim().length > 0 &&
+      time.trim().length > 0 &&
+      team1.trim().length > 0 &&
+      team2.trim().length > 0;
+
+    if (!valid) {
+      alert("Please fill all the fields");
+      return;
+    }
+
     const liveEvent = {
       id: `${type}_${name.includes(".") ? name.replace(".", "") : name}`,
       matchName: name,
@@ -281,17 +295,20 @@ const LiveEventCreationForm: FC = () => {
             onDismiss={() => setShowDropDown3(false)}
           />
         </View>
-        {isLoading && <View style={{marginVertical: 40}}>
-          <ActivityIndicator size="large" color={Colors.red} /></View>}
-        {!isLoading && 
+        {isLoading && (
+          <View style={{ marginVertical: 40 }}>
+            <ActivityIndicator size="large" color={Colors.red} />
+          </View>
+        )}
+        {!isLoading && (
           <MainButton
-          onPress={createLiveEvent}
-          style={styles.button}
-          styleText={styles.buttonText}
+            onPress={createLiveEvent}
+            style={styles.button}
+            styleText={styles.buttonText}
           >
             Create Event
           </MainButton>
-        }
+        )}
       </KeyboardAvoidingView>
     </ScrollView>
   );

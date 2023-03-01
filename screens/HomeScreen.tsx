@@ -1,13 +1,13 @@
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
-import { FC, useContext, useEffect, useRef, useState, } from "react";
+import { FC, useContext, useEffect, useRef, useState } from "react";
 import {
   ScrollView,
   StyleSheet,
   Text,
   useWindowDimensions,
   View,
-  ImageBackground,
   ActivityIndicator,
+  Linking,
 } from "react-native";
 import Carousel, { Pagination } from "react-native-snap-carousel";
 import Card from "../components/UI/CarouselCard";
@@ -21,10 +21,11 @@ import Colors from "../constants/Colors";
 import EventResultCard from "../components/EventResultCard";
 import { EventResult } from "../data/EventResult";
 import { AuthContext } from "../store/google-auth";
-import { IconButton } from "react-native-paper";
+import { IconButton, Menu } from "react-native-paper";
 
 type RootParamsList = {
   HomeScreen: undefined;
+  LoginScreen: undefined;
 };
 
 type Props = BottomTabScreenProps<RootParamsList, "HomeScreen">;
@@ -33,10 +34,12 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
   const [index, setIndex] = useState(0);
   const isCarousel = useRef<any>(null);
 
-  const[isLiveNowLoading, setIsLiveNowLoading] = useState<any>(false);
+  const [isLiveNowLoading, setIsLiveNowLoading] = useState<any>(false);
 
   const Dimensions = useWindowDimensions();
   const windowWidth = Dimensions.width;
+
+  const rulebookUrl = "https://www.google.co.in";
 
   const ctx = useContext(AuthContext);
 
@@ -64,7 +67,7 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
       }
     }
     setCricketEvents(cricketEvents);
-    
+
     const footballEvents = [];
     for (const event of events) {
       if (data[event].type === "Football") {
@@ -99,6 +102,47 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
   const refreshHandler = () => {
     fetchLiveUpdates();
   };
+
+  const [menuVisible, setMenuVisible] = useState(false);
+
+  const openMenu = () => {
+    setMenuVisible(true);
+  };
+
+  const closeMenu = () => {
+    setMenuVisible(false);
+  };
+
+  const logout = () => {
+    ctx.logout();
+    navigation.navigate("LoginScreen");
+    closeMenu();
+  };
+
+  const openRuleBook = () => {
+    Linking.openURL(rulebookUrl);
+    closeMenu();
+  };
+
+  navigation.setOptions({
+    headerRight: () => (
+      <Menu
+        visible={menuVisible}
+        onDismiss={closeMenu}
+        anchor={
+          <IconButton
+            icon="menu"
+            size={30}
+            onPress={openMenu}
+            iconColor="white"
+          />
+        }
+      >
+        <Menu.Item onPress={openRuleBook} title="RuleBook" />
+        <Menu.Item onPress={logout} title="Log Out" />
+      </Menu>
+    ),
+  });
 
   return (
     <View style={styles.rootContainer}>
@@ -155,8 +199,10 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
               onPress={refreshHandler}
             />
           </View>
-          {isLiveNowLoading && <ActivityIndicator size="large" color={Colors.red} />}
-          {!isLiveNowLoading && 
+          {isLiveNowLoading && (
+            <ActivityIndicator size="large" color={Colors.red} />
+          )}
+          {!isLiveNowLoading && (
             <View>
               {FootballEvents.map((event: any) => (
                 <Football
@@ -215,49 +261,49 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
                 />
               ))}
               {BasketballEvents.map((event: any) => (
-              <Basketball
-                key={event.id}
-                matchName={event.matchName}
-                team1={{
-                  teamName: event.team1,
-                  score: event.score1,
-                  // penaltyScore: event.penaltyscore1,
-                  logo: event.team1Logo,
-                }}
-                team2={{
-                  teamName: event.team2,
-                  score: event.score2,
-                  // penaltyScore: event.penaltyscore2,
-                  logo: event.team2Logo,
-                }}
-                // isPenalty={event.isPenalty}
-                time={event.matchTime}
-                venue={event.venue}
-              />
-            ))}
-            {VolleyballEvents.map((event: any) => (
-              <Volleyball
-                key={event.id}
-                matchName={event.matchName}
-                team1={{
-                  teamName: event.team1,
-                  score: event.score1,
-                  // penaltyScore: event.penaltyscore1,
-                  logo: event.team1Logo,
-                }}
-                team2={{
-                  teamName: event.team2,
-                  score: event.score2,
-                  // penaltyScore: event.penaltyscore2,
-                  logo: event.team2Logo,
-                }}
-                // isPenalty={event.isPenalty}
-                time={event.matchTime}
-                venue={event.venue}
-              />
-            ))}
-          </View>
-          }
+                <Basketball
+                  key={event.id}
+                  matchName={event.matchName}
+                  team1={{
+                    teamName: event.team1,
+                    score: event.score1,
+                    // penaltyScore: event.penaltyscore1,
+                    logo: event.team1Logo,
+                  }}
+                  team2={{
+                    teamName: event.team2,
+                    score: event.score2,
+                    // penaltyScore: event.penaltyscore2,
+                    logo: event.team2Logo,
+                  }}
+                  // isPenalty={event.isPenalty}
+                  time={event.matchTime}
+                  venue={event.venue}
+                />
+              ))}
+              {VolleyballEvents.map((event: any) => (
+                <Volleyball
+                  key={event.id}
+                  matchName={event.matchName}
+                  team1={{
+                    teamName: event.team1,
+                    score: event.score1,
+                    // penaltyScore: event.penaltyscore1,
+                    logo: event.team1Logo,
+                  }}
+                  team2={{
+                    teamName: event.team2,
+                    score: event.score2,
+                    // penaltyScore: event.penaltyscore2,
+                    logo: event.team2Logo,
+                  }}
+                  // isPenalty={event.isPenalty}
+                  time={event.matchTime}
+                  venue={event.venue}
+                />
+              ))}
+            </View>
+          )}
         </View>
         <View style={styles.liveContainer}>
           <Text style={styles.titleText}>Results</Text>
@@ -266,7 +312,6 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
             heading={"RoboWars"}
             textColor={Colors.purpleLight}
           />
-          
         </View>
         <View
           style={{

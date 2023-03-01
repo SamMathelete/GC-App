@@ -1,5 +1,12 @@
 import { FC, useEffect, useState } from "react";
-import { ScrollView, View, ImageBackground, StyleSheet, ActivityIndicator, Text } from "react-native";
+import {
+  ScrollView,
+  View,
+  ImageBackground,
+  StyleSheet,
+  ActivityIndicator,
+  Text,
+} from "react-native";
 import Football from "../components/SportsUpdateCards/Football";
 import Colors from "../constants/Colors";
 import Cricket from "../components/SportsUpdateCards/Cricket";
@@ -8,6 +15,7 @@ import Volleyball from "../components/SportsUpdateCards/Volleyball";
 import MainButton from "../components/MainButton";
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import { IconButton } from "react-native-paper";
+import { useIsFocused } from "@react-navigation/native";
 
 type RootParamList = {
   LiveUpdates: undefined;
@@ -25,7 +33,9 @@ const LiveUpdatesScreen: FC<Props> = ({ navigation }) => {
   const [BasketballEvents, setBasketballEvents] = useState<any>([]);
   const [VolleyballEvents, setVolleyballEvents] = useState<any>([]);
 
-  const[isLoading, setIsLoading] = useState<any>(false);
+  const isFocused = useIsFocused();
+
+  const [isLoading, setIsLoading] = useState<any>(false);
 
   const fetchLiveUpdates = async () => {
     setIsLoading(true);
@@ -71,7 +81,7 @@ const LiveUpdatesScreen: FC<Props> = ({ navigation }) => {
 
   useEffect(() => {
     fetchLiveUpdates();
-  }, []);
+  }, [isFocused]);
 
   const refreshHandler = () => {
     fetchLiveUpdates();
@@ -88,13 +98,23 @@ const LiveUpdatesScreen: FC<Props> = ({ navigation }) => {
     ),
   });
 
-  if(isLoading) {
-    return(<View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text  style={{fontSize: 30, fontWeight: 'bold', color: Colors.red, paddingVertical: 10}}>Loading</Text>
-      <ActivityIndicator size="large" color={Colors.red}/>
-    </View>);
-  }
-  else {
+  if (isLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <Text
+          style={{
+            fontSize: 30,
+            fontWeight: "bold",
+            color: Colors.red,
+            paddingVertical: 10,
+          }}
+        >
+          Loading
+        </Text>
+        <ActivityIndicator size="large" color={Colors.red} />
+      </View>
+    );
+  } else {
     return (
       <View style={styles.rootContainer}>
         <ScrollView>
