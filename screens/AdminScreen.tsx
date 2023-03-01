@@ -1,9 +1,10 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { FC, useContext, useState } from "react";
+import { FC, useContext } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import MainButton from "../components/MainButton";
 import { AuthContext } from "../store/google-auth";
 import Colors from "../constants/Colors";
+
 type RootParamList = {
   AdminHome: undefined;
   LiveEventCreationScreen: undefined;
@@ -54,21 +55,8 @@ const allowedEmails = [
 
 const AdminScreen: FC<Props> = ({ navigation }) => {
   const ctx = useContext(AuthContext);
-  const [email, setEmail] = useState<string | null>(null);
 
-  const getEmail = async () => {
-    const email = await fetch(
-      "https://www.googleapis.com/oauth2/v1/userinfo?alt=json",
-      {
-        headers: { Authorization: `Bearer ${ctx.token}` },
-      }
-    );
-    const emailJson = await email.json();
-    const emailID = await emailJson.email;
-    setEmail(() => emailID);
-  };
-
-  getEmail();
+  const email = ctx?.email;
 
   if (email === null || !allowedEmails.includes(email)) {
     return (

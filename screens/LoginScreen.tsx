@@ -12,7 +12,6 @@ import MainButton from "../components/MainButton";
 import SideButton from "../components/SideButton";
 
 import Colors from "../constants/Colors";
-import { FontAwesome5 } from "@expo/vector-icons";
 
 import * as WebBrowser from "expo-web-browser";
 import * as Google from "expo-auth-session/providers/google";
@@ -56,10 +55,23 @@ const LoginScreen: FC<Props> = ({ navigation }) => {
     promptAsync();
   };
 
+  const getEmail = async (accessToken: string) => {
+    const email = await fetch(
+      "https://www.googleapis.com/oauth2/v1/userinfo?alt=json",
+      {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      }
+    );
+    const emailJson = await email.json();
+    const emailID = await emailJson.email;
+    ctx.emailSetter(emailID);
+  };
+
   useEffect(() => {
     if (response?.type === "success") {
       const { authentication } = response;
-      ctx.authenticate(authentication!.accessToken);
+      const token = authentication!.accessToken;
+      getEmail(token);
       if (admin) {
         navigation.navigate("AdminHome");
       } else {
