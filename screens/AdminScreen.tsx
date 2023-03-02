@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { FC, useContext, useState } from "react";
-import { Portal, Provider } from "react-native-paper";
+import { Provider } from "react-native-paper";
 import { StyleSheet, Text, View } from "react-native";
 import MainButton from "../components/MainButton";
 import { AuthContext } from "../store/google-auth";

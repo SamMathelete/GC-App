@@ -9,6 +9,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@react-native-community/datetimepicker": "^6.7.5",
     "@react-native-google-signin/google-signin": "^9.0.2",
     "@react-navigation/bottom-tabs": "^6.5.2",
     "@react-navigation/material-top-tabs": "^6.5.1",
@@ -28,6 +29,7 @@
     "react-dom": "18.1.0",
     "react-native": "0.70.5",
     "react-native-modal": "^13.0.1",
+    "react-native-modal-datetime-picker": "^14.0.1",
     "react-native-pager-view": "6.0.1",
     "react-native-paper": "^5.2.0",
     "react-native-paper-dropdown": "^1.0.7",
