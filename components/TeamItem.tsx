@@ -12,19 +12,19 @@ interface Props {
     index: number;
 }
 {/** Currently it shows sample image itself for all items. if we take address through a function or something, it gives stack error*/}
-const TeamItem: FC<Props> = ({ style, teamInfo, index }) => {
+const TeamItem: FC<Props> = ({ style, teamInfo, index, onClick }) => {
     return (
-        <View style={styles.teamItem}>
+        <View style={styles.teamItem}  onTouchEnd={onClick}>
             
             <View style={[styles.team, style]}>
                 <View style={styles.teamLogoView}>
                     <Image source={teamInfo.logo} style={styles.teamLogo}
                     />
                 </View>
-                <Text style={styles.teamName}>{teamInfo.name}</Text>
+                <Text style={styles.teamName}>{teamInfo.branch}</Text>
                 <View style={styles.scoreView}>
                     {/* <Text style={styles.teamScoreHeading}>Score:</Text> */}
-                    <Text style={styles.teamScore}>{teamInfo.score}</Text>
+                    <Text style={styles.teamScore}>{teamInfo.points}</Text>
                 </View>
             </View>
         </View>

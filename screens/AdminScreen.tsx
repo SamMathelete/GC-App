@@ -86,6 +86,10 @@ const AdminScreen: FC<Props> = ({ navigation }) => {
     navigation.navigate("SendNotificationScreen");
   };
 
+  const onAddScore = () => {
+    navigation.navigate("AddScoreScreen");
+  }
+
   return (
     <Provider>
       <View style={styles.container}>
@@ -108,6 +112,9 @@ const AdminScreen: FC<Props> = ({ navigation }) => {
           </MainButton>
           <MainButton style={styles.buttons} onPress={onSendNotification}>
             Send Notification
+          </MainButton>
+          <MainButton style={styles.buttons} onPress={onAddScore}>
+            Add Score
           </MainButton>
         </View>
       </View>
