@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "851355191688",
+    "firebase_url": "https://gc-app-76138-default-rtdb.firebaseio.com",
+    "project_id": "gc-app-76138",
+    "storage_bucket": "gc-app-76138.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:851355191688:android:537212bcd8a8394985d23d",
+        "android_client_info": {
+          "package_name": "com.samthemathlete.gcapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDF4-FFjX3gILB7vGW1o2x1yZBkcAPOejw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
