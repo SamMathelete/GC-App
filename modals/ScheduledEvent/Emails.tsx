@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { View, StyleSheet, FlatList } from "react-native";
+import React from "react";
+import { View, StyleSheet } from "react-native";
 import { TextInput, Text, Button, IconButton } from "react-native-paper";
 import Colors from "../../constants/Colors";
 

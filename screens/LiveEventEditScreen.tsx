@@ -2,7 +2,6 @@ import { FC, useEffect, useState } from "react";
 import {
   ScrollView,
   View,
-  ImageBackground,
   StyleSheet,
   ActivityIndicator,
   Text,
@@ -12,7 +11,7 @@ import Colors from "../constants/Colors";
 import Cricket from "../components/SportsUpdateCards/EditableCricketCard";
 import Basketball from "../components/SportsUpdateCards/EditableBasketballCard";
 import Volleyball from "../components/SportsUpdateCards/EditableVolleyballCard";
-import MainButton from "../components/MainButton";
+// import MainButton from "../components/MainButton";
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import { IconButton } from "react-native-paper";
 import { useIsFocused } from "@react-navigation/native";

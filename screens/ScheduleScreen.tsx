@@ -1,10 +1,7 @@
 import { FC } from "react";
 import {
   FlatList,
-  ImageBackground,
-  ScrollView,
   StyleSheet,
-  Text,
   View,
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";

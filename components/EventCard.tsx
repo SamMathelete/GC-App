@@ -1,5 +1,5 @@
 import { FC, useState, useRef } from "react";
-import { Text, StyleSheet, View, Pressable, Linking, } from "react-native";
+import { Text, StyleSheet, View, Pressable, } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { MaterialIcons } from '@expo/vector-icons';
 import Colors from "../constants/Colors";
@@ -40,15 +40,15 @@ const EventCard: FC<Props> = ({ style, eventInfo }) => {
 
     const [isPressed, setIsPressed] = useState(false);
 
-    const handlePress = async () => {
-        const supported = await Linking.canOpenURL(eventInfo.link);
+    // const handlePress = async () => {
+    //     const supported = await Linking.canOpenURL(eventInfo.link);
     
-        if (supported) {
-            Linking.openURL(eventInfo.link);
-        } else {
-            console.log("Can't open URL");
-        }
-    };
+    //     if (supported) {
+    //         Linking.openURL(eventInfo.link);
+    //     } else {
+    //         console.log("Can't open URL");
+    //     }
+    // };
 
     return (
         
