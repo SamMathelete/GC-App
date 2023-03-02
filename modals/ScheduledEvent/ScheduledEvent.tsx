@@ -4,6 +4,7 @@ import Colors from "../../constants/Colors";
 import { View, StyleSheet, ScrollView } from "react-native";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../../firestoreConfig";
+import Emails from "./Emails";
 
 type Props = {
   visible: boolean;
@@ -13,7 +14,7 @@ type Props = {
 const ScheduledEvent: React.FC<Props> = ({ visible, setVisible }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [emails, setEmails] = useState([]);
+  const [emails, setEmails] = useState([""]);
   const hideModal = () => {
     setVisible(false);
   };
@@ -23,6 +24,7 @@ const ScheduledEvent: React.FC<Props> = ({ visible, setVisible }) => {
     addDoc(collection(db, "scheduled-events"), {
       title: title,
       description: description,
+      emails: emails,
     })
       .then((ref) => console.log("Event Added with id: ", ref.id))
       .then(() => hideModal())
@@ -58,6 +60,7 @@ const ScheduledEvent: React.FC<Props> = ({ visible, setVisible }) => {
                 onChangeText={(text) => setDescription(text)}
                 multiline
               />
+              <Emails emails={emails} setEmails={setEmails} />
               <View style={styles.buttonContainer}>
                 <Button mode="contained" onPress={handleSubmit}>
                   Submit
