@@ -8,7 +8,7 @@
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/Images/gcsplash.png",
-      "resizeMode": "contain",
+      "resizeMode": "cover",
       "backgroundColor": ""
     },
     "updates": {
