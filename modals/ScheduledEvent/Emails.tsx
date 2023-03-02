@@ -86,8 +86,12 @@ const styles = StyleSheet.create({
     alignContent: "center",
     alignItems: "center",
   },
-  singleEmailText: { flexGrow: 1, backgroundColor: Colors.OffWhite },
-  removeEmailButton: {},
+  singleEmailText: {
+    flexGrow: 1,
+    backgroundColor: Colors.OffWhite,
+    width: 240,
+  },
+  removeEmailButton: { margin: 5 },
 });
 
 export default Emails;
