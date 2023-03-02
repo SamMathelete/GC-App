@@ -87,6 +87,10 @@ const AdminScreen: FC<Props> = ({ navigation }) => {
     navigation.navigate("SendNotificationScreen");
   };
 
+  const onAddScore = () => {
+    navigation.navigate("AddScoreScreen");
+  };
+  
   const onAddCarouselImage = () => {
     console.log("Add Carousel Image");
     navigation.navigate("AddCarouselImageScreen");
@@ -114,6 +118,9 @@ const AdminScreen: FC<Props> = ({ navigation }) => {
           </MainButton>
           <MainButton style={styles.buttons} onPress={onSendNotification}>
             Send Notification
+          </MainButton>
+          <MainButton style={styles.buttons} onPress={onAddScore}>
+            Add Score
           </MainButton>
           <MainButton style={styles.buttons} onPress={onAddCarouselImage}>
             Add Carousel Image

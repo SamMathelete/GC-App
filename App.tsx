@@ -29,6 +29,7 @@ import VolleyballLiveEditScreen from "./screens/VolleyballLiveEditScreen";
 import SendNotificationScreen from "./screens/SendNotificationScreen";
 import LiveEventEditScreen from "./screens/LiveEventEditScreen";
 import AppCredits from "./screens/AppCredits";
+import AddScoreScreen from "./screens/AddScoreScreen";
 import AddCarouselImageScreen from "./screens/AddCarouselImageScreen";
 
 type RootParamList = {
@@ -43,6 +44,7 @@ type RootParamList = {
   AdminHome: undefined;
   CalendarScreen: undefined;
   LiveEventCreationScreen: undefined;
+  AddScoreScreen: undefined;
   CricketLiveEditScreen: {
     id: string;
   };
@@ -291,6 +293,17 @@ export default function App() {
               component={LiveEventEditScreen}
               options={{
                 title: "Edit Live Event",
+                headerStyle: {
+                  backgroundColor: Colors.purpleDark,
+                },
+                headerTintColor: Colors.OffWhite,
+              }}
+            />
+            <Stack.Screen
+              name="AddScoreScreen"
+              component={AddScoreScreen}
+              options={{
+                title: "Add an event score",
                 headerStyle: {
                   backgroundColor: Colors.purpleDark,
                 },
