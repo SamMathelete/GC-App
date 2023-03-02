@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { ImageBackground, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import LiveEventCreationForm from "../components/LiveEventCreationForm";
 import Colors from "../constants/Colors";
 

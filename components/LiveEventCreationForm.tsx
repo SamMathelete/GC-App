@@ -206,7 +206,7 @@ const LiveEventCreationForm: FC = () => {
       setIsLoading(false);
       console.log("Live Event Created");
       alert(
-        `Live Event Created. ID is "${liveEvent.id}". Remember this ID(without the quotes) and use it to update the event.`
+        `Live Event Created. You can now update the scores by going to Update Live Event Tab`
       );
     } catch (err) {
       console.log(err);

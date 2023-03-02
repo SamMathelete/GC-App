@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { FC, useContext, useState } from "react";
-import { Portal, Provider } from "react-native-paper";
+import { Provider } from "react-native-paper";
 import { StyleSheet, Text, View } from "react-native";
 import MainButton from "../components/MainButton";
 import { AuthContext } from "../store/google-auth";
@@ -12,6 +12,7 @@ type RootParamList = {
   LiveEventCreationScreen: undefined;
   LiveEventEditScreen: undefined;
   SendNotificationScreen: undefined;
+  AddCarouselImageScreen: undefined;
 };
 
 type Props = NativeStackScreenProps<RootParamList, "AdminHome">;
@@ -88,7 +89,12 @@ const AdminScreen: FC<Props> = ({ navigation }) => {
 
   const onAddScore = () => {
     navigation.navigate("AddScoreScreen");
-  }
+  };
+  
+  const onAddCarouselImage = () => {
+    console.log("Add Carousel Image");
+    navigation.navigate("AddCarouselImageScreen");
+  };
 
   return (
     <Provider>
@@ -115,6 +121,9 @@ const AdminScreen: FC<Props> = ({ navigation }) => {
           </MainButton>
           <MainButton style={styles.buttons} onPress={onAddScore}>
             Add Score
+          </MainButton>
+          <MainButton style={styles.buttons} onPress={onAddCarouselImage}>
+            Add Carousel Image
           </MainButton>
         </View>
       </View>

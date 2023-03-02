@@ -20,8 +20,10 @@ import Colors from "../constants/Colors";
 
 import EventResultCard from "../components/EventResultCard";
 import { EventResult } from "../data/EventResult";
-import { AuthContext } from "../store/google-auth";
 import { IconButton, Menu } from "react-native-paper";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useIsFocused } from "@react-navigation/native";
+import { AuthContext } from "../store/google-auth";
 
 type RootParamsList = {
   HomeScreen: undefined;
@@ -30,27 +32,32 @@ type RootParamsList = {
 
 type Props = BottomTabScreenProps<RootParamsList, "HomeScreen">;
 
+interface CarouselImages {
+  imageDriveLink: string;
+  imageTitle: string;
+}
+
 const HomeScreen: FC<Props> = ({ navigation }) => {
   const [index, setIndex] = useState(0);
   const isCarousel = useRef<any>(null);
 
   const [isLiveNowLoading, setIsLiveNowLoading] = useState<any>(false);
+  const [carouselImages, setCarouselImages] = useState<CarouselImages[] | any>(
+    DUMMY_CAROUSEL_DATA
+  );
 
   const Dimensions = useWindowDimensions();
   const windowWidth = Dimensions.width;
 
   const rulebookUrl = "https://www.google.co.in";
-
-  const ctx = useContext(AuthContext);
-
-  useEffect(() => {
-    console.log(ctx.token);
-  }, []);
+  const isFocused = useIsFocused();
 
   const [CricketEvents, setCricketEvents] = useState<any>([]);
   const [FootballEvents, setFootballEvents] = useState<any>([]);
   const [BasketballEvents, setBasketballEvents] = useState<any>([]);
   const [VolleyballEvents, setVolleyballEvents] = useState<any>([]);
+
+  const ctx = useContext(AuthContext);
 
   const fetchLiveUpdates = async () => {
     setIsLiveNowLoading(true);
@@ -97,7 +104,8 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
 
   useEffect(() => {
     fetchLiveUpdates();
-  }, []);
+    fetchCarouselData();
+  }, [isFocused]);
 
   const refreshHandler = () => {
     fetchLiveUpdates();
@@ -144,13 +152,26 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
     ),
   });
 
+  const fetchCarouselData = async () => {
+    const response = await fetch(
+      "https://gc-app-76138-default-rtdb.firebaseio.com/carouselImages.json"
+    );
+    const data = await response.json();
+    const images = Object.keys(data);
+    const carouselImages = [];
+    for (const image of images) {
+      carouselImages.push(data[image]);
+    }
+    setCarouselImages(carouselImages);
+  };
+
   return (
     <View style={styles.rootContainer}>
       <ScrollView style={styles.scrollContainer}>
         <View style={styles.carouselContainer}>
           <Carousel
             layout="default"
-            data={DUMMY_CAROUSEL_DATA}
+            data={carouselImages}
             renderItem={Card}
             sliderWidth={windowWidth - 10}
             itemWidth={windowWidth + 10}
@@ -161,6 +182,8 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
             onSnapToItem={(index) => setIndex(index)}
             contentContainerCustomStyle={{
               marginBottom: 40,
+              height: 500,
+              alignItems: "center",
             }}
             autoplay={true}
             enableSnap={true}
@@ -191,7 +214,14 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
               alignItems: "center",
             }}
           >
-            <Text style={styles.titleText}>Live Now</Text>
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <Text style={styles.titleText}>Live Now</Text>
+              <MaterialCommunityIcons
+                name="record-circle-outline"
+                size={30}
+                color={Colors.red}
+              />
+            </View>
             <IconButton
               icon="refresh"
               iconColor={Colors.purpleLight}
@@ -353,5 +383,6 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     marginLeft: 15,
     fontWeight: "bold",
+    marginRight: 5,
   },
 });

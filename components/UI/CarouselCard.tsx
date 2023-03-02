@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, View, Image } from "react-native";
 
 type Props = any;
 
@@ -7,7 +7,13 @@ const Card: FC<Props> = ({ item, index }) => {
   return (
     <View style={styles.rootContainer} key={index}>
       <View>
-      <Image source={require("../../assets/Images/sportsBG.jpg")} style={{height: 200, borderRadius: 50}} resizeMode={'contain'}/>
+        <Image
+          style={{ height: 450, borderRadius: 50, width: 400 }}
+          source={{
+            uri: item.imageDriveLink,
+          }}
+          resizeMode={"stretch"}
+        />
       </View>
     </View>
   );

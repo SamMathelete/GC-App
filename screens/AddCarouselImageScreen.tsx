@@ -1,12 +1,11 @@
-import { FC } from "react";
 import { StyleSheet, View } from "react-native";
-import SendNotificationForm from "../components/SendNotificationForm";
+import AddCarouselImage from "../components/AddCarouselImage";
 import Colors from "../constants/Colors";
 
-const SendNotificationScreen: FC = () => {
+const AddCarouselImageScreen = () => {
   return (
     <View style={styles.rootContainer}>
-      <SendNotificationForm />
+      <AddCarouselImage />
     </View>
   );
 };
@@ -20,4 +19,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SendNotificationScreen;
+export default AddCarouselImageScreen;
