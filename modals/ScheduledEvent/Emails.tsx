@@ -1,9 +1,19 @@
-import React, { useState } from "react";
-import { View, StyleSheet, FlatList } from "react-native";
+import React from "react";
+import { View, StyleSheet } from "react-native";
 import { TextInput, Text, Button, IconButton } from "react-native-paper";
 import Colors from "../../constants/Colors";
 
-const SingleEmail = ({ text, removeHandler, changeHandler }) => {
+type SingleEmailProps = {
+  text: string;
+  removeHandler: any;
+  changeHandler: any;
+};
+
+const SingleEmail: React.FC<SingleEmailProps> = ({
+  text,
+  removeHandler,
+  changeHandler,
+}) => {
   return (
     <View style={styles.singleEmailContainer}>
       <TextInput
@@ -22,17 +32,22 @@ const SingleEmail = ({ text, removeHandler, changeHandler }) => {
   );
 };
 
-const Emails = ({ emails, setEmails }) => {
+type EmailProps = {
+  emails: Array<string>;
+  setEmails: any;
+};
+
+const Emails: React.FC<EmailProps> = ({ emails, setEmails }) => {
   const handleAddEmail = () => {
     setEmails(emails.concat(""));
   };
 
-  const handleRemove = (index) => {
+  const handleRemove = (index: Number) => {
     setEmails(emails.filter((data, ind) => ind !== index));
   };
 
-  const handleChange = (index) => {
-    return (text) => {
+  const handleChange = (index: Number) => {
+    return (text: string) => {
       setEmails(
         emails.map((data, ind) => (ind === index ? text : emails[ind]))
       );
@@ -71,8 +86,12 @@ const styles = StyleSheet.create({
     alignContent: "center",
     alignItems: "center",
   },
-  singleEmailText: { flexGrow: 1, backgroundColor: Colors.OffWhite },
-  removeEmailButton: {},
+  singleEmailText: {
+    flexGrow: 1,
+    backgroundColor: Colors.OffWhite,
+    width: 240,
+  },
+  removeEmailButton: { margin: 5 },
 });
 
 export default Emails;

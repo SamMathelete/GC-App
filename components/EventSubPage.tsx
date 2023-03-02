@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { StyleSheet, Text, View, Pressable, Linking, ScrollView } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
-import Modal from 'react-native-modal';
+// import { AntDesign } from "@expo/vector-icons";
+// import Modal from 'react-native-modal';
 import Colors from "../constants/Colors";
 import EventResultCard from "./EventResultCard";
 interface Props {
@@ -14,15 +14,15 @@ interface Props {
 
 const EventSubPage: FC<Props> = ({ style, eventInfo, onPress, scrollViewRef, onScroll }) => {
 
-    const handlePress = async () => {
-        const supported = await Linking.canOpenURL(eventInfo.link);
+    // const handlePress = async () => {
+    //     const supported = await Linking.canOpenURL(eventInfo.link);
     
-        if (supported) {
-            Linking.openURL(eventInfo.link);
-        } else {
-            console.log("Can't open URL");
-        }
-    };
+    //     if (supported) {
+    //         Linking.openURL(eventInfo.link);
+    //     } else {
+    //         console.log("Can't open URL");
+    //     }
+    // };
 
     return(
         <View style={styles.modalView}>

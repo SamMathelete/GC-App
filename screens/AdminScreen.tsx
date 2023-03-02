@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { FC, useContext, useState } from "react";
-import { Portal, Provider } from "react-native-paper";
+import { Provider } from "react-native-paper";
 import { StyleSheet, Text, View } from "react-native";
 import MainButton from "../components/MainButton";
 import { AuthContext } from "../store/google-auth";
@@ -12,6 +12,7 @@ type RootParamList = {
   LiveEventCreationScreen: undefined;
   LiveEventEditScreen: undefined;
   SendNotificationScreen: undefined;
+  AddCarouselImageScreen: undefined;
 };
 
 type Props = NativeStackScreenProps<RootParamList, "AdminHome">;
@@ -86,33 +87,47 @@ const onSendNotification = () => {
   console.log("Send Notification");
   navigation.navigate("SendNotificationScreen");
 };
+  const onAddScore = () => {
+    navigation.navigate("AddScoreScreen");
+  };
+  
+  const onAddCarouselImage = () => {
+    console.log("Add Carousel Image");
+    navigation.navigate("AddCarouselImageScreen");
+  };
 
-return (
-  <Provider>
-  <View style= { styles.container } >
-  <View>
-  <ScheduledEvent
-            visible={ scheduledEventModal }
-setVisible = { setScheduledEventModal }
-  />
-  <MainButton
-            style={ styles.buttons }
-onPress = {() => setScheduledEventModal(true)}
+  return (
+    <Provider>
+      <View style={styles.container}>
+        <View>
+          <ScheduledEvent
+            visible={scheduledEventModal}
+            setVisible={setScheduledEventModal}
+          />
+          <MainButton
+            style={styles.buttons}
+            onPress={() => setScheduledEventModal(true)}
           >
-  Add Scheduled Event
-    < /MainButton>
-    < MainButton style = { styles.buttons } onPress = { onAddLiveEvent } >
-      Add Live Event
-        < /MainButton>
-        < MainButton style = { styles.buttons } onPress = { onUpdateLiveEvents } >
-          Update Live Events
-            < /MainButton>
-            < MainButton style = { styles.buttons } onPress = { onSendNotification } >
-              Send Notification
-                < /MainButton>
-                < /View>
-                < /View>
-                < /Provider>
+            Add Scheduled Event
+          </MainButton>
+          <MainButton style={styles.buttons} onPress={onAddLiveEvent}>
+            Add Live Event
+          </MainButton>
+          <MainButton style={styles.buttons} onPress={onUpdateLiveEvents}>
+            Update Live Events
+          </MainButton>
+          <MainButton style={styles.buttons} onPress={onSendNotification}>
+            Send Notification
+          </MainButton>
+          <MainButton style={styles.buttons} onPress={onAddScore}>
+            Add Score
+          </MainButton>
+          <MainButton style={styles.buttons} onPress={onAddCarouselImage}>
+            Add Carousel Image
+          </MainButton>
+        </View>
+      </View>
+    </Provider>
   );
 };
 

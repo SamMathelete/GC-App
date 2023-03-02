@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { FlatList, Text, View, Image } from "react-native";
 import { StyleSheet } from "react-native";
 
@@ -8,60 +8,102 @@ import Colors from "../constants/Colors";
 import { LinearGradient } from 'expo-linear-gradient';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
+import { db } from "../firestoreConfig";
+import { getDocs } from "firebase/firestore";
+import { collection } from "firebase/firestore";
+import { ActivityIndicator } from "react-native-paper";
+
 const RankingScreen: FC = () => {
   type Team = {
-    name: string;
-    score: number;
+    branch: string;
+    points: number;
   };
+  const [isLoading,setIsLoading] = useState(true);
 
-  const sortedTeamRanking = TEAM_RANKINGS.slice().sort((a: Team, b: Team) => {
-    return b.score - a.score;
+  const [ranking,setRanking] = useState([]); 
+
+  useEffect(()=>{
+    const fetchData = async () => {
+      const colRef = collection(db, "leaderboard");
+    const docsSnap = await getDocs(colRef);
+    // console.log(docsSnap);
+    const docsList = [];
+    docsSnap.forEach((doc)=>{
+      console.log(doc.data())
+      docsList.push(doc.data());
+    })
+    console.log(docsList);
+    setRanking(docsList);
+    setIsLoading(false);
+    }
+
+    fetchData();
+    
+    
+    
+  },[])
+
+  if (isLoading){
+    return (
+      <View style={styles.rootContainer}>
+        <ActivityIndicator/>
+      </View>
+    )
+    }
+  const sortedTeamRanking = ranking.slice().sort((a: Team, b: Team) => {
+    return b.points - a.points;
   });
   const LEADERBOARD = sortedTeamRanking.slice(3);
+
+  const onBranchClickHandler = (branch) => {
+    console.log(branch)
+  }
+  
+  
   return (
       <View style={styles.rootContainer}>
         <LinearGradient colors={[Colors.purpleDark,Colors.purpleLight]} style={styles.winnerView}>
           {/* 2ND WINNER */}
-          <View style={styles.winnerElement2}>
+          <View style={styles.winnerElement2} onTouchEnd={()=>{onBranchClickHandler(sortedTeamRanking[1].branch)}}>
               <MaterialCommunityIcons name="crown" size={24} color="#E6E6E6" />
               <View style={styles.imageViewSilver}>
                 <Image source={require("../assets/Images/teamImage.png")} 
                   style={styles.image}
                 />
               </View>
-              <Text style={styles.teamNameSilver}>{sortedTeamRanking[1].name}</Text>
-              <Text style={styles.teamScoreSilver}>{sortedTeamRanking[1].score}</Text>
+              <Text style={styles.teamNameSilver}>{sortedTeamRanking[1].branch}</Text>
+              <Text style={styles.teamScoreSilver}>{sortedTeamRanking[1].points}</Text>
           </View>
           {/* 1ST WINNER */}
-          <View style={styles.winnerElement1}>
+          <View style={styles.winnerElement1} onTouchEnd={()=>{onBranchClickHandler(sortedTeamRanking[0].branch)}}>
               <MaterialCommunityIcons name="crown" size={30} color="#FFEC40" />
               <View style={styles.imageViewGold}>
                 <Image source={require("../assets/Images/teamImage.png")} 
                   style={styles.imageGold}
                 />
               </View>
-              <Text style={styles.teamNameGold}>{sortedTeamRanking[0].name}</Text>
-              <Text style={styles.teamScoreGold}>{sortedTeamRanking[0].score}</Text>
+              <Text style={styles.teamNameGold}>{sortedTeamRanking[0].branch}</Text>
+              <Text style={styles.teamScoreGold}>{sortedTeamRanking[0].points}</Text>
           </View>
           {/* 3RD WINNER */}
-          <View style={styles.winnerElement3}>
+          <View style={styles.winnerElement3} onTouchEnd={()=>{onBranchClickHandler(sortedTeamRanking[2].branch)}}>
               <MaterialCommunityIcons name="crown" size={24} color="#CC6C05" />
               <View style={styles.imageViewBronze}>
                 <Image source={require("../assets/Images/teamImage.png")} 
                   style={styles.image}
                 />
               </View>
-              <Text style={styles.teamNameBronze}>{sortedTeamRanking[2].name}</Text>
-              <Text style={styles.teamScoreBronze}>{sortedTeamRanking[2].score}</Text>
+              <Text style={styles.teamNameBronze}>{sortedTeamRanking[2].branch}</Text>
+              <Text style={styles.teamScoreBronze}>{sortedTeamRanking[2].points}</Text>
           </View>
         </LinearGradient>
         <View style={styles.leaderboard}>
           <FlatList
             data={LEADERBOARD}
-            keyExtractor={(item) => item.name}
+            keyExtractor={(item) => item.branch}
             renderItem={({ item, index }) => 
             ( 
-               <TeamItem teamInfo={item} index={index+4}/>
+               <TeamItem teamInfo={item} index={index+4} onClick={()=>{onBranchClickHandler(item.branch)}} />
             )}
           />
         </View>

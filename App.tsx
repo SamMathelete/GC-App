@@ -32,7 +32,8 @@ import AppCredits from "./screens/AppCredits";
 import { useEffect } from "react";
 import * as Notifications from "expo-notifications";
 import { useNotifications } from "./hooks/useNotifications";
-
+import AddScoreScreen from "./screens/AddScoreScreen";
+import AddCarouselImageScreen from "./screens/AddCarouselImageScreen";
 
 type RootParamList = {
   HomeScreen: undefined;
@@ -46,6 +47,7 @@ type RootParamList = {
   AdminHome: undefined;
   CalendarScreen: undefined;
   LiveEventCreationScreen: undefined;
+  AddScoreScreen: undefined;
   CricketLiveEditScreen: {
     id: string;
   };
@@ -59,6 +61,7 @@ type RootParamList = {
     id: string;
   };
   LiveEventEditScreen: undefined;
+  AddCarouselImageScreen: undefined;
   AppCredits: undefined;
 };
 
@@ -310,6 +313,28 @@ export default function App() {
               component={LiveEventEditScreen}
               options={{
                 title: "Edit Live Event",
+                headerStyle: {
+                  backgroundColor: Colors.purpleDark,
+                },
+                headerTintColor: Colors.OffWhite,
+              }}
+            />
+            <Stack.Screen
+              name="AddScoreScreen"
+              component={AddScoreScreen}
+              options={{
+                title: "Add an event score",
+                headerStyle: {
+                  backgroundColor: Colors.purpleDark,
+                },
+                headerTintColor: Colors.OffWhite,
+              }}
+            />
+            <Stack.Screen
+              name="AddCarouselImageScreen"
+              component={AddCarouselImageScreen}
+              options={{
+                title: "Add Carousel Image",
                 headerStyle: {
                   backgroundColor: Colors.purpleDark,
                 },
