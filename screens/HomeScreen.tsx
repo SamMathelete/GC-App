@@ -22,6 +22,7 @@ import EventResultCard from "../components/EventResultCard";
 import { EventResult } from "../data/EventResult";
 import { AuthContext } from "../store/google-auth";
 import { IconButton, Menu } from "react-native-paper";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 type RootParamsList = {
   HomeScreen: undefined;
@@ -191,7 +192,10 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
               alignItems: "center",
             }}
           >
-            <Text style={styles.titleText}>Live Now</Text>
+            <View style={{flexDirection: "row", alignItems: "center"}}>
+              <Text style={styles.titleText}>Live Now</Text>
+              <MaterialCommunityIcons name="record-circle-outline" size={30} color={Colors.red} />
+            </View>
             <IconButton
               icon="refresh"
               iconColor={Colors.purpleLight}
@@ -353,5 +357,6 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     marginLeft: 15,
     fontWeight: "bold",
+    marginRight: 5,
   },
 });

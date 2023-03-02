@@ -17,6 +17,7 @@ import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import { IconButton } from "react-native-paper";
 import { useIsFocused } from "@react-navigation/native";
 
+
 type RootParamList = {
   LiveUpdates: undefined;
   Cricket: undefined;
@@ -118,6 +119,7 @@ const LiveUpdatesScreen: FC<Props> = ({ navigation }) => {
     return (
       <View style={styles.rootContainer}>
         <ScrollView>
+          <Text style={styles.heading}>Football</Text>
           {FootballEvents.map((event: any) => (
             <Football
               key={event.id}
@@ -139,6 +141,7 @@ const LiveUpdatesScreen: FC<Props> = ({ navigation }) => {
               venue={event.venue}
             />
           ))}
+          <Text style={styles.heading}>Cricket</Text>
           {CricketEvents.map((event: any) => (
             <Cricket
               key={event.id}
@@ -174,6 +177,7 @@ const LiveUpdatesScreen: FC<Props> = ({ navigation }) => {
               overs={parseFloat(event.overs)}
             />
           ))}
+          <Text style={styles.heading}>Basketball</Text>
           {BasketballEvents.map((event: any) => (
             <Basketball
               key={event.id}
@@ -195,6 +199,7 @@ const LiveUpdatesScreen: FC<Props> = ({ navigation }) => {
               venue={event.venue}
             />
           ))}
+          <Text style={styles.heading}>Volleyball</Text>
           {VolleyballEvents.map((event: any) => (
             <Volleyball
               key={event.id}
@@ -237,6 +242,14 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
   },
+  heading: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: Colors.purpleDark,
+    marginTop: 10,
+    textAlign: "center",
+    paddingHorizontal: 10,
+  }
 });
 
 export default LiveUpdatesScreen;
