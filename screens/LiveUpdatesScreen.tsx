@@ -249,6 +249,9 @@ const styles = StyleSheet.create({
     marginTop: 10,
     textAlign: "center",
     paddingHorizontal: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.purpleDark,
+    marginHorizontal: 20,
   }
 });
 

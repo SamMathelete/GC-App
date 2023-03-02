@@ -47,16 +47,16 @@ const EventSubPage: FC<Props> = ({ style, eventInfo, onPress, scrollViewRef, onS
                 <Text style={styles.description}>{eventInfo?.description}</Text>
             </ScrollView>
             <View style={styles.Bottom}>
-                    <View>
+                    
                         <Text style={styles.Date}>{eventInfo?.date}</Text>
                         <Text style={styles.Venue}>{eventInfo?.venue}
                         </Text>
-                    </View>
-                    <View style={styles.registerButton}>
+                    
+                    {/* <View style={styles.registerButton}>
                         <Pressable onPress={handlePress}>
                             <Text style={styles.register}>Register</Text>
                         </Pressable>
-                    </View>
+                    </View> */}
             </View>
         </View>
     );
@@ -83,11 +83,11 @@ const styles = StyleSheet.create({
     },
     ScrollingView: {
         //borderWidth: 2,
-        borderColor: Colors.red,
+        marginVertical: 5,
         borderRadius: 20,
         paddingVertical: 6,
         paddingHorizontal: 6,
-        marginHorizontal: 7,
+        marginHorizontal: 10,
         backgroundColor: Colors.purpleDark,
     },
     Heading: {
@@ -101,8 +101,11 @@ const styles = StyleSheet.create({
         alignItems: "center",
         //borderTopWidth: 2, 
         borderColor: Colors.red, 
-        marginHorizontal: 10,
-        paddingVertical: 10,
+        marginHorizontal: 15,
+        marginVertical: 10,
+        paddingVertical: 5,
+        borderTopColor: Colors.red,
+        borderTopWidth: 1,
     },
     description: {
         color: Colors.OffWhite,
