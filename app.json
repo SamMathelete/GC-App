@@ -1,28 +1,26 @@
 {
   "expo": {
-    "name": "gc-app",
+    "name": "General Championship 2023",
     "slug": "gc-app",
-    "version": "1.0.0",
+    "version": "9.1.b",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/Images/gclogo.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/Images/gcsplash.png",
       "resizeMode": "contain",
       "backgroundColor": ""
     },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/Images/gclogo.png",
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.samthemathlete.gcapp"

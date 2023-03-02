@@ -171,7 +171,7 @@ export default function App() {
               name="AppCredits"
               component={AppCredits}
               options={{
-                title: "App Credits",
+                title: "Credits",
                 headerStyle: {
                   backgroundColor: Colors.purpleDark,
                 },

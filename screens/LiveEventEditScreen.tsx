@@ -18,14 +18,14 @@ import { IconButton } from "react-native-paper";
 import { useIsFocused } from "@react-navigation/native";
 
 type RootParamList = {
-  LiveUpdates: undefined;
+  LiveEventEditScreen: undefined;
   Cricket: undefined;
   Football: undefined;
   Basketball: undefined;
   Volleyball: undefined;
 };
 
-type Props = BottomTabScreenProps<RootParamList, "LiveUpdates">;
+type Props = BottomTabScreenProps<RootParamList, "LiveEventEditScreen">;
 
 const LiveUpdatesScreen: FC<Props> = ({ navigation }) => {
   const [CricketEvents, setCricketEvents] = useState<any>([]);

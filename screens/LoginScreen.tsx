@@ -106,7 +106,7 @@ const LoginScreen: FC<Props> = ({ navigation }) => {
             <SideButton onPress={bypassHandler}>Admin</SideButton>
           </View>
           <Pressable style={styles.bottom} onPress={creditNavigator}>
-            <Text style={styles.bottomText}>App Credits</Text>
+            <Text style={styles.bottomText}>Credits</Text>
           </Pressable>
         </View>
       </ImageBackground>

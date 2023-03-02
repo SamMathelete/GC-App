@@ -4,12 +4,9 @@ const AppCredits = () => {
   return (
     <ScrollView>
       <View style={styles.container}>
-        <Text style={styles.mainHeading}>App Credits</Text>
         <View style={styles.textContainer}>
           <Text style={styles.subHeading}>Developed by</Text>
-          <Text style={styles.bigText}>
-            Students' Gymkhana
-          </Text>
+          <Text style={styles.bigText}>Students' Gymkhana</Text>
           <Text style={styles.bigText}>IIT Bhubaneswar</Text>
         </View>
         <View style={styles.textContainer}>
