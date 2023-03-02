@@ -44,6 +44,7 @@ const Emails = ({ emails, setEmails }) => {
       <Text style={styles.title}>Allowed Emails</Text>
       {emails.map((email, index) => (
         <SingleEmail
+          key={index}
           text={email}
           removeHandler={() => handleRemove(index)}
           changeHandler={handleChange(index)}
