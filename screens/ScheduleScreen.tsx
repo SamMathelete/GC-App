@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import {
   FlatList,
   StyleSheet,
@@ -13,11 +13,18 @@ import {
   DUMMY_SPORTS_EVENTS,
 } from "../data/events";
 import Colors from "../constants/Colors";
+import { collection, DocumentData, getDocs } from "firebase/firestore";
+import { db } from "../firestoreConfig";
 
 const Tab = createMaterialTopTabNavigator();
 
 const ScheduleScreen: FC = () => {
-
+  const [scheduledEvents, setScheduledEvents] = useState<DocumentData>([]);
+  useEffect(() => {
+    getDocs(collection(db, "scheduled-events")).then((snapshot) =>
+      setScheduledEvents(snapshot.docs.map((doc) => doc.data()))
+    );
+  }, []);
 
   const TechScreen = (): JSX.Element => {
     return (
@@ -59,35 +66,35 @@ const ScheduleScreen: FC = () => {
   };
 
   return (
-      <NavigationContainer independent={true}>
-        <Tab.Navigator
-          initialRouteName="Tech"
-          screenOptions={{
-            tabBarActiveTintColor: Colors.red,
-            tabBarInactiveTintColor: Colors.OffWhite,
-            tabBarLabelStyle: { fontSize: 12, fontWeight: "bold" },
-            tabBarStyle: { backgroundColor: Colors.purpleLight },
-            tabBarPressColor: Colors.purpleDark,
-            tabBarIndicatorStyle: { backgroundColor: Colors.red },
-          }}
-        >
-          <Tab.Screen
-            name="Tech"
-            component={TechScreen}
-            options={{ tabBarLabel: "Tech" }}
-          />
-          <Tab.Screen
-            name="Cultural"
-            component={CulturalScreen}
-            options={{ tabBarLabel: "Cultural" }}
-          />
-          <Tab.Screen
-            name="Sports"
-            component={SportsScreen}
-            options={{ tabBarLabel: "Sports" }}
-          />
-        </Tab.Navigator>
-      </NavigationContainer>
+    <NavigationContainer independent={true}>
+      <Tab.Navigator
+        initialRouteName="Tech"
+        screenOptions={{
+          tabBarActiveTintColor: Colors.red,
+          tabBarInactiveTintColor: Colors.OffWhite,
+          tabBarLabelStyle: { fontSize: 12, fontWeight: "bold" },
+          tabBarStyle: { backgroundColor: Colors.purpleLight },
+          tabBarPressColor: Colors.purpleDark,
+          tabBarIndicatorStyle: { backgroundColor: Colors.red },
+        }}
+      >
+        <Tab.Screen
+          name="Tech"
+          component={TechScreen}
+          options={{ tabBarLabel: "Tech" }}
+        />
+        <Tab.Screen
+          name="Cultural"
+          component={CulturalScreen}
+          options={{ tabBarLabel: "Cultural" }}
+        />
+        <Tab.Screen
+          name="Sports"
+          component={SportsScreen}
+          options={{ tabBarLabel: "Sports" }}
+        />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 };
 
