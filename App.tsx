@@ -26,6 +26,7 @@ import CricketLiveEditScreen from "./screens/CricketLiveEditScreen";
 import FootballLiveEditScreen from "./screens/FootballLiveEditScreen";
 import BasketballLiveEditScreen from "./screens/BasketballLiveEditScreen";
 import VolleyballLiveEditScreen from "./screens/VolleyballLiveEditScreen";
+import TennisLiveEditScreen from "./screens/TennisLiveEditScreen";
 import SendNotificationScreen from "./screens/SendNotificationScreen";
 import LiveEventEditScreen from "./screens/LiveEventEditScreen";
 import AppCredits from "./screens/AppCredits";
@@ -52,6 +53,9 @@ type RootParamList = {
     id: string;
   };
   VolleyballLiveEditScreen: {
+    id: string;
+  };
+  TennisLiveEditScreen: {
     id: string;
   };
   LiveEventEditScreen: undefined;
@@ -265,6 +269,17 @@ export default function App() {
             <Stack.Screen
               name="VolleyballLiveEditScreen"
               component={VolleyballLiveEditScreen}
+              options={{
+                title: "Edit Live Event",
+                headerStyle: {
+                  backgroundColor: Colors.purpleDark,
+                },
+                headerTintColor: Colors.OffWhite,
+              }}
+            />
+            <Stack.Screen
+              name="TennisLiveEditScreen"
+              component={TennisLiveEditScreen}
               options={{
                 title: "Edit Live Event",
                 headerStyle: {

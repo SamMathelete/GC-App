@@ -32,6 +32,7 @@ const CricketLiveEditScreen: FC<Props> = ({ route }) => {
     wickets1: "0",
     wickets2: "0",
     overs: "0.0",
+    battingTeam: "",
     striker: "",
     nonStriker: "",
     bowler: "",

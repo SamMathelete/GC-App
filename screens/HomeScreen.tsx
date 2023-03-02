@@ -15,6 +15,7 @@ import Football from "../components/SportsUpdateCards/Football";
 import Cricket from "../components/SportsUpdateCards/Cricket";
 import Basketball from "../components/SportsUpdateCards/Basketball";
 import Volleyball from "../components/SportsUpdateCards/Volleyball";
+import Tennis from "../components/SportsUpdateCards/Tennis";
 import { DUMMY_CAROUSEL_DATA } from "../data/carousel_data";
 import Colors from "../constants/Colors";
 
@@ -52,6 +53,7 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
   const [FootballEvents, setFootballEvents] = useState<any>([]);
   const [BasketballEvents, setBasketballEvents] = useState<any>([]);
   const [VolleyballEvents, setVolleyballEvents] = useState<any>([]);
+  const [TennisEvents, setTennisEvents] = useState<any>([]);
 
   const fetchLiveUpdates = async () => {
     setIsLiveNowLoading(true);
@@ -92,6 +94,14 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
       }
     }
     setVolleyballEvents(volleyballEvents);
+
+    const tennisEvents = [];
+    for (const event of events) {
+      if (data[event].type === "Tennis") {
+        tennisEvents.push(data[event]);
+      }
+    }
+    setTennisEvents(tennisEvents);
 
     setIsLiveNowLoading(false);
   };
@@ -262,6 +272,7 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
                     wickets: parseInt(event.bowlerWickets),
                   }}
                   overs={parseFloat(event.overs)}
+                  battingTeam={event.battingTeam}
                 />
               ))}
               {BasketballEvents.map((event: any) => (
@@ -302,6 +313,26 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
                     logo: event.team2Logo,
                   }}
                   // isPenalty={event.isPenalty}
+                  time={event.matchTime}
+                  venue={event.venue}
+                />
+              ))}
+              {TennisEvents.map((event: any) => (
+                <Tennis
+                  key={event.id}
+                  matchName={event.matchName}
+                  team1={{
+                    teamName: event.team1,
+                    score: event.score1,
+                    setScore: event.setscore1,
+                    logo: event.team1Logo,
+                  }}
+                  team2={{
+                    teamName: event.team2,
+                    score: event.score2,
+                    setScore: event.setscore2,
+                    logo: event.team2Logo,
+                  }}
                   time={event.matchTime}
                   venue={event.venue}
                 />

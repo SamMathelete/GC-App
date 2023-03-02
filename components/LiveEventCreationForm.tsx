@@ -82,6 +82,10 @@ const LiveEventCreationForm: FC = () => {
       label: "Volleyball",
       value: "Volleyball",
     },
+    {
+      label: "Tennis",
+      value: "Tennis",
+    },
   ];
 
   let logo1: string;
@@ -189,6 +193,8 @@ const LiveEventCreationForm: FC = () => {
       matchTime: "",
       penaltyscore1: 0,
       penaltyscore2: 0,
+      setscore1: 0,
+      setscore2: 0,
     };
     console.log(liveEvent);
     try {
