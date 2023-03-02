@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
 import { FC, useState } from "react";
 import { View, KeyboardAvoidingView, ScrollView } from "react-native";
+import DropDown from "react-native-paper-dropdown";
 import { TextInput } from "react-native-paper";
 import ActivityIndicator from "react-native-paper";
 import MainButton from "../components/MainButton";
@@ -18,6 +19,43 @@ const AddScoreScreen = () => {
   const [description, setDescription] = useState("");
   const [isLoding, setIsLoding] = useState(false);
 
+  const [type, setType] = useState("");
+
+  const teams = [
+    {
+      label: "CSE",
+      value: "CS",
+    },
+    {
+      label: "ECE+META",
+      value: "ECE+META",
+    },
+    {
+      label: "EE",
+      value: "EE",
+    },
+    {
+      label: "ME",
+      value: "ME",
+    },
+    {
+      label: "CE",
+      value: "CE",
+    },
+    {
+      label: "M.Tech",
+      value: "M.Tech",
+    },
+    {
+      label: "M.Sc",
+      value: "M.Sc",
+    },
+    {
+      label: "PhD",
+      value: "PHD",
+    },
+  ];
+  const [showDropDown, setShowDropDown] = useState(false);
 
   const onSubmitHandler = async() => {
     console.log(title,description);
@@ -55,14 +93,24 @@ const AddScoreScreen = () => {
           value={eventName}
           onChangeText={(eventName) => setEventName(eventName)}
         />
-        <TextInput
+        <DropDown
+            label={"Type"}
+            mode={"outlined"}
+            value={title}
+            setValue={setTitle}
+            list={teams}
+            visible={showDropDown}
+            showDropDown={() => setShowDropDown(true)}
+            onDismiss={() => setShowDropDown(false)}
+          />
+        {/* <TextInput
           mode="outlined"
           label="Team"
           style={styles.input}
           placeholder="Team"
           value={title}
           onChangeText={(title) => setTitle(title)}
-        />
+        /> */}
         
         <TextInput
           mode="outlined"
