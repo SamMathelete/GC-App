@@ -50,7 +50,7 @@ const Volleyball: FC<Props> = ({
   const id = `Volleyball_${newMatchName}`;
 
   const editEvent = () => {
-    navigation.navigation.navigate("VolleyballLiveEditScreen", { id });
+    navigation.navigate("VolleyballLiveEditScreen", { id });
   };
 
   return (
