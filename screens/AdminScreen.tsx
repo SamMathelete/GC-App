@@ -12,6 +12,7 @@ type RootParamList = {
   LiveEventCreationScreen: undefined;
   LiveEventEditScreen: undefined;
   SendNotificationScreen: undefined;
+  AddCarouselImageScreen: undefined;
 };
 
 type Props = NativeStackScreenProps<RootParamList, "AdminHome">;
@@ -86,6 +87,11 @@ const AdminScreen: FC<Props> = ({ navigation }) => {
     navigation.navigate("SendNotificationScreen");
   };
 
+  const onAddCarouselImage = () => {
+    console.log("Add Carousel Image");
+    navigation.navigate("AddCarouselImageScreen");
+  };
+
   return (
     <Provider>
       <View style={styles.container}>
@@ -108,6 +114,9 @@ const AdminScreen: FC<Props> = ({ navigation }) => {
           </MainButton>
           <MainButton style={styles.buttons} onPress={onSendNotification}>
             Send Notification
+          </MainButton>
+          <MainButton style={styles.buttons} onPress={onAddCarouselImage}>
+            Add Carousel Image
           </MainButton>
         </View>
       </View>

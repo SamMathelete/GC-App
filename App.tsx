@@ -29,6 +29,7 @@ import VolleyballLiveEditScreen from "./screens/VolleyballLiveEditScreen";
 import SendNotificationScreen from "./screens/SendNotificationScreen";
 import LiveEventEditScreen from "./screens/LiveEventEditScreen";
 import AppCredits from "./screens/AppCredits";
+import AddCarouselImageScreen from "./screens/AddCarouselImageScreen";
 
 type RootParamList = {
   HomeScreen: undefined;
@@ -55,6 +56,7 @@ type RootParamList = {
     id: string;
   };
   LiveEventEditScreen: undefined;
+  AddCarouselImageScreen: undefined;
   AppCredits: undefined;
 };
 
@@ -289,6 +291,17 @@ export default function App() {
               component={LiveEventEditScreen}
               options={{
                 title: "Edit Live Event",
+                headerStyle: {
+                  backgroundColor: Colors.purpleDark,
+                },
+                headerTintColor: Colors.OffWhite,
+              }}
+            />
+            <Stack.Screen
+              name="AddCarouselImageScreen"
+              component={AddCarouselImageScreen}
+              options={{
+                title: "Add Carousel Image",
                 headerStyle: {
                   backgroundColor: Colors.purpleDark,
                 },
