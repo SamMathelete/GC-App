@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { FC } from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
 
 interface TeamScoreType {
   eventName: string;
@@ -22,9 +22,9 @@ const TeamScoreScreen: FC<Props> = ({ route }) => {
   const { teamName, logo, teamTotalScore, teamScoreList } = route.params;
   console.log(logo);
   return (
-    <View style={styles.rootContainer}>
+    <ScrollView style={styles.rootContainer}>
       <View style={styles.headerContainer}>
-        <Image source={{ uri: logo }} style={{ width: 100, height: 100 }} />
+        <Image source={{ uri: logo }} style={{ width: 50, height: 50 }} />
         <View style={styles.headerTextContainer}>
           <Text style={styles.headerSmallText}>Team Name</Text>
           <Text style={styles.headerBigText}>{teamName}</Text>
@@ -36,13 +36,13 @@ const TeamScoreScreen: FC<Props> = ({ route }) => {
       </View>
       <View style={styles.scoreContainer}>
         {teamScoreList.map((teamScore) => (
-          <View style={styles.individualScore}>
+          <View key={teamScore.eventName} style={styles.individualScore}>
             <Text style={styles.mediumText}>{teamScore.eventName}</Text>
             <Text style={styles.mediumText}>{teamScore.points}</Text>
           </View>
         ))}
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

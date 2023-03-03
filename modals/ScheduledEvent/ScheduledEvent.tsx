@@ -32,6 +32,7 @@ const ScheduledEvent: React.FC<Props> = ({ visible, setVisible }) => {
 
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
+  const [registerLink, setRegisterLink] = useState("");
 
   const [streamModalVisible, setStreamModalVisible] = useState(false);
 
@@ -79,6 +80,7 @@ const ScheduledEvent: React.FC<Props> = ({ visible, setVisible }) => {
       venue: venue,
       isHeld: false,
       stream: stream,
+      link: registerLink,
     })
       .then((ref) => console.log("Event Added with id: ", ref.id))
       .then(() => hideModal())
@@ -165,6 +167,13 @@ const ScheduledEvent: React.FC<Props> = ({ visible, setVisible }) => {
                   }}
                 />
               </Menu>
+              <TextInput
+                mode="outlined"
+                label="Register Link"
+                value={registerLink}
+                style={styles.textInput}
+                onChangeText={(text) => setRegisterLink(text)}
+              />
               <View style={styles.buttonContainer}>
                 <Button
                   title="Show Date Picker"

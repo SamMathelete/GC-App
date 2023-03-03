@@ -11,6 +11,9 @@ import {
 // import Modal from 'react-native-modal';
 import Colors from "../constants/Colors";
 import EventResultCard from "./EventResultCard";
+import { AuthContext } from "../store/google-auth";
+import { useContext } from "react";
+
 interface Props {
   style?: {};
   eventInfo: any;
@@ -26,15 +29,19 @@ const EventSubPage: FC<Props> = ({
   scrollViewRef,
   onScroll,
 }) => {
-  // const handlePress = async () => {
-  //     const supported = await Linking.canOpenURL(eventInfo.link);
+  const ctx = useContext(AuthContext);
 
-  //     if (supported) {
-  //         Linking.openURL(eventInfo.link);
-  //     } else {
-  //         console.log("Can't open URL");
-  //     }
-  // };
+  const isVisible = eventInfo.emails.includes(ctx.email) ? true : false;
+
+  const handlePress = async () => {
+    const supported = await Linking.canOpenURL(eventInfo.link);
+
+    if (supported) {
+      Linking.openURL(eventInfo.link);
+    } else {
+      console.log("Can't open URL");
+    }
+  };
 
   const generateDateString = (date, time) => {
     const dateObject = new Date(date);
@@ -93,12 +100,13 @@ const EventSubPage: FC<Props> = ({
           {generateDateString(eventInfo?.date, eventInfo?.time)}
         </Text>
         <Text style={styles.Venue}>{eventInfo?.venue}</Text>
-
-        {/* <View style={styles.registerButton}>
-          <Pressable onPress={handlePress}>
-            <Text style={styles.register}>Register</Text>
-          </Pressable>
-        </View> */}
+        {isVisible && (
+          <View style={styles.registerButton}>
+            <Pressable onPress={handlePress}>
+              <Text style={styles.register}>Register</Text>
+            </Pressable>
+          </View>
+        )}
       </View>
     </View>
   );

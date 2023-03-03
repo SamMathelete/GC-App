@@ -23,6 +23,7 @@ interface Props {
     link: string;
     description?: string;
     isHeld?: boolean;
+    emails: string[];
   };
 }
 const EventCard: FC<Props> = ({ style, eventInfo }) => {
