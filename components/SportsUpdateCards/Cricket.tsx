@@ -64,7 +64,12 @@ const Football: FC<Props> = ({
       <View style={styles.mainContainer}>
         <View style={styles.teamContainer}>
           <Image style={styles.teamImage} source={team1.logo} />
-          <Text style={styles.teamText}>{team1.teamName}</Text>
+          <View style={{flexDirection: "row"}}>
+            <Text style={styles.teamText}>{team1.teamName}</Text>
+            {battingTeam === team1.teamName &&
+            <Text style={styles.batting}>*</Text>
+            }
+          </View>
           <Text style={styles.scoreText}>
             {team1Score}/{team1Wickets}
           </Text>
@@ -103,7 +108,12 @@ const Football: FC<Props> = ({
 
         <View style={styles.teamContainer}>
           <Image style={styles.teamImage} source={team2.logo} />
-          <Text style={styles.teamText}>{team2.teamName}</Text>
+          <View style={{flexDirection: "row"}}>
+            <Text style={styles.teamText}>{team2.teamName}</Text>
+            {battingTeam === team2.teamName &&
+            <Text style={styles.batting}>*</Text>
+            }
+          </View>
           <Text style={styles.scoreText}>
             {team2Score}/{team2Wickets}
           </Text>
@@ -194,5 +204,10 @@ const styles = StyleSheet.create({
     color: "green",
     fontSize: 18,
     fontWeight: "bold",
+  },
+  batting: {
+    fontSize: 18,
+    fontWeight: "900",
+    textAlign: "center",
   },
 });

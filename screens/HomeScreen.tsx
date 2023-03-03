@@ -18,7 +18,7 @@ import Volleyball from "../components/SportsUpdateCards/Volleyball";
 import Tennis from "../components/SportsUpdateCards/Tennis";
 import { DUMMY_CAROUSEL_DATA } from "../data/carousel_data";
 import Colors from "../constants/Colors";
-
+import NewsItem from "../components/News";
 import EventResultCard from "../components/EventResultCard";
 import { EventResult } from "../data/EventResult";
 import { IconButton, Menu } from "react-native-paper";
@@ -247,6 +247,7 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
           )}
           {!isLiveNowLoading && (
             <View>
+              <Text style={styles.heading}>Football</Text>
               {FootballEvents.map((event: any) => (
                 <Football
                   key={event.id}
@@ -268,6 +269,7 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
                   venue={event.venue}
                 />
               ))}
+              <Text style={styles.heading}>Cricket</Text>
               {CricketEvents.map((event: any) => (
                 <Cricket
                   key={event.id}
@@ -304,6 +306,7 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
                   battingTeam={event.battingTeam}
                 />
               ))}
+              <Text style={styles.heading}>Basketball</Text>
               {BasketballEvents.map((event: any) => (
                 <Basketball
                   key={event.id}
@@ -325,6 +328,7 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
                   venue={event.venue}
                 />
               ))}
+              <Text style={styles.heading}>Volleyball</Text>
               {VolleyballEvents.map((event: any) => (
                 <Volleyball
                   key={event.id}
@@ -346,6 +350,7 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
                   venue={event.venue}
                 />
               ))}
+              <Text style={styles.heading}>Tennis</Text>
               {TennisEvents.map((event: any) => (
                 <Tennis
                   key={event.id}
@@ -376,6 +381,13 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
             heading={"RoboWars"}
             textColor={Colors.purpleLight}
           />
+          <Text style={styles.titleText}>News</Text>
+          <NewsItem
+            title="GC Trophy revealed"
+            description="the gc trophy has been revealed today..."
+            thumbnail={require("../assets/Images/GClogo2023.jpg")}
+            link={"https://www.google.com/"}
+            />
         </View>
         <View
           style={{
@@ -418,5 +430,16 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     fontWeight: "bold",
     marginRight: 5,
+  },
+  heading: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: Colors.purpleDark,
+    marginTop: 10,
+    textAlign: "center",
+    paddingHorizontal: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.purpleDark,
+    marginHorizontal: 20,
   },
 });
