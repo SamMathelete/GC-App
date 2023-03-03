@@ -30,10 +30,8 @@ import { collection, getDoc, getDocs } from "firebase/firestore";
 import { db } from "../firestoreConfig";
 
 type RootParamsList = {
-  LiveUpdatesScreen: undefined,
   HomeScreen: undefined;
   LoginScreen: undefined;
-  NotificationScreen: undefined;
 };
 
 type Props = BottomTabScreenProps<RootParamsList, "HomeScreen">;
@@ -151,19 +149,8 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
     closeMenu();
   };
 
-  const openNotification = () => {
-    //write code to navigate to Live Updates Screen
-  }
-
   navigation.setOptions({
     headerRight: () => (
-      <View style={{flexDirection: "row", justifyContent: "center"}}>
-      <IconButton
-            icon="bell"
-            size={30}
-            onPress={openNotification}
-            iconColor="white"
-      />
       <Menu
         visible={menuVisible}
         onDismiss={closeMenu}
@@ -179,7 +166,6 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
         <Menu.Item onPress={openRuleBook} title="RuleBook" />
         <Menu.Item onPress={logout} title="Log Out" />
       </Menu>
-      </View>
     ),
   });
 
@@ -197,10 +183,6 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
     setCarouselImages(carouselImages);
   };
 
-  const LiveNowHandler = () => {
-    //write code to navigate to Live Updates Screen
-  }
-  
   const [news, setNews] = useState<any>([]);
 
   const fetchNews = async () => {
@@ -269,13 +251,14 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
             );
           })}
         </View>
-        <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-        >
+        <View style={styles.liveContainer}>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
             <View style={{ flexDirection: "row", alignItems: "center" }}>
               <Text style={styles.titleText}>Live Now</Text>
               <MaterialCommunityIcons
@@ -290,60 +273,13 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
               size={30}
               onPress={refreshHandler}
             />
-        </View>
-        <View style={styles.liveContainer}>
-          
+          </View>
           {isLiveNowLoading && (
             <ActivityIndicator size="large" color={Colors.red} />
           )}
           {!isLiveNowLoading && (
-            <View style={{marginVertical: 10}} onTouchEnd={LiveNowHandler}>
-              <Text style={styles.liveHeading}>Basketball: </Text>
-              {BasketballEvents.map((event: any) => (
-                <View style={{flexDirection: "row"}} key={event.id}>
-                  <Text style={styles.liveItem}>{event.team1}</Text>
-                  <Text style={styles.liveItem}> vs </Text>
-                  <Text style={styles.liveItem}>{event.team2}</Text>
-                </View>
-              ))}
-              <Text style={styles.liveHeading}>Volleyball: </Text>
-              {VolleyballEvents.map((event: any) => (
-                <View style={{flexDirection: "row"}} key={event.id}>
-                  <Text style={styles.liveItem}>{event.team1}</Text>
-                  <Text style={styles.liveItem}> vs </Text>
-                  <Text style={styles.liveItem}>{event.team2}</Text>
-                </View>
-              ))}
-              <Text style={styles.liveHeading}>Football: </Text>
-              {FootballEvents.map((event: any) => (
-                <View style={{flexDirection: "row"}} key={event.id}>
-                  <Text style={styles.liveItem}>{event.team1}</Text>
-                  <Text style={styles.liveItem}> vs </Text>
-                  <Text style={styles.liveItem}>{event.team2}</Text>
-                </View>
-              ))}
-              <Text style={styles.liveHeading}>Cricket: </Text>
-              {CricketEvents.map((event: any) => (
-                <View style={{flexDirection: "row"}} key={event.id}>
-                  <Text style={styles.liveItem}>{event.team1}</Text>
-                  <Text style={styles.liveItem}> vs </Text>
-                  <Text style={styles.liveItem}>{event.team2}</Text>
-                </View>
-              ))}
-              <Text style={styles.liveHeading}>Tennis: </Text>
-              {TennisEvents.map((event: any) => (
-                <View style={{flexDirection: "row"}} key={event.id}>
-                  <Text style={styles.liveItem}>{event.team1}</Text>
-                  <Text style={styles.liveItem}> vs </Text>
-                  <Text style={styles.liveItem}>{event.team2}</Text>
-                </View>
-              ))}
-            </View>
-          )}
-          {/* {!isLiveNowLoading && (
             <View>
               <Text style={styles.heading}>Football</Text>
-
               {FootballEvents.map((event: any) => (
                 <Football
                   key={event.id}
@@ -472,7 +408,7 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
                 />
               ))}
             </View>
-          )} */}
+          )}
         </View>
         <View
           style={{
@@ -507,15 +443,6 @@ const styles = StyleSheet.create({
   },
   liveContainer: {
     flex: 1,
-    justifyContent: "center",
-    borderColor: Colors.red,
-    borderWidth: 2,
-    marginHorizontal: 10,
-    borderRadius: 15,
-    paddingHorizontal: 10,
-    backgroundColor: Colors.OffWhite,
-    elevation: 15,
-    marginBottom: 15
   },
   titleText: {
     color: Colors.purpleDark,
@@ -536,14 +463,4 @@ const styles = StyleSheet.create({
     borderBottomColor: Colors.purpleDark,
     marginHorizontal: 20,
   },
-  liveHeading: {
-    fontSize:24,
-    fontWeight: "bold",
-    color: Colors.purpleDark,
-    marginTop: 10,
-  },
-  liveItem: {
-    fontWeight: "bold",
-    fontSize: 16
-  }
 });
