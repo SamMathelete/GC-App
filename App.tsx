@@ -53,6 +53,7 @@ type RootParamList = {
   Tabbed: undefined;
   AdminHome: undefined;
   CalendarScreen: undefined;
+  NotificationScreen: undefined;
   LiveEventCreationScreen: undefined;
   AddScoreScreen: undefined;
   CricketLiveEditScreen: {
@@ -89,6 +90,10 @@ const Tabbed = (): JSX.Element => {
 
   const calendarNavigate = () => {
     navigate.navigate("CalendarScreen");
+  };
+
+  const notificationNavigate = () => {
+    navigate.navigate("NotificationScreen");
   };
 
   return (
@@ -142,6 +147,7 @@ const Tabbed = (): JSX.Element => {
             <Ionicons name="home" color={color} size={size} />
           ),
         }}
+        
       />
       <Tabs.Screen
         name="RankingScreen"
