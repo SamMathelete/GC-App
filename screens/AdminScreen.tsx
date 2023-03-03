@@ -18,6 +18,7 @@ type RootParamList = {
 type Props = NativeStackScreenProps<RootParamList, "AdminHome">;
 
 const allowedEmails = [
+  "21cs02006@iitbbs.ac.in",
   "21ec01054@iitbbs.ac.in",
   "21ec01021@iitbbs.ac.in",
   "21cs01061@iitbbs.ac.in",
@@ -66,27 +67,26 @@ const AdminScreen: FC<Props> = ({ navigation }) => {
 
   if (email === null || !allowedEmails.includes(email)) {
     return (
-      <View style={styles.container}>
-        <Text>You are not authorized to access this page.</Text>
-      </View>
+      <View style= { styles.container } >
+      <Text>You are not authorized to access this page.< /Text>
+        < /View>
     );
   }
 
-  const onAddLiveEvent = () => {
-    console.log("Add Live Event");
-    navigation.navigate("LiveEventCreationScreen");
-  };
+const onAddLiveEvent = () => {
+  console.log("Add Live Event");
+  navigation.navigate("LiveEventCreationScreen");
+};
 
-  const onUpdateLiveEvents = () => {
-    console.log("Update Live Events");
-    navigation.navigate("LiveEventEditScreen");
-  };
+const onUpdateLiveEvents = () => {
+  console.log("Update Live Events");
+  navigation.navigate("LiveEventEditScreen");
+};
 
-  const onSendNotification = () => {
-    console.log("Send Notification");
-    navigation.navigate("SendNotificationScreen");
-  };
-
+const onSendNotification = () => {
+  console.log("Send Notification");
+  navigation.navigate("SendNotificationScreen");
+};
   const onAddScore = () => {
     navigation.navigate("AddScoreScreen");
   };

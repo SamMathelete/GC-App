@@ -5,6 +5,7 @@
     "version": "9.1.b",
     "orientation": "portrait",
     "icon": "./assets/Images/gclogo.png",
+    "scheme": "com.samthemathlete.gcapp",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/Images/gcsplash.png",
@@ -19,6 +20,7 @@
       "supportsTablet": true
     },
     "android": {
+      "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/Images/gclogo.png",
         "backgroundColor": "#FFFFFF"

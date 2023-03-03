@@ -29,6 +29,9 @@ import VolleyballLiveEditScreen from "./screens/VolleyballLiveEditScreen";
 import SendNotificationScreen from "./screens/SendNotificationScreen";
 import LiveEventEditScreen from "./screens/LiveEventEditScreen";
 import AppCredits from "./screens/AppCredits";
+import { useEffect } from "react";
+import * as Notifications from "expo-notifications";
+import { useNotifications } from "./hooks/useNotifications";
 import AddScoreScreen from "./screens/AddScoreScreen";
 import AddCarouselImageScreen from "./screens/AddCarouselImageScreen";
 
@@ -158,6 +161,23 @@ const Tabbed = (): JSX.Element => {
 };
 
 export default function App() {
+  const { registerForPushNotificationsAsync, handleNotificationResponse} = useNotifications();
+  useEffect(() => {
+    registerForPushNotificationsAsync();
+    Notifications.setNotificationHandler({
+      handleNotification: async () => ({
+        shouldShowAlert: true,
+        shouldPlaySound: true,
+        shouldSetBadge: true,
+      }),
+    });
+
+    const responseListener = 
+      Notifications.addNotificationResponseReceivedListener(
+        handleNotificationResponse
+      );
+  },[]);
+
   return (
     <AuthContextProvider>
       <Provider theme={MD3LightTheme}>
