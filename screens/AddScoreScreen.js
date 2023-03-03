@@ -6,12 +6,16 @@ import { TextInput } from "react-native-paper";
 import ActivityIndicator from "react-native-paper";
 import MainButton from "../components/MainButton";
 import Colors from "../constants/Colors";
-import { doc, updateDoc, increment, addDoc, collection } from "firebase/firestore";
+import {
+  doc,
+  updateDoc,
+  increment,
+  addDoc,
+  collection,
+} from "firebase/firestore";
 import { db } from "../firestoreConfig";
 
-
 // Atomically increment the population of the city by 50.
-
 
 const AddScoreScreen = () => {
   const [title, setTitle] = useState("");
@@ -57,25 +61,25 @@ const AddScoreScreen = () => {
   ];
   const [showDropDown, setShowDropDown] = useState(false);
 
-  const onSubmitHandler = async() => {
-    console.log(title,description);
+  const onSubmitHandler = async () => {
+    console.log(title, description);
     // setIsLoding(true);
     const score = doc(db, "leaderboard", title);
     const Event = collection(db, title);
-    
 
-    await addDoc(Event,{
-      eventName : eventName,
-      points : description
-    })
+    await addDoc(Event, {
+      eventName: eventName,
+      points: description,
+    });
 
     await updateDoc(score, {
-      points: increment(description)
+      points: increment(description),
     });
-  setDescription("");
-  setTitle("")
-  setIsLoding(false);
-  }
+    setDescription("");
+    setTitle("");
+    setIsLoding(false);
+    alert("Score Added");
+  };
 
   // if (isLoding){
   //   return (<ActivityIndicator size="large" />)
@@ -84,26 +88,28 @@ const AddScoreScreen = () => {
   return (
     <View style={styles.rootContainer}>
       <ScrollView>
-      <KeyboardAvoidingView style={styles.container}>
-      <TextInput
-          mode="outlined"
-          label="Event"
-          style={styles.input}
-          placeholder="Event"
-          value={eventName}
-          onChangeText={(eventName) => setEventName(eventName)}
-        />
-        <DropDown
-            label={"Type"}
-            mode={"outlined"}
-            value={title}
-            setValue={setTitle}
-            list={teams}
-            visible={showDropDown}
-            showDropDown={() => setShowDropDown(true)}
-            onDismiss={() => setShowDropDown(false)}
+        <KeyboardAvoidingView style={styles.container}>
+          <TextInput
+            mode="outlined"
+            label="Event"
+            style={styles.input}
+            placeholder="Event"
+            value={eventName}
+            onChangeText={(eventName) => setEventName(eventName)}
           />
-        {/* <TextInput
+          <View style={styles.input}>
+            <DropDown
+              label={"Type"}
+              mode={"outlined"}
+              value={title}
+              setValue={setTitle}
+              list={teams}
+              visible={showDropDown}
+              showDropDown={() => setShowDropDown(true)}
+              onDismiss={() => setShowDropDown(false)}
+            />
+          </View>
+          {/* <TextInput
           mode="outlined"
           label="Team"
           style={styles.input}
@@ -111,27 +117,27 @@ const AddScoreScreen = () => {
           value={title}
           onChangeText={(title) => setTitle(title)}
         /> */}
-        
-        <TextInput
-          mode="outlined"
-          label="Points"
-          style={styles.input}
-          placeholder="Points"
-          value={description}
-          onChangeText={(description) => setDescription(description)}
-        />
-        <MainButton
-          onPress={onSubmitHandler}
-          style={styles.button}
-          styleText={styles.buttonText}
-        >
-          Submit
-        </MainButton>
-      </KeyboardAvoidingView>
-    </ScrollView>
+
+          <TextInput
+            mode="outlined"
+            label="Points"
+            style={styles.input}
+            placeholder="Points"
+            value={description}
+            onChangeText={(description) => setDescription(description)}
+          />
+          <MainButton
+            onPress={onSubmitHandler}
+            style={styles.button}
+            styleText={styles.buttonText}
+          >
+            Submit
+          </MainButton>
+        </KeyboardAvoidingView>
+      </ScrollView>
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   rootContainer: {
@@ -144,7 +150,6 @@ const styles = StyleSheet.create({
     width: 300,
     height: 60,
     textAlign: "left",
-    backgroundColor: "transparent",
     borderBottomWidth: 2,
     paddingHorizontal: 16,
     marginBottom: 20,
@@ -196,4 +201,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AddScoreScreen
+export default AddScoreScreen;

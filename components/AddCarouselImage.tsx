@@ -117,7 +117,6 @@ const styles = StyleSheet.create({
     width: 300,
     height: 60,
     textAlign: "left",
-    backgroundColor: "#faf6eb",
     borderBottomWidth: 2,
     paddingHorizontal: 16,
     marginBottom: 20,

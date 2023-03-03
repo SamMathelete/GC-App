@@ -6,32 +6,30 @@ import Colors from "../constants/Colors";
 import * as Notifications from "expo-notifications";
 import { useNotifications } from "../hooks/useNotifications";
 import { db } from "../firestoreConfig";
-import { getDocs,collection } from "firebase/firestore";
+import { getDocs, collection } from "firebase/firestore";
 const SendNotificationForm: FC = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const { sendPushNotification} = useNotifications();
+  const { sendPushNotification } = useNotifications();
   const [list, setList] = useState([]);
   const buttonHandler = () => {
-    
-    const getTokens = async() =>{
-      const list1=[];
-      const col = collection(db,"notificationTokens");
+    const getTokens = async () => {
+      const list1 = [];
+      const col = collection(db, "notificationTokens");
       const listSnap = await getDocs(col);
       listSnap.forEach((doc) => {
-        if (Object.keys(doc.data()).length!==0) 
-        list1.push(doc.data());
-        
-      })
+        if (Object.keys(doc.data()).length !== 0) list1.push(doc.data());
+      });
       // console.log(list1)
-      setList(()=>list1)
-    }
-    getTokens()
+      setList(() => list1);
+    };
+    getTokens();
     // console.log(list)
-    list.forEach((obj)=>{
-      sendPushNotification(obj.token,title,description)
-      console.log(obj.token)
-    })
+    list.forEach((obj) => {
+      sendPushNotification(obj.token, title, description);
+      console.log(obj.token);
+    });
+    alert("Notification Sent");
     // sendPushNotification("ExponentPushToken[-cWnFPKPynVSGS_mRDYLnK]",title,description)
   };
 
@@ -73,7 +71,6 @@ const styles = StyleSheet.create({
     width: 300,
     height: 60,
     textAlign: "left",
-    backgroundColor: "transparent",
     borderBottomWidth: 2,
     paddingHorizontal: 16,
     marginBottom: 20,
@@ -85,7 +82,6 @@ const styles = StyleSheet.create({
     width: 300,
     height: 100,
     textAlign: "left",
-    backgroundColor: "transparent",
     borderBottomWidth: 2,
     paddingHorizontal: 16,
     marginBottom: 20,
