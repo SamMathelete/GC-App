@@ -202,7 +202,7 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
             enableSnap={true}
           />
           <Pagination
-            dotsLength={DUMMY_CAROUSEL_DATA.length}
+            dotsLength={carouselImages.length}
             activeDotIndex={index}
             carouselRef={isCarousel}
             dotStyle={{
@@ -217,6 +217,15 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
             inactiveDotScale={0.6}
             tappableDots={true}
             containerStyle={{ marginTop: -80 }}
+          />
+        </View>
+        <View>
+          <Text style={styles.titleText}>News</Text>
+          <NewsItem
+            title="GC Trophy revealed"
+            description="the gc trophy has been revealed today..."
+            thumbnail={require("../assets/Images/GClogo2023.jpg")}
+            link={"https://www.google.com/"}
           />
         </View>
         <View style={styles.liveContainer}>
@@ -381,13 +390,6 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
             heading={"RoboWars"}
             textColor={Colors.purpleLight}
           />
-          <Text style={styles.titleText}>News</Text>
-          <NewsItem
-            title="GC Trophy revealed"
-            description="the gc trophy has been revealed today..."
-            thumbnail={require("../assets/Images/GClogo2023.jpg")}
-            link={"https://www.google.com/"}
-            />
         </View>
         <View
           style={{
