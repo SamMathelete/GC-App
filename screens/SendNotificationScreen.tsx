@@ -1,9 +1,27 @@
-import { FC } from "react";
-import { StyleSheet, View } from "react-native";
+import { FC, useContext } from "react";
+import { StyleSheet, Text, View } from "react-native";
 import SendNotificationForm from "../components/SendNotificationForm";
 import Colors from "../constants/Colors";
+import { AuthContext } from "../store/google-auth";
+
+const allowedEmails = [
+  "21ec01021@iitbbs.ac.in",
+  "vpresident.sg@iitbbs.ac.in",
+  "gsecsnt.sg@iitbbs.ac.in",
+  "ugrep.sg@iitbbs.ac.in",
+  "gseccul.sg@iitbbs.ac.in",
+  "gsecsports.sg@iitbbs.ac.in",
+];
 
 const SendNotificationScreen: FC = () => {
+  const ctx = useContext(AuthContext);
+  if (!allowedEmails.includes(ctx.email)) {
+    return (
+      <View style={styles.rootContainer}>
+        <Text>You are not authorized to view this page</Text>
+      </View>
+    );
+  }
   return (
     <View style={styles.rootContainer}>
       <SendNotificationForm />

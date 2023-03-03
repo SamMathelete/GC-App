@@ -67,30 +67,30 @@ const AdminScreen: FC<Props> = ({ navigation }) => {
 
   if (email === null || !allowedEmails.includes(email)) {
     return (
-      <View style= { styles.container } >
-      <Text>You are not authorized to access this page.< /Text>
-        < /View>
+      <View style={styles.container}>
+        <Text>You are not authorized to access this page.</Text>
+      </View>
     );
   }
 
-const onAddLiveEvent = () => {
-  console.log("Add Live Event");
-  navigation.navigate("LiveEventCreationScreen");
-};
+  const onAddLiveEvent = () => {
+    console.log("Add Live Event");
+    navigation.navigate("LiveEventCreationScreen");
+  };
 
-const onUpdateLiveEvents = () => {
-  console.log("Update Live Events");
-  navigation.navigate("LiveEventEditScreen");
-};
+  const onUpdateLiveEvents = () => {
+    console.log("Update Live Events");
+    navigation.navigate("LiveEventEditScreen");
+  };
 
-const onSendNotification = () => {
-  console.log("Send Notification");
-  navigation.navigate("SendNotificationScreen");
-};
+  const onSendNotification = () => {
+    console.log("Send Notification");
+    navigation.navigate("SendNotificationScreen");
+  };
   const onAddScore = () => {
     navigation.navigate("AddScoreScreen");
   };
-  
+
   const onAddCarouselImage = () => {
     console.log("Add Carousel Image");
     navigation.navigate("AddCarouselImageScreen");

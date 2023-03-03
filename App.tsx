@@ -35,6 +35,12 @@ import * as Notifications from "expo-notifications";
 import { useNotifications } from "./hooks/useNotifications";
 import AddScoreScreen from "./screens/AddScoreScreen";
 import AddCarouselImageScreen from "./screens/AddCarouselImageScreen";
+import TeamScoreScreen from "./screens/TeamScoreScreen";
+
+interface TeamScoreType {
+  eventName: string;
+  points: string;
+}
 
 type RootParamList = {
   HomeScreen: undefined;
@@ -67,6 +73,12 @@ type RootParamList = {
   LiveEventEditScreen: undefined;
   AddCarouselImageScreen: undefined;
   AppCredits: undefined;
+  TeamScoreScreen: {
+    teamName: string;
+    logo: string;
+    teamTotalScore: string;
+    teamScoreList: TeamScoreType[];
+  };
 };
 
 const Stack = createNativeStackNavigator<RootParamList>();
@@ -165,7 +177,8 @@ const Tabbed = (): JSX.Element => {
 };
 
 export default function App() {
-  const { registerForPushNotificationsAsync, handleNotificationResponse} = useNotifications();
+  const { registerForPushNotificationsAsync, handleNotificationResponse } =
+    useNotifications();
   useEffect(() => {
     registerForPushNotificationsAsync();
     Notifications.setNotificationHandler({
@@ -176,11 +189,11 @@ export default function App() {
       }),
     });
 
-    const responseListener = 
+    const responseListener =
       Notifications.addNotificationResponseReceivedListener(
         handleNotificationResponse
       );
-  },[]);
+  }, []);
 
   return (
     <AuthContextProvider>
@@ -350,6 +363,17 @@ export default function App() {
               component={AddCarouselImageScreen}
               options={{
                 title: "Add Carousel Image",
+                headerStyle: {
+                  backgroundColor: Colors.purpleDark,
+                },
+                headerTintColor: Colors.OffWhite,
+              }}
+            />
+            <Stack.Screen
+              name="TeamScoreScreen"
+              component={TeamScoreScreen}
+              options={{
+                title: "Team Scores",
                 headerStyle: {
                   backgroundColor: Colors.purpleDark,
                 },
