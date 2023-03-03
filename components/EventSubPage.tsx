@@ -99,7 +99,6 @@ const EventSubPage: FC<Props> = ({
         <Text style={styles.Date}>
           {generateDateString(eventInfo?.date, eventInfo?.time)}
         </Text>
-        <Text style={styles.Venue}>{eventInfo?.venue}</Text>
         {isVisible && (
           <View style={styles.registerButton}>
             <Pressable onPress={handlePress}>
