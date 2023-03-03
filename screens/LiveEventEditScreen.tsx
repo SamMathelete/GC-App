@@ -11,7 +11,8 @@ import Colors from "../constants/Colors";
 import Cricket from "../components/SportsUpdateCards/EditableCricketCard";
 import Basketball from "../components/SportsUpdateCards/EditableBasketballCard";
 import Volleyball from "../components/SportsUpdateCards/EditableVolleyballCard";
-// import MainButton from "../components/MainButton";
+import Tennis from "../components/SportsUpdateCards/EditableTennisCard";
+import MainButton from "../components/MainButton";
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import { IconButton } from "react-native-paper";
 import { useIsFocused } from "@react-navigation/native";
@@ -22,6 +23,7 @@ type RootParamList = {
   Football: undefined;
   Basketball: undefined;
   Volleyball: undefined;
+  Tennis: undefined;
 };
 
 type Props = BottomTabScreenProps<RootParamList, "LiveEventEditScreen">;
@@ -31,6 +33,7 @@ const LiveUpdatesScreen: FC<Props> = ({ navigation }) => {
   const [FootballEvents, setFootballEvents] = useState<any>([]);
   const [BasketballEvents, setBasketballEvents] = useState<any>([]);
   const [VolleyballEvents, setVolleyballEvents] = useState<any>([]);
+  const [TennisEvents, setTennisEvents] = useState<any>([]);
 
   const [isLoading, setIsLoading] = useState<any>(false);
 
@@ -74,6 +77,14 @@ const LiveUpdatesScreen: FC<Props> = ({ navigation }) => {
       }
     }
     setVolleyballEvents(volleyballEvents);
+
+    const tennisEvents = [];
+    for (const event of events) {
+      if (data[event].type === "Tennis") {
+        tennisEvents.push(data[event]);
+      }
+    }
+    setTennisEvents(tennisEvents);
 
     setIsLoading(false);
   };
@@ -173,6 +184,7 @@ const LiveUpdatesScreen: FC<Props> = ({ navigation }) => {
                 wickets: parseInt(event.bowlerWickets),
               }}
               overs={parseFloat(event.overs)}
+              battingTeam={event.battingTeam}
             />
           ))}
           <Text style={styles.heading}>Basketball</Text>
@@ -219,6 +231,27 @@ const LiveUpdatesScreen: FC<Props> = ({ navigation }) => {
               venue={event.venue}
             />
           ))}
+          <Text style={styles.heading}>Tennis</Text>
+          {TennisEvents.map((event: any) => (
+                <Tennis
+                  key={event.id}
+                  matchName={event.matchName}
+                  team1={{
+                    teamName: event.team1,
+                    score: event.score1,
+                    setScore: event.setscore1,
+                    logo: event.team1Logo,
+                  }}
+                  team2={{
+                    teamName: event.team2,
+                    score: event.score2,
+                    setScore: event.setscore2,
+                    logo: event.team2Logo,
+                  }}
+                  time={event.matchTime}
+                  venue={event.venue}
+                />
+              ))}
           <View
             style={{
               flex: 1,

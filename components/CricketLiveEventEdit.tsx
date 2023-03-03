@@ -19,6 +19,7 @@ import MSC from "../assets/Images/MSC.png";
 import PHD from "../assets/Images/PHD.png";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
+import DropDown from "react-native-paper-dropdown";
 
 interface Props {
   matchName: string;
@@ -38,6 +39,7 @@ interface Props {
   nonStrikerScore: string;
   nonStrikerBalls: string;
   overs: string;
+  battingTeam: string;
   time: string;
   venue: string;
   date: string;
@@ -63,6 +65,8 @@ const CricketLiveEventEdit: FC<Props> = (props) => {
   const [nonStrikerScore, setNonStrikerScore] = useState(props.nonStrikerScore);
   const [nonStrikerBalls, setNonStrikerBalls] = useState(props.nonStrikerBalls);
   const [overs, setOvers] = useState(props.overs);
+  const [battingTeam, setBattingTeam] = useState(props.battingTeam);
+  const [showBattingDropDown, setShowBattingDropDown] = useState(false);
   const [bowler, setBowler] = useState(props.bowler);
   const [bowlerRuns, setBowlerRuns] = useState(props.bowlerRuns);
   const [bowlerWickets, setBowlerWickets] = useState(props.bowlerWickets);
@@ -92,6 +96,7 @@ const CricketLiveEventEdit: FC<Props> = (props) => {
           nonStrikerScore: nonStrikerScore,
           nonStrikerBalls: nonStrikerBalls,
           overs: overs,
+          battingTeam: battingTeam,
           bowler: bowler,
           bowlerRuns: bowlerRuns,
           bowlerWickets: bowlerWickets,
@@ -128,6 +133,7 @@ const CricketLiveEventEdit: FC<Props> = (props) => {
     nonStrikerScore: "",
     nonStrikerBalls: "",
     overs: "",
+    battingTeam: "",
     bowler: "",
     bowlerRuns: "",
     bowlerWickets: "",
@@ -160,6 +166,7 @@ const CricketLiveEventEdit: FC<Props> = (props) => {
     setNonStrikerScore(matchData.nonStrikerScore);
     setNonStrikerBalls(matchData.nonStrikerBalls);
     setOvers(matchData.overs);
+    setBattingTeam(matchData.battingTeam);
     setBowler(matchData.bowler);
     setBowlerRuns(matchData.bowlerRuns);
     setBowlerWickets(matchData.bowlerWickets);
@@ -263,6 +270,7 @@ const CricketLiveEventEdit: FC<Props> = (props) => {
           wickets: parseInt(bowlerWickets),
         }}
         overs={parseFloat(overs)}
+        battingTeam={battingTeam}
       />
       <MainButton
         onPress={buttonHandler}
@@ -470,6 +478,27 @@ const CricketLiveEventEdit: FC<Props> = (props) => {
               ]}
               placeholder="Bowler Wickets"
             />
+          </View>
+          <View style={{width: 200}}>
+            <DropDown
+                label={"Select Batting Team"}
+                mode={"outlined"}
+                value={battingTeam}
+                setValue={setBattingTeam}
+                visible={showBattingDropDown}
+                showDropDown={() => setShowBattingDropDown(true)}
+                onDismiss={() => setShowBattingDropDown(false)}
+                list={[
+                  {
+                    label: team1,
+                    value: team1,
+                  },
+                  {
+                    label: team2,
+                    value: team2,
+                  },
+                ]}
+              />
           </View>
         </View>
         <MainButton

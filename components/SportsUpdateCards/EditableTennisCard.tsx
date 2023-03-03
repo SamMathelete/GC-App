@@ -1,3 +1,5 @@
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { FC } from "react";
 import {
   Image,
@@ -7,63 +9,35 @@ import {
   View,
   Pressable,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import Colors from "../../constants/Colors";
-
-type RootParamList = {
-  CricketLiveEditScreen: {
-    id: string;
-  };
-};
-
-type Batsman = {
-  playerName: string;
-  runs: number;
-  balls: number;
-};
-
-type Bowler = {
-  playerName: string;
-  runs: number;
-  wickets: number;
-};
 
 type Team = {
   teamName: string;
-  logo: ImageSourcePropType | undefined;
+  score: string;
+  setScore: string | undefined;
+  logo: ImageSourcePropType;
 };
 
 interface Props {
   matchName: string;
   team1: Team;
   team2: Team;
-  team1Score: number;
-  team2Score: number;
-  team1Wickets: number;
-  team2Wickets: number;
-  striker: Batsman;
-  nonStriker: Batsman;
-  bowler: Bowler;
+  time: string;
   venue: string;
-  overs: number;
-  battingTeam: string;
 }
 
-const Football: FC<Props> = ({
+type RootParamList = {
+  TennisLiveEditScreen: {
+    id: string;
+  };
+};
+
+const Tennis: FC<Props> = ({
   matchName,
   team1,
   team2,
-  team1Score,
-  team2Score,
-  team1Wickets,
-  team2Wickets,
-  striker,
-  nonStriker,
-  bowler,
+  time,
   venue,
-  overs,
-  battingTeam
 }) => {
   const navigation = useNavigation<NativeStackScreenProps<RootParamList>>();
 
@@ -71,10 +45,10 @@ const Football: FC<Props> = ({
     ? matchName.replace(".", "")
     : matchName;
 
-  const id = `Cricket_${newMatchName}`;
+  const id = `Tennis_${newMatchName}`;
 
   const editEvent = () => {
-    navigation.navigate("CricketLiveEditScreen", { id });
+    navigation.navigate("TennisLiveEditScreen", { id });
   };
 
   return (
@@ -84,56 +58,36 @@ const Football: FC<Props> = ({
       <View style={styles.mainContainer}>
         <View style={styles.teamContainer}>
           <Image style={styles.teamImage} source={team1.logo} />
-          <Text style={styles.teamText}>{team1.teamName}</Text>
-          <Text style={styles.scoreText}>
-            {team1Score}/{team1Wickets}
-          </Text>
+          <Text style={styles.subText}>{team1.teamName}</Text>
         </View>
 
         <View style={styles.midContainer}>
-          <View style={styles.overContainer}>
-            <Text style={styles.overText}>Over {overs}</Text>
+          <View style={styles.timeContainer}>
+            <Text style={styles.timeText}>{time}</Text>
           </View>
-          <View>
-            <Text style={styles.infoText}>
-              {striker.playerName} {"*  "}
-              {striker.runs}
-              {"("}
-              {overs}
-              {")"}
-            </Text>
-            <Text style={styles.infoText}>
-              {nonStriker.playerName}
-              {"  "}
-              {nonStriker.runs}
-              {"("}
-              {overs}
-              {")"}
-            </Text>
-            <Text style={[styles.infoText, { paddingTop: 14, paddingBottom: 10 }]}>
-              {bowler.playerName}
-              {"  "}
-              {bowler.wickets}
-              {"/"}
-              {bowler.runs}
-            </Text>
+          <View style={styles.barContainer}>
+            <Text style={styles.scoreText}>{team1.score}</Text>
+            <Text style={styles.barText}>-</Text>
+            <Text style={styles.scoreText}>{team2.score}</Text>
           </View>
-          <Text style={{textAlign: "center"}}> Batting: {battingTeam}</Text>
+          <View style={styles.barContainer}>
+            <Text style={styles.setscoreText}>Sets:</Text>
+            <Text style={styles.setscoreText}>{team1.setScore}</Text>
+            <Text style={styles.setbarText}>-</Text>
+            <Text style={styles.setscoreText}>{team2.setScore}</Text>
+          </View>
         </View>
 
         <View style={styles.teamContainer}>
           <Image style={styles.teamImage} source={team2.logo} />
-          <Text style={styles.teamText}>{team2.teamName}</Text>
-          <Text style={styles.scoreText}>
-            {team2Score}/{team2Wickets}
-          </Text>
+          <Text style={styles.subText}>{team2.teamName}</Text>
         </View>
       </View>
     </Pressable>
   );
 };
 
-export default Football;
+export default Tennis;
 
 const styles = StyleSheet.create({
   rootContainer: {
@@ -162,8 +116,8 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.OffWhite,
     height: 175,
     borderRadius: 24,
-    marginHorizontal: 10,
     marginBottom: 10,
+    marginHorizontal: 10,
   },
   teamContainer: {
     flex: 1,
@@ -177,40 +131,52 @@ const styles = StyleSheet.create({
     height: 50,
     margin: 10,
   },
-  scoreContainer: {
-    margin: 5,
-  },
   scoreText: {
-    fontSize: 25,
+    fontSize: 30,
+    marginHorizontal: 5,
   },
-  overContainer: {
+  setscoreText: {
+    fontSize: 15,
+    marginHorizontal: 5,
+    alignSelf: "center",
+    paddingVertical: 1,
+  },
+  timeContainer: {
+    marginTop: 20,
     marginBottom: 15,
   },
   midContainer: {
+    flex: 1,
     flexDirection: "column",
-    justifyContent: "space-between",
     alignItems: "center",
     alignSelf: "flex-start",
-    paddingTop: 20,
+  },
+  barText: {
+    fontSize: 30,
+    marginHorizontal: 7,
+  },
+  setbarText: {
+    fontSize: 15,
+    marginHorizontal: 2,
   },
   barContainer: {
-    fontSize: 75,
+    flexDirection: "row",
+    marginBottom: 15,
   },
   penaltyContainer: {
-    marginVertical: -4,
+    marginVertical: 0,
     justifyContent: "center",
     alignItems: "center",
   },
-  teamText: {
+  subText: {
     fontWeight: "bold",
     fontSize: 20,
   },
-  infoText: {
-    fontSize: 14,
-    alignSelf: "center",
-    paddingVertical: 2,
+  penaltyText: {
+    fontSize: 18,
+    textAlign: "center",
   },
-  overText: {
+  timeText: {
     color: "green",
     fontSize: 18,
     fontWeight: "bold",

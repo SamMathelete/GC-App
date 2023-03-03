@@ -1,52 +1,39 @@
 import { FC } from "react";
 import { StyleSheet, View } from "react-native";
-import CricketLiveEventEdit from "../components/CricketLiveEventEdit";
+import TennisLiveEventEdit from "../components/TennisLiveEventEdit";
 import Colors from "../constants/Colors";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 type RootStackParamList = {
-  CricketLiveEditScreen: {
+  TennisLiveEditScreen: {
     id: string;
   };
 };
 
 type Props = NativeStackScreenProps<
   RootStackParamList,
-  "CricketLiveEditScreen"
+  "TennisLiveEditScreen"
 >;
 
-const CricketLiveEditScreen: FC<Props> = ({ route }) => {
-
+const TennisLiveEditScreen: FC<Props> = ({ route }) => {
   const id = route.params.id;
   const matchData = {
     id: id,
     matchName: "",
-    type: "",
     venue: "",
     date: "",
-    time: "",
+    matchTime: "",
     team1: "",
     team2: "",
     score1: "0",
     score2: "0",
-    wickets1: "0",
-    wickets2: "0",
-    overs: "0.0",
-    battingTeam: "",
-    striker: "",
-    nonStriker: "",
-    bowler: "",
-    strikerBalls: "0",
-    strikerScore: "0",
-    nonStrikerBalls: "0",
-    nonStrikerScore: "0",
-    bowlerRuns: "0.0",
-    bowlerWickets: "0",
+    setscore1: "",
+    setscore2: "",
   };
 
   return (
     <View style={styles.rootContainer}>
-      <CricketLiveEventEdit {...matchData} />
+      <TennisLiveEventEdit {...matchData} />
     </View>
   );
 };
@@ -60,4 +47,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CricketLiveEditScreen;
+export default TennisLiveEditScreen;
