@@ -36,6 +36,7 @@ import { useNotifications } from "./hooks/useNotifications";
 import AddScoreScreen from "./screens/AddScoreScreen";
 import AddCarouselImageScreen from "./screens/AddCarouselImageScreen";
 import TeamScoreScreen from "./screens/TeamScoreScreen";
+import NewsUpdateScreen from "./screens/NewsUpdateScreen";
 
 interface TeamScoreType {
   eventName: string;
@@ -79,6 +80,7 @@ type RootParamList = {
     teamTotalScore: string;
     teamScoreList: TeamScoreType[];
   };
+  NewsUpdateScreen: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootParamList>();
@@ -358,6 +360,17 @@ export default function App() {
               component={TeamScoreScreen}
               options={{
                 title: "Team Scores",
+                headerStyle: {
+                  backgroundColor: Colors.purpleDark,
+                },
+                headerTintColor: Colors.OffWhite,
+              }}
+            />
+            <Stack.Screen
+              name="NewsUpdateScreen"
+              component={NewsUpdateScreen}
+              options={{
+                title: "News Update",
                 headerStyle: {
                   backgroundColor: Colors.purpleDark,
                 },

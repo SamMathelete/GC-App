@@ -119,6 +119,7 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
   useEffect(() => {
     fetchLiveUpdates();
     fetchCarouselData();
+    fetchNews();
   }, [isFocused]);
 
   const refreshHandler = () => {
@@ -182,6 +183,19 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
     setCarouselImages(carouselImages);
   };
 
+  const [news, setNews] = useState<any>([]);
+
+  const fetchNews = async () => {
+    const snapshot = await getDocs(collection(db, "news"));
+    const data = await snapshot.docs.map((doc) => doc.data());
+    const news = Object.keys(data);
+    const newsData = [];
+    for (const n of news) {
+      newsData.push(data[n]);
+    }
+    setNews(newsData);
+  };
+
   return (
     <View style={styles.rootContainer}>
       <ScrollView style={styles.scrollContainer}>
@@ -225,12 +239,17 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
         </View>
         <View>
           <Text style={styles.titleText}>News</Text>
-          <NewsItem
-            title="GC Trophy revealed"
-            description="the gc trophy has been revealed today..."
-            thumbnail={require("../assets/Images/GClogo2023.jpg")}
-            link={"https://www.google.com/"}
-          />
+          {news.map((n: any) => {
+            return (
+              <NewsItem
+                key={n.title}
+                title={n.title}
+                description={n.description}
+                thumbnail={n.imageDriveLink}
+                link={n.link}
+              />
+            );
+          })}
         </View>
         <View style={styles.liveContainer}>
           <View

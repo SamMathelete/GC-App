@@ -21,7 +21,7 @@ const NewsItem: FC<Props> = ({ title, description, link, thumbnail }) => {
   return (
     <View style={styles.NewsItem} onTouchEnd={onClick}>
       <View style={styles.thumbnailView}>
-        <Image source={thumbnail} style={styles.thumbnailStyle} />
+        <Image source={{ uri: thumbnail }} style={styles.thumbnailStyle} />
       </View>
       <View style={styles.NewsBody}>
         <Text style={styles.title}>{title}</Text>
