@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { FC, useContext, useState } from "react";
-import { Portal, Provider } from "react-native-paper";
+import { Provider } from "react-native-paper";
 import { StyleSheet, Text, View } from "react-native";
 import MainButton from "../components/MainButton";
 import { AuthContext } from "../store/google-auth";
@@ -12,11 +12,13 @@ type RootParamList = {
   LiveEventCreationScreen: undefined;
   LiveEventEditScreen: undefined;
   SendNotificationScreen: undefined;
+  AddCarouselImageScreen: undefined;
 };
 
 type Props = NativeStackScreenProps<RootParamList, "AdminHome">;
 
 const allowedEmails = [
+  "21cs02006@iitbbs.ac.in",
   "21ec01054@iitbbs.ac.in",
   "21ec01021@iitbbs.ac.in",
   "21cs01061@iitbbs.ac.in",
@@ -65,25 +67,33 @@ const AdminScreen: FC<Props> = ({ navigation }) => {
 
   if (email === null || !allowedEmails.includes(email)) {
     return (
-      <View style={styles.container}>
-        <Text>You are not authorized to access this page.</Text>
-      </View>
+      <View style= { styles.container } >
+      <Text>You are not authorized to access this page.< /Text>
+        < /View>
     );
   }
 
-  const onAddLiveEvent = () => {
-    console.log("Add Live Event");
-    navigation.navigate("LiveEventCreationScreen");
-  };
+const onAddLiveEvent = () => {
+  console.log("Add Live Event");
+  navigation.navigate("LiveEventCreationScreen");
+};
 
-  const onUpdateLiveEvents = () => {
-    console.log("Update Live Events");
-    navigation.navigate("LiveEventEditScreen");
-  };
+const onUpdateLiveEvents = () => {
+  console.log("Update Live Events");
+  navigation.navigate("LiveEventEditScreen");
+};
 
-  const onSendNotification = () => {
-    console.log("Send Notification");
-    navigation.navigate("SendNotificationScreen");
+const onSendNotification = () => {
+  console.log("Send Notification");
+  navigation.navigate("SendNotificationScreen");
+};
+  const onAddScore = () => {
+    navigation.navigate("AddScoreScreen");
+  };
+  
+  const onAddCarouselImage = () => {
+    console.log("Add Carousel Image");
+    navigation.navigate("AddCarouselImageScreen");
   };
 
   return (
@@ -108,6 +118,12 @@ const AdminScreen: FC<Props> = ({ navigation }) => {
           </MainButton>
           <MainButton style={styles.buttons} onPress={onSendNotification}>
             Send Notification
+          </MainButton>
+          <MainButton style={styles.buttons} onPress={onAddScore}>
+            Add Score
+          </MainButton>
+          <MainButton style={styles.buttons} onPress={onAddCarouselImage}>
+            Add Carousel Image
           </MainButton>
         </View>
       </View>

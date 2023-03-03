@@ -9,7 +9,7 @@ import { TextInput } from "react-native-paper";
 import MainButton from "./MainButton";
 import Colors from "../constants/Colors";
 import Volleyball from "./SportsUpdateCards/Volleyball";
-import DropDown from "react-native-paper-dropdown";
+// import DropDown from "react-native-paper-dropdown";
 import CSE from "../assets/Images/CSE.png";
 import ECEMETA from "../assets/Images/ECEMETA.png";
 import EE from "../assets/Images/EE.png";

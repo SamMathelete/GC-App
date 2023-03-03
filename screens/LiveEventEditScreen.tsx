@@ -2,7 +2,6 @@ import { FC, useEffect, useState } from "react";
 import {
   ScrollView,
   View,
-  ImageBackground,
   StyleSheet,
   ActivityIndicator,
   Text,

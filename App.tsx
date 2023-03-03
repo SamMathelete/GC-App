@@ -30,6 +30,11 @@ import TennisLiveEditScreen from "./screens/TennisLiveEditScreen";
 import SendNotificationScreen from "./screens/SendNotificationScreen";
 import LiveEventEditScreen from "./screens/LiveEventEditScreen";
 import AppCredits from "./screens/AppCredits";
+import { useEffect } from "react";
+import * as Notifications from "expo-notifications";
+import { useNotifications } from "./hooks/useNotifications";
+import AddScoreScreen from "./screens/AddScoreScreen";
+import AddCarouselImageScreen from "./screens/AddCarouselImageScreen";
 
 type RootParamList = {
   HomeScreen: undefined;
@@ -43,6 +48,7 @@ type RootParamList = {
   AdminHome: undefined;
   CalendarScreen: undefined;
   LiveEventCreationScreen: undefined;
+  AddScoreScreen: undefined;
   CricketLiveEditScreen: {
     id: string;
   };
@@ -59,6 +65,7 @@ type RootParamList = {
     id: string;
   };
   LiveEventEditScreen: undefined;
+  AddCarouselImageScreen: undefined;
   AppCredits: undefined;
 };
 
@@ -158,6 +165,23 @@ const Tabbed = (): JSX.Element => {
 };
 
 export default function App() {
+  const { registerForPushNotificationsAsync, handleNotificationResponse} = useNotifications();
+  useEffect(() => {
+    registerForPushNotificationsAsync();
+    Notifications.setNotificationHandler({
+      handleNotification: async () => ({
+        shouldShowAlert: true,
+        shouldPlaySound: true,
+        shouldSetBadge: true,
+      }),
+    });
+
+    const responseListener = 
+      Notifications.addNotificationResponseReceivedListener(
+        handleNotificationResponse
+      );
+  },[]);
+
   return (
     <AuthContextProvider>
       <Provider theme={MD3LightTheme}>
@@ -304,6 +328,28 @@ export default function App() {
               component={LiveEventEditScreen}
               options={{
                 title: "Edit Live Event",
+                headerStyle: {
+                  backgroundColor: Colors.purpleDark,
+                },
+                headerTintColor: Colors.OffWhite,
+              }}
+            />
+            <Stack.Screen
+              name="AddScoreScreen"
+              component={AddScoreScreen}
+              options={{
+                title: "Add an event score",
+                headerStyle: {
+                  backgroundColor: Colors.purpleDark,
+                },
+                headerTintColor: Colors.OffWhite,
+              }}
+            />
+            <Stack.Screen
+              name="AddCarouselImageScreen"
+              component={AddCarouselImageScreen}
+              options={{
+                title: "Add Carousel Image",
                 headerStyle: {
                   backgroundColor: Colors.purpleDark,
                 },

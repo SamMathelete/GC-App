@@ -1,4 +1,4 @@
-import { FC, useEffect, useLayoutEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import {
   View,
   KeyboardAvoidingView,
@@ -72,7 +72,7 @@ const CricketLiveEventEdit: FC<Props> = (props) => {
   const [bowlerWickets, setBowlerWickets] = useState(props.bowlerWickets);
   const [venue, setVenue] = useState(props.venue);
 
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
 
   const navigation = useNavigation<NativeStackScreenProps<RootParamList>>();
 
