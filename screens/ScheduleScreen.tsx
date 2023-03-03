@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from "react";
-import { FlatList, StyleSheet, View } from "react-native";
+import { FlatList, Pressable, StyleSheet, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import EventCard from "../components/EventCard";
@@ -11,11 +11,34 @@ import {
 import Colors from "../constants/Colors";
 import { collection, DocumentData, getDocs } from "firebase/firestore";
 import { db } from "../firestoreConfig";
+import { Ionicons } from "@expo/vector-icons";
 
 const Tab = createMaterialTopTabNavigator();
 
-const ScheduleScreen: FC = () => {
+const ScheduleScreen: FC = ({ navigation }) => {
   const [scheduledEvents, setScheduledEvents] = useState<DocumentData>([]);
+
+  const calendarNavigate = () => {
+    navigation.navigate("CalendarScreen", {
+      events: scheduledEvents,
+    });
+  };
+
+  navigation.setOptions({
+    tabBarIcon: ({ color, size }) => (
+      <Ionicons name="calendar" color={color} size={size} />
+    ),
+    headerRight() {
+      return (
+        <View style={{ paddingRight: 20 }}>
+          <Pressable onPress={calendarNavigate}>
+            <Ionicons name="calendar" color={Colors.red} size={35} />
+          </Pressable>
+        </View>
+      );
+    },
+  });
+
   useEffect(() => {
     getDocs(collection(db, "scheduled-events")).then((snapshot) =>
       setScheduledEvents(snapshot.docs.map((doc) => doc.data()))

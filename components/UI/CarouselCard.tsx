@@ -8,7 +8,11 @@ const Card: FC<Props> = ({ item, index }) => {
     <View style={styles.rootContainer} key={index}>
       <View>
         <Image
-          style={{ height: 450, borderRadius: 50, width: 400 }}
+          style={{
+            height: 280,
+            borderRadius: 50,
+            aspectRatio: 4 / 3,
+          }}
           source={{
             uri: item.imageDriveLink,
           }}

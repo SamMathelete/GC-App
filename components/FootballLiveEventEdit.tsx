@@ -20,6 +20,16 @@ import MSC from "../assets/Images/MSC.png";
 import PHD from "../assets/Images/PHD.png";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
+import {
+  doc,
+  updateDoc,
+  increment,
+  addDoc,
+  collection,
+  deleteDoc,
+  getDoc,
+} from "firebase/firestore";
+import { db } from "../firestoreConfig";
 
 interface Props {
   matchName: string;
@@ -56,33 +66,43 @@ const FootballLiveEventEdit: FC<Props> = (props) => {
   const navigation = useNavigation<NativeStackScreenProps<RootParamList>>();
 
   const buttonHandler = async () => {
-    fetch(
-      `https://gc-app-76138-default-rtdb.firebaseio.com/liveEvents/${props.id}.json`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          score1: score1,
-          score2: score2,
-          penaltyscore1: penaltyscore1,
-          penaltyscore2: penaltyscore2,
-          isPenalty: isPenalty,
-          matchTime: matchTime,
-        }),
-      }
-    );
+    await updateDoc(doc(db, "liveEvents", props.id), {
+      score1: score1,
+      score2: score2,
+      penaltyscore1: penaltyscore1,
+      penaltyscore2: penaltyscore2,
+      isPenalty: isPenalty,
+      matchTime: matchTime,
+    });
+
+    // fetch(
+    //   `https://gc-app-76138-default-rtdb.firebaseio.com/liveEvents/${props.id}.json`,
+    //   {
+    //     method: "PATCH",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({
+    //       score1: score1,
+    //       score2: score2,
+    //       penaltyscore1: penaltyscore1,
+    //       penaltyscore2: penaltyscore2,
+    //       isPenalty: isPenalty,
+    //       matchTime: matchTime,
+    //     }),
+    //   }
+    // );
     alert("Event Updated Successfully!");
   };
 
   const deleteHandler = async () => {
-    fetch(
-      `https://gc-app-76138-default-rtdb.firebaseio.com/liveEvents/${props.id}.json`,
-      {
-        method: "DELETE",
-      }
-    );
+    await deleteDoc(doc(db, "liveEvents", props.id));
+    // fetch(
+    //   `https://gc-app-76138-default-rtdb.firebaseio.com/liveEvents/${props.id}.json`,
+    //   {
+    //     method: "DELETE",
+    //   }
+    // );
     alert("Event Ended Successfully!");
     navigation.navigate("LiveEventEditScreen");
   };
@@ -104,11 +124,11 @@ const FootballLiveEventEdit: FC<Props> = (props) => {
   });
 
   const fetchLiveEvent = async () => {
-    const response = await fetch(
-      `https://gc-app-76138-default-rtdb.firebaseio.com/liveEvents/${props.id}.json`
-    );
-    const data = await response.json();
-    setMatchData(data);
+    // const response = await fetch(
+    //   `https://gc-app-76138-default-rtdb.firebaseio.com/liveEvents/${props.id}.json`
+    // );
+    const data = await getDoc(doc(db, "liveEvents", props.id));
+    setMatchData(data.data());
     console.log(data);
   };
 

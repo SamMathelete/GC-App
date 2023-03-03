@@ -87,10 +87,6 @@ const Tabs = createBottomTabNavigator<RootParamList>();
 const Tabbed = (): JSX.Element => {
   const navigate = useNavigation<NativeStackNavigationProp<RootParamList>>();
 
-  const calendarNavigate = () => {
-    navigate.navigate("CalendarScreen");
-  };
-
   return (
     <Tabs.Navigator
       initialRouteName="HomeScreen"
@@ -158,18 +154,6 @@ const Tabbed = (): JSX.Element => {
         component={ScheduleScreen}
         options={{
           title: "Schedule",
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="calendar" color={color} size={size} />
-          ),
-          headerRight() {
-            return (
-              <View style={{ paddingRight: 20 }}>
-                <Pressable onPress={calendarNavigate}>
-                  <Ionicons name="calendar" color={Colors.red} size={35} />
-                </Pressable>
-              </View>
-            );
-          },
         }}
       />
     </Tabs.Navigator>
