@@ -4,14 +4,14 @@ import { View, Text, Image } from "react-native";
 
 interface TeamScoreType {
   eventName: string;
-  points: string;
+  points: number;
 }
 
 type RootParamList = {
   TeamScoreScreen: {
     teamName: string;
     logo: string;
-    teamTotalScore: string;
+    teamTotalScore: number;
     teamScoreList: TeamScoreType[];
   };
 };
@@ -19,11 +19,13 @@ type RootParamList = {
 type Props = NativeStackScreenProps<RootParamList, "TeamScoreScreen">;
 
 const TeamScoreScreen: FC<Props> = ({ route }) => {
+  
   const { teamName, logo, teamTotalScore, teamScoreList } = route.params;
+  console.log(teamTotalScore);
   return (
     <View>
       <View>
-        <Image source={{ uri: logo }} />
+        <Image source={{ uri: logo }} style={{width:100, height:100}} />
         <Text>{teamName}</Text>
         <Text>{teamTotalScore}</Text>
       </View>
