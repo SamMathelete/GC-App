@@ -249,6 +249,8 @@ const styles = StyleSheet.create({
   imageGold: {
     height: 165,
     width: 165,
+    resizeMode: "contain",
+    backgroundColor: Colors.purpleDark
   },
   imageViewSilver: {
     overflow: "hidden",
@@ -275,6 +277,7 @@ const styles = StyleSheet.create({
   image: {
     height: 125,
     width: 125,
+    resizeMode: "contain",
   },
   teamNameGold: {
     fontSize: 29,

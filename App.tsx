@@ -54,6 +54,7 @@ type RootParamList = {
   Tabbed: undefined;
   AdminHome: undefined;
   CalendarScreen: undefined;
+  NotificationScreen: undefined;
   LiveEventCreationScreen: undefined;
   AddScoreScreen: undefined;
   CricketLiveEditScreen: {
@@ -88,6 +89,10 @@ const Tabs = createBottomTabNavigator<RootParamList>();
 
 const Tabbed = (): JSX.Element => {
   const navigate = useNavigation<NativeStackNavigationProp<RootParamList>>();
+
+const notificationNavigate = () => {
+  navigate.navigate("NotificationScreen");
+};
 
   return (
     <Tabs.Navigator
@@ -140,6 +145,7 @@ const Tabbed = (): JSX.Element => {
             <Ionicons name="home" color={color} size={size} />
           ),
         }}
+        
       />
       <Tabs.Screen
         name="RankingScreen"

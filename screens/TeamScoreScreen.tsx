@@ -1,7 +1,7 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { FC } from "react";
 import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
-
+import Colors from "../constants/Colors";
 interface TeamScoreType {
   eventName: string;
   points: number;
@@ -29,7 +29,7 @@ const TeamScoreScreen: FC<Props> = ({ route }) => {
           <Text style={styles.headerSmallText}>Team Name</Text>
           <Text style={styles.headerBigText}>{teamName}</Text>
         </View>
-        <View>
+        <View style={styles.headerTextContainer}>
           <Text style={styles.headerSmallText}>Total Score</Text>
           <Text style={styles.headerBigText}>{teamTotalScore}</Text>
         </View>
@@ -51,14 +51,20 @@ export default TeamScoreScreen;
 const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: Colors.OffWhite,
   },
   headerContainer: {
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    margin: 20,
+    margin: 15,
+    backgroundColor: "white",
+    padding: 10,
+    borderRadius: 15,
+    elevation: 15,
+    borderColor: Colors.red,
+    borderWidth: 1,
   },
   headerTextContainer: {
     flex: 1,
@@ -77,8 +83,11 @@ const styles = StyleSheet.create({
   scoreContainer: {
     flex: 10,
     flexDirection: "column",
-    margin: 20,
+    margin: 15,
     alignItems: "center",
+    backgroundColor: "white",
+    borderRadius: 15,
+    elevation: 15,
   },
   individualScore: {
     flexDirection: "row",

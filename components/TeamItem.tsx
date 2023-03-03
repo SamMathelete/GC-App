@@ -79,8 +79,10 @@ const styles = StyleSheet.create({
     zIndex: 2,
     marginLeft: 10,
     borderColor: Colors.red,
+    resizeMode: "contain",
     borderWidth: 2,
     borderRadius: 30,
+    backgroundColor: Colors.purpleLight,
   },
   teamName: {
     fontSize: 26,
