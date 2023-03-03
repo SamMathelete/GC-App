@@ -64,15 +64,8 @@ const AppCredits = () => {
           <Text style={styles.subHeading}>Special Thanks to</Text>
           <View style={styles.textContainer}>
             <Text style={styles.bigText}>Jatin Yadav</Text>
-            <Text style={styles.smallText}>Neuromancers Secretary</Text>
-            <Text style={styles.smallText}>
-              Students' Gymkhana, IIT Bhubaneswar
-            </Text>
-          </View>
-
-          <View style={styles.textContainer}>
-            <Text style={styles.bigText}> Shashwat Singh </Text>
-            <Text style={styles.smallText}>Web and Design Secretary</Text>
+            <Text style={styles.smallText}>Secretary</Text>
+            <Text style={styles.smallText}>Neuromancers</Text>
             <Text style={styles.smallText}>
               Students' Gymkhana, IIT Bhubaneswar
             </Text>
