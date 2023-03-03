@@ -28,15 +28,15 @@ const AuthContextProvider: FC<Props> = ({ children }) => {
   const [token, setToken] = useState<string | null>(null);
   const [email, setEmail] = useState<string | null>(null);
 
-  const authenticate = (token: string) => {
+  const authenticate = async (token: string) => {
     setToken(() => token);
   };
 
-  const emailSetter = (email: string) => {
+  const emailSetter = async (email: string) => {
     setEmail(() => email);
   };
 
-  const logout = () => {
+  const logout = async () => {
     setToken(() => null);
     setEmail(() => null);
   };

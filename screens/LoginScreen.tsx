@@ -17,6 +17,7 @@ import * as WebBrowser from "expo-web-browser";
 import * as Google from "expo-auth-session/providers/google";
 
 import { AuthContext } from "../store/google-auth";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -45,14 +46,32 @@ const LoginScreen: FC<Props> = ({ navigation }) => {
     navigation.navigate("AppCredits");
   };
 
-  const bypassHandler = () => {
-    setAdmin(() => true);
-    promptAsync();
+  const bypassHandler = async () => {
+    const token = await AsyncStorage.getItem("token");
+    const email = await AsyncStorage.getItem("email");
+    if (token && email) {
+      ctx.authenticate(token);
+      ctx.emailSetter(email);
+      navigation.navigate("AdminHome");
+    } else {
+      console.log("No token");
+      setAdmin(() => true);
+      promptAsync();
+    }
   };
 
-  const loginHandler = () => {
-    setAdmin(() => false);
-    promptAsync();
+  const loginHandler = async () => {
+    const token = await AsyncStorage.getItem("token");
+    const email = await AsyncStorage.getItem("email");
+    if (token && email) {
+      ctx.authenticate(token);
+      ctx.emailSetter(email);
+      navigation.navigate("Tabbed");
+    } else {
+      console.log("No token");
+      setAdmin(() => false);
+      promptAsync();
+    }
   };
 
   const getEmail = async (accessToken: string) => {
@@ -64,6 +83,7 @@ const LoginScreen: FC<Props> = ({ navigation }) => {
     );
     const emailJson = await email.json();
     const emailID = await emailJson.email;
+    AsyncStorage.setItem("email", emailID);
     ctx.emailSetter(emailID);
   };
 
@@ -71,6 +91,7 @@ const LoginScreen: FC<Props> = ({ navigation }) => {
     if (response?.type === "success") {
       const { authentication } = response;
       const token = authentication!.accessToken;
+      AsyncStorage.setItem("token", token);
       getEmail(token);
       if (admin) {
         navigation.navigate("AdminHome");

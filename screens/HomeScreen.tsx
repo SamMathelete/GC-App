@@ -25,6 +25,7 @@ import { IconButton, Menu } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useIsFocused } from "@react-navigation/native";
 import { AuthContext } from "../store/google-auth";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type RootParamsList = {
   HomeScreen: undefined;
@@ -133,6 +134,8 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
 
   const logout = () => {
     ctx.logout();
+    AsyncStorage.removeItem("token");
+    AsyncStorage.removeItem("email");
     navigation.navigate("LoginScreen");
     closeMenu();
   };
