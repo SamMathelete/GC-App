@@ -1,9 +1,5 @@
 import { FC, useEffect, useState } from "react";
-import {
-  FlatList,
-  StyleSheet,
-  View,
-} from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import EventCard from "../components/EventCard";
@@ -31,7 +27,7 @@ const ScheduleScreen: FC = () => {
       <View style={styles.rootContainer}>
         <View style={styles.eventList}>
           <FlatList
-            data={DUMMY_TECH_EVENTS}
+            data={scheduledEvents.filter((item) => item.stream === "Tech")}
             renderItem={({ item }) => <EventCard eventInfo={item} />}
           />
         </View>
@@ -44,7 +40,7 @@ const ScheduleScreen: FC = () => {
       <View style={styles.rootContainer}>
         <View style={styles.eventList}>
           <FlatList
-            data={DUMMY_CULTURAL_EVENTS}
+            data={scheduledEvents.filter((item) => item.stream === "Cultural")}
             renderItem={({ item }) => <EventCard eventInfo={item} />}
           />
         </View>
@@ -57,7 +53,7 @@ const ScheduleScreen: FC = () => {
       <View style={styles.rootContainer}>
         <View style={styles.eventList}>
           <FlatList
-            data={DUMMY_SPORTS_EVENTS}
+            data={scheduledEvents.filter((item) => item.stream === "Sports")}
             renderItem={({ item }) => <EventCard eventInfo={item} />}
           />
         </View>

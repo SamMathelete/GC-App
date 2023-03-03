@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { Modal, Portal, Text, Button, TextInput } from "react-native-paper";
+import {
+  Modal,
+  Portal,
+  Text,
+  Button,
+  TextInput,
+  Menu,
+} from "react-native-paper";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import Colors from "../../constants/Colors";
 import { View, StyleSheet, ScrollView } from "react-native";
@@ -15,14 +22,18 @@ type Props = {
 const ScheduledEvent: React.FC<Props> = ({ visible, setVisible }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [guidelines, setGuidelines] = useState("");
   const [emails, setEmails] = useState([""]);
+  const [venue, setVenue] = useState("");
+  const [stream, setStream] = useState();
 
-   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-   const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
 
-   const [date, setDate] = useState("");
-   const [time, setTime] = useState("")
+  const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
 
+  const [streamModalVisible, setStreamModalVisible] = useState(false);
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -33,7 +44,7 @@ const ScheduledEvent: React.FC<Props> = ({ visible, setVisible }) => {
   const handleDateConfirm = (date) => {
     console.warn("A date has been picked: ", date);
     const dt = new Date(date);
-    const sdt= dt.toISOString().split("T");
+    const sdt = dt.toISOString().split("T");
     setDate(sdt[0]);
     hideDatePicker();
   };
@@ -46,7 +57,7 @@ const ScheduledEvent: React.FC<Props> = ({ visible, setVisible }) => {
   };
   const handleTimeConfirm = (time) => {
     console.warn("A time has been picked: ", time);
-    const dt= new Date(time);
+    const dt = new Date(time);
     const st = dt.toLocaleTimeString();
     setTime(st);
     hideTimePicker();
@@ -61,9 +72,13 @@ const ScheduledEvent: React.FC<Props> = ({ visible, setVisible }) => {
     addDoc(collection(db, "scheduled-events"), {
       title: title,
       description: description,
+      guidelines: guidelines,
       emails: emails,
       date: date,
-      time:time,
+      time: time,
+      venue: venue,
+      isHeld: false,
+      stream: stream,
     })
       .then((ref) => console.log("Event Added with id: ", ref.id))
       .then(() => hideModal())
@@ -99,31 +114,90 @@ const ScheduledEvent: React.FC<Props> = ({ visible, setVisible }) => {
                 onChangeText={(text) => setDescription(text)}
                 multiline
               />
-             <View style={styles.buttonContainer}>
-             <Button title="Show Date Picker"  mode="contained" onPress={showDatePicker}>
-               Date
-              </Button>
-             </View>
-              
-           <DateTimePickerModal
-        isVisible={isDatePickerVisible}
-        mode="date"
-        onConfirm={handleDateConfirm}
-        onCancel={hideDatePicker}
-      />
+              <TextInput
+                mode="outlined"
+                label="Guidelines"
+                value={guidelines}
+                style={styles.textInput}
+                onChangeText={(text) => setGuidelines(text)}
+                multiline
+              />
+              <TextInput
+                mode="outlined"
+                label="Venue"
+                value={venue}
+                style={styles.textInput}
+                onChangeText={(text) => setVenue(text)}
+              />
+              <Menu
+                visible={streamModalVisible}
+                anchor={
+                  <TextInput
+                    value={stream}
+                    onPressIn={() => setStreamModalVisible(true)}
+                    showSoftInputOnFocus={false}
+                    mode="outlined"
+                    style={styles.textInput}
+                    label="Stream"
+                  />
+                }
+                onDismiss={() => setStreamModalVisible(false)}
+              >
+                <Menu.Item
+                  title="Tech"
+                  onPress={() => {
+                    setStream("Tech");
+                    setStreamModalVisible(false);
+                  }}
+                />
+                <Menu.Item
+                  title="Cultural"
+                  onPress={() => {
+                    setStream("Cultural");
+                    setStreamModalVisible(false);
+                  }}
+                />
+                <Menu.Item
+                  title="Sports"
+                  onPress={() => {
+                    setStream("Sports");
+                    setStreamModalVisible(false);
+                  }}
+                />
+              </Menu>
+              <View style={styles.buttonContainer}>
+                <Button
+                  title="Show Date Picker"
+                  mode="contained"
+                  onPress={showDatePicker}
+                >
+                  Date
+                </Button>
+              </View>
 
-       <View style={styles.buttonContainer}>
-       <Button title="Show Time Picker" mode="contained" onPress={showTimePicker}>
-        Time
-      </Button>
-       </View>
-     
-           <DateTimePickerModal
-        isVisible={isTimePickerVisible}
-        mode="time"
-        onConfirm={handleTimeConfirm}
-        onCancel={hideTimePicker}
-      />
+              <DateTimePickerModal
+                isVisible={isDatePickerVisible}
+                mode="date"
+                onConfirm={handleDateConfirm}
+                onCancel={hideDatePicker}
+              />
+
+              <View style={styles.buttonContainer}>
+                <Button
+                  title="Show Time Picker"
+                  mode="contained"
+                  onPress={showTimePicker}
+                >
+                  Time
+                </Button>
+              </View>
+
+              <DateTimePickerModal
+                isVisible={isTimePickerVisible}
+                mode="time"
+                onConfirm={handleTimeConfirm}
+                onCancel={hideTimePicker}
+              />
 
               <Emails emails={emails} setEmails={setEmails} />
               <View style={styles.buttonContainer}>
