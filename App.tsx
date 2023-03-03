@@ -36,6 +36,7 @@ import { useNotifications } from "./hooks/useNotifications";
 import AddScoreScreen from "./screens/AddScoreScreen";
 import AddCarouselImageScreen from "./screens/AddCarouselImageScreen";
 import TeamScoreScreen from "./screens/TeamScoreScreen";
+import NewsUpdateScreen from "./screens/NewsUpdateScreen";
 
 interface TeamScoreType {
   eventName: string;
@@ -80,6 +81,7 @@ type RootParamList = {
     teamTotalScore: string;
     teamScoreList: TeamScoreType[];
   };
+  NewsUpdateScreen: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootParamList>();
@@ -88,13 +90,9 @@ const Tabs = createBottomTabNavigator<RootParamList>();
 const Tabbed = (): JSX.Element => {
   const navigate = useNavigation<NativeStackNavigationProp<RootParamList>>();
 
-  const calendarNavigate = () => {
-    navigate.navigate("CalendarScreen");
-  };
-
-  const notificationNavigate = () => {
-    navigate.navigate("NotificationScreen");
-  };
+const notificationNavigate = () => {
+  navigate.navigate("NotificationScreen");
+};
 
   return (
     <Tabs.Navigator
@@ -164,18 +162,6 @@ const Tabbed = (): JSX.Element => {
         component={ScheduleScreen}
         options={{
           title: "Schedule",
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="calendar" color={color} size={size} />
-          ),
-          headerRight() {
-            return (
-              <View style={{ paddingRight: 20 }}>
-                <Pressable onPress={calendarNavigate}>
-                  <Ionicons name="calendar" color={Colors.red} size={35} />
-                </Pressable>
-              </View>
-            );
-          },
         }}
       />
     </Tabs.Navigator>
@@ -380,6 +366,17 @@ export default function App() {
               component={TeamScoreScreen}
               options={{
                 title: "Team Scores",
+                headerStyle: {
+                  backgroundColor: Colors.purpleDark,
+                },
+                headerTintColor: Colors.OffWhite,
+              }}
+            />
+            <Stack.Screen
+              name="NewsUpdateScreen"
+              component={NewsUpdateScreen}
+              options={{
+                title: "News Update",
                 headerStyle: {
                   backgroundColor: Colors.purpleDark,
                 },

@@ -10,6 +10,8 @@ import {
 import { TextInput } from "react-native-paper";
 import Colors from "../constants/Colors";
 import MainButton from "../components/MainButton";
+import { addDoc, collection, doc } from "firebase/firestore";
+import { db } from "../firestoreConfig";
 
 const AddCarouselImage = () => {
   const [imageDriveLink, setImageDriveLink] = useState("");
@@ -30,21 +32,17 @@ const AddCarouselImage = () => {
     };
 
     try {
-      const response = await fetch(
-        "https://gc-app-76138-default-rtdb.firebaseio.com/carouselImages.json",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(dataPost),
-        }
-      );
-      if (!response.ok) {
-        throw new Error("Something went wrong!");
-      }
-      const resData = await response.json();
-      console.log(resData);
+      const response = await addDoc(collection(db, "carouselImages"), dataPost);
+      // const response = await fetch(
+      //   "https://gc-app-76138-default-rtdb.firebaseio.com/carouselImages.json",
+      //   {
+      //     method: "POST",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify(dataPost),
+      //   }
+      // );
       Alert.alert("Image Added");
       setImageDriveLink("");
       setImageTitle("");
@@ -76,11 +74,8 @@ const AddCarouselImage = () => {
           styleText={styles.mainButtonText}
           onPress={addImageHandler}
         >
-          AddImage
+          Add Image
         </MainButton>
-        <Pressable style={styles.bottom}>
-          <Text style={styles.bottomText}>Forgot Password</Text>
-        </Pressable>
       </KeyboardAvoidingView>
     </ScrollView>
   );

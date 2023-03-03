@@ -18,6 +18,14 @@ import CE from "../assets/Images/CE.png";
 import MTECH from "../assets/Images/MTECH.png";
 import MSC from "../assets/Images/MSC.png";
 import PHD from "../assets/Images/PHD.png";
+import {
+  doc,
+  updateDoc,
+  increment,
+  setDoc,
+  collection,
+} from "firebase/firestore";
+import { db } from "../firestoreConfig";
 
 const teams = [
   {
@@ -199,16 +207,18 @@ const LiveEventCreationForm: FC = () => {
     console.log(liveEvent);
     try {
       setIsLoading(true);
-      await fetch(
-        `https://gc-app-76138-default-rtdb.firebaseio.com/liveEvents/${liveEvent.id}.json`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(liveEvent),
-        }
-      );
+      const docoll = doc(db, "liveEvents", liveEvent.id);
+      await setDoc(docoll, liveEvent);
+      // await fetch(
+      //   `https://gc-app-76138-default-rtdb.firebaseio.com/liveEvents/${liveEvent.id}.json`,
+      //   {
+      //     method: "PUT",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify(liveEvent),
+      //   }
+      // );
       setIsLoading(false);
       console.log("Live Event Created");
       alert(

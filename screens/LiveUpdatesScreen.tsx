@@ -16,7 +16,8 @@ import MainButton from "../components/MainButton";
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import { IconButton } from "react-native-paper";
 import { useIsFocused } from "@react-navigation/native";
-
+import { collection, DocumentData, getDocs } from "firebase/firestore";
+import { db } from "../firestoreConfig";
 
 type RootParamList = {
   LiveUpdates: undefined;
@@ -42,10 +43,11 @@ const LiveUpdatesScreen: FC<Props> = ({ navigation }) => {
 
   const fetchLiveUpdates = async () => {
     setIsLoading(true);
-    const response = await fetch(
-      "https://gc-app-76138-default-rtdb.firebaseio.com/liveEvents.json"
-    );
-    const data = await response.json();
+    const snapshot = await getDocs(collection(db, "liveEvents"));
+    // const response = await fetch(
+    //   "https://gc-app-76138-default-rtdb.firebaseio.com/liveEvents.json"
+    // );
+    const data = snapshot.docs.map((doc) => doc.data());
     const events = Object.keys(data);
     const cricketEvents = [];
     for (const event of events) {
@@ -234,24 +236,24 @@ const LiveUpdatesScreen: FC<Props> = ({ navigation }) => {
           ))}
           <Text style={styles.heading}>Tennis</Text>
           {TennisEvents.map((event: any) => (
-                <Tennis
-                  key={event.id}
-                  matchName={event.matchName}
-                  team1={{
-                    teamName: event.team1,
-                    score: event.score1,
-                    setScore: event.setscore1,
-                    logo: event.team1Logo,
-                  }}
-                  team2={{
-                    teamName: event.team2,
-                    score: event.score2,
-                    setScore: event.setscore2,
-                    logo: event.team2Logo,
-                  }}
-                  time={event.matchTime}
-                  venue={event.venue}
-                />
+            <Tennis
+              key={event.id}
+              matchName={event.matchName}
+              team1={{
+                teamName: event.team1,
+                score: event.score1,
+                setScore: event.setscore1,
+                logo: event.team1Logo,
+              }}
+              team2={{
+                teamName: event.team2,
+                score: event.score2,
+                setScore: event.setscore2,
+                logo: event.team2Logo,
+              }}
+              time={event.matchTime}
+              venue={event.venue}
+            />
           ))}
           <View
             style={{
@@ -284,7 +286,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: Colors.purpleDark,
     marginHorizontal: 20,
-  }
+  },
 });
 
 export default LiveUpdatesScreen;

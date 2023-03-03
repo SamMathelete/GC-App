@@ -26,6 +26,8 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useIsFocused } from "@react-navigation/native";
 import { AuthContext } from "../store/google-auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { collection, getDoc, getDocs } from "firebase/firestore";
+import { db } from "../firestoreConfig";
 
 type RootParamsList = {
   LiveUpdatesScreen: undefined,
@@ -66,10 +68,11 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
 
   const fetchLiveUpdates = async () => {
     setIsLiveNowLoading(true);
-    const response = await fetch(
-      "https://gc-app-76138-default-rtdb.firebaseio.com/liveEvents.json"
-    );
-    const data = await response.json();
+    const snapshot = await getDocs(collection(db, "liveEvents"));
+    // const response = await fetch(
+    //   "https://gc-app-76138-default-rtdb.firebaseio.com/liveEvents.json"
+    // );
+    const data = snapshot.docs.map((doc) => doc.data());
     const events = Object.keys(data);
 
     const cricketEvents = [];
@@ -118,6 +121,7 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
   useEffect(() => {
     fetchLiveUpdates();
     fetchCarouselData();
+    fetchNews();
   }, [isFocused]);
 
   const refreshHandler = () => {
@@ -180,10 +184,11 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
   });
 
   const fetchCarouselData = async () => {
-    const response = await fetch(
-      "https://gc-app-76138-default-rtdb.firebaseio.com/carouselImages.json"
-    );
-    const data = await response.json();
+    const snapshot = await getDocs(collection(db, "carouselImages"));
+    // const response = await fetch(
+    //   "https://gc-app-76138-default-rtdb.firebaseio.com/carouselImages.json"
+    // );
+    const data = await snapshot.docs.map((doc) => doc.data());
     const images = Object.keys(data);
     const carouselImages = [];
     for (const image of images) {
@@ -195,6 +200,19 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
   const LiveNowHandler = () => {
     //write code to navigate to Live Updates Screen
   }
+  
+  const [news, setNews] = useState<any>([]);
+
+  const fetchNews = async () => {
+    const snapshot = await getDocs(collection(db, "news"));
+    const data = await snapshot.docs.map((doc) => doc.data());
+    const news = Object.keys(data);
+    const newsData = [];
+    for (const n of news) {
+      newsData.push(data[n]);
+    }
+    setNews(newsData);
+  };
 
   return (
     <View style={styles.rootContainer}>
@@ -213,7 +231,7 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
             onSnapToItem={(index) => setIndex(index)}
             contentContainerCustomStyle={{
               marginBottom: 40,
-              height: 500,
+              height: 300,
               alignItems: "center",
             }}
             autoplay={true}
@@ -239,12 +257,17 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
         </View>
         <View>
           <Text style={styles.titleText}>News</Text>
-          <NewsItem
-            title="GC Trophy revealed"
-            description="the gc trophy has been revealed today..."
-            thumbnail={require("../assets/Images/GClogo2023.jpg")}
-            link={"https://www.google.com/"}
-          />
+          {news.map((n: any) => {
+            return (
+              <NewsItem
+                key={n.title}
+                title={n.title}
+                description={n.description}
+                thumbnail={n.imageDriveLink}
+                link={n.link}
+              />
+            );
+          })}
         </View>
         <View
               style={{
@@ -343,42 +366,46 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
                 />
               ))}
               <Text style={styles.heading}>Cricket</Text>
-              {CricketEvents.map((event: any) => (
-                <Cricket
-                  key={event.id}
-                  matchName={event.matchName}
-                  team1={{
-                    teamName: event.team1,
-                    logo: event.team1Logo,
-                  }}
-                  team1Score={parseInt(event.score1)}
-                  team1Wickets={parseInt(event.wickets1)}
-                  team2={{
-                    teamName: event.team2,
-                    logo: event.team2Logo,
-                  }}
-                  team2Score={parseInt(event.score2)}
-                  team2Wickets={parseInt(event.wickets2)}
-                  venue={event.venue}
-                  striker={{
-                    playerName: event.striker,
-                    runs: parseInt(event.strikerScore),
-                    balls: parseInt(event.strikerBalls),
-                  }}
-                  nonStriker={{
-                    playerName: event.nonStriker,
-                    runs: parseInt(event.nonStrikerScore),
-                    balls: parseInt(event.nonStrikerBalls),
-                  }}
-                  bowler={{
-                    playerName: event.bowler,
-                    runs: parseInt(event.bowlerRuns),
-                    wickets: parseInt(event.bowlerWickets),
-                  }}
-                  overs={parseFloat(event.overs)}
-                  battingTeam={event.battingTeam}
-                />
-              ))}
+              {CricketEvents.length === 0 ? (
+                <Text>No Live Events Running Now</Text>
+              ) : (
+                CricketEvents.map((event: any) => (
+                  <Cricket
+                    key={event.id}
+                    matchName={event.matchName}
+                    team1={{
+                      teamName: event.team1,
+                      logo: event.team1Logo,
+                    }}
+                    team1Score={parseInt(event.score1)}
+                    team1Wickets={parseInt(event.wickets1)}
+                    team2={{
+                      teamName: event.team2,
+                      logo: event.team2Logo,
+                    }}
+                    team2Score={parseInt(event.score2)}
+                    team2Wickets={parseInt(event.wickets2)}
+                    venue={event.venue}
+                    striker={{
+                      playerName: event.striker,
+                      runs: parseInt(event.strikerScore),
+                      balls: parseInt(event.strikerBalls),
+                    }}
+                    nonStriker={{
+                      playerName: event.nonStriker,
+                      runs: parseInt(event.nonStrikerScore),
+                      balls: parseInt(event.nonStrikerBalls),
+                    }}
+                    bowler={{
+                      playerName: event.bowler,
+                      runs: parseInt(event.bowlerRuns),
+                      wickets: parseInt(event.bowlerWickets),
+                    }}
+                    overs={parseFloat(event.overs)}
+                    battingTeam={event.battingTeam}
+                  />
+                ))
+              )}
               <Text style={styles.heading}>Basketball</Text>
               {BasketballEvents.map((event: any) => (
                 <Basketball
@@ -446,14 +473,6 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
               ))}
             </View>
           )} */}
-        </View>
-        <View >
-          <Text style={styles.titleText}>Results</Text>
-          <EventResultCard
-            result={EventResult}
-            heading={"RoboWars"}
-            textColor={Colors.purpleLight}
-          />
         </View>
         <View
           style={{

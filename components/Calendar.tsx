@@ -2,10 +2,16 @@ import React, { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
 interface Event {
-  id: string;
-  name: string;
-  date: Date;
-  link: string;
+  date: string;
+  description: string;
+  emails: string[];
+  time: string;
+  guidelines: string;
+  isHeld: boolean;
+  link?: string;
+  stream: string;
+  title: string;
+  venue: string;
 }
 
 interface CalendarProps {
@@ -20,11 +26,11 @@ const Calendar: React.FC<CalendarProps> = ({ events }) => {
   };
 
   const isDateHighlighted = (date: Date) => {
-    return events.some((event) => isSameDay(event.date, date));
+    return events.some((event) => isSameDay(new Date(event.date), date));
   };
 
   const getEventsForDate = (date: Date) => {
-    return events.filter((event) => isSameDay(event.date, date));
+    return events.filter((event) => isSameDay(new Date(event.date), date));
   };
 
   const isSameDay = (date1: Date, date2: Date) => {
@@ -115,7 +121,7 @@ const Calendar: React.FC<CalendarProps> = ({ events }) => {
         </Text>
         {eventsForDate.map((event) => (
           <TouchableOpacity
-            key={event.id}
+            key={event.title}
             onPress={() =>
               console.log(`Navigating to event page: ${event.link}`)
             }
@@ -128,7 +134,7 @@ const Calendar: React.FC<CalendarProps> = ({ events }) => {
                 color: "white",
               }}
             >
-              {event.name}
+              {event.title}
             </Text>
           </TouchableOpacity>
         ))}

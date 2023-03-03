@@ -20,6 +20,16 @@ import PHD from "../assets/Images/PHD.png";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
 import DropDown from "react-native-paper-dropdown";
+import {
+  doc,
+  updateDoc,
+  increment,
+  addDoc,
+  collection,
+  deleteDoc,
+  getDoc,
+} from "firebase/firestore";
+import { db } from "../firestoreConfig";
 
 interface Props {
   matchName: string;
@@ -77,42 +87,61 @@ const CricketLiveEventEdit: FC<Props> = (props) => {
   const navigation = useNavigation<NativeStackScreenProps<RootParamList>>();
 
   const buttonHandler = async () => {
-    fetch(
-      `https://gc-app-76138-default-rtdb.firebaseio.com/liveEvents/${props.id}.json`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          score1: score1,
-          wickets1: wickets1,
-          score2: score2,
-          wickets2: wickets2,
-          striker: striker,
-          strikerScore: strikerScore,
-          strikerBalls: strikerBalls,
-          nonStriker: nonStriker,
-          nonStrikerScore: nonStrikerScore,
-          nonStrikerBalls: nonStrikerBalls,
-          overs: overs,
-          battingTeam: battingTeam,
-          bowler: bowler,
-          bowlerRuns: bowlerRuns,
-          bowlerWickets: bowlerWickets,
-        }),
-      }
-    );
+    await updateDoc(doc(db, "liveEvents", props.id), {
+      score1: score1,
+      wickets1: wickets1,
+      score2: score2,
+      wickets2: wickets2,
+      striker: striker,
+      strikerScore: strikerScore,
+      strikerBalls: strikerBalls,
+      nonStriker: nonStriker,
+      nonStrikerScore: nonStrikerScore,
+      nonStrikerBalls: nonStrikerBalls,
+      overs: overs,
+      battingTeam: battingTeam,
+      bowler: bowler,
+      bowlerRuns: bowlerRuns,
+      bowlerWickets: bowlerWickets,
+    });
+
+    // fetch(
+    //   `https://gc-app-76138-default-rtdb.firebaseio.com/liveEvents/${props.id}.json`,
+    //   {
+    //     method: "PATCH",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({
+    //       score1: score1,
+    //       wickets1: wickets1,
+    //       score2: score2,
+    //       wickets2: wickets2,
+    //       striker: striker,
+    //       strikerScore: strikerScore,
+    //       strikerBalls: strikerBalls,
+    //       nonStriker: nonStriker,
+    //       nonStrikerScore: nonStrikerScore,
+    //       nonStrikerBalls: nonStrikerBalls,
+    //       overs: overs,
+    //       battingTeam: battingTeam,
+    //       bowler: bowler,
+    //       bowlerRuns: bowlerRuns,
+    //       bowlerWickets: bowlerWickets,
+    //     }),
+    //   }
+    // );
     alert("Event Updated Successfully!");
   };
 
   const deleteHandler = async () => {
-    fetch(
-      `https://gc-app-76138-default-rtdb.firebaseio.com/liveEvents/${props.id}.json`,
-      {
-        method: "DELETE",
-      }
-    );
+    await deleteDoc(doc(db, "liveEvents", props.id));
+    // fetch(
+    //   `https://gc-app-76138-default-rtdb.firebaseio.com/liveEvents/${props.id}.json`,
+    //   {
+    //     method: "DELETE",
+    //   }
+    // );
     alert("Event Ended Successfully!");
     navigation.navigate("LiveEventEditScreen");
   };
@@ -142,12 +171,11 @@ const CricketLiveEventEdit: FC<Props> = (props) => {
   });
 
   const fetchLiveEvent = async () => {
-    const response = await fetch(
-      `https://gc-app-76138-default-rtdb.firebaseio.com/liveEvents/${props.id}.json`
-    );
-    const data = await response.json();
-    setMatchData(data);
-    console.log(data);
+    // const response = await fetch(
+    //   `https://gc-app-76138-default-rtdb.firebaseio.com/liveEvents/${props.id}.json`
+    // );
+    const data = await getDoc(doc(db, "liveEvents", props.id));
+    setMatchData(data.data());
   };
 
   useEffect(() => {
@@ -479,26 +507,26 @@ const CricketLiveEventEdit: FC<Props> = (props) => {
               placeholder="Bowler Wickets"
             />
           </View>
-          <View style={{width: 200}}>
+          <View style={{ width: 200 }}>
             <DropDown
-                label={"Select Batting Team"}
-                mode={"outlined"}
-                value={battingTeam}
-                setValue={setBattingTeam}
-                visible={showBattingDropDown}
-                showDropDown={() => setShowBattingDropDown(true)}
-                onDismiss={() => setShowBattingDropDown(false)}
-                list={[
-                  {
-                    label: team1,
-                    value: team1,
-                  },
-                  {
-                    label: team2,
-                    value: team2,
-                  },
-                ]}
-              />
+              label={"Select Batting Team"}
+              mode={"outlined"}
+              value={battingTeam}
+              setValue={setBattingTeam}
+              visible={showBattingDropDown}
+              showDropDown={() => setShowBattingDropDown(true)}
+              onDismiss={() => setShowBattingDropDown(false)}
+              list={[
+                {
+                  label: team1,
+                  value: team1,
+                },
+                {
+                  label: team2,
+                  value: team2,
+                },
+              ]}
+            />
           </View>
         </View>
         <MainButton
