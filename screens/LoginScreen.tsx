@@ -123,11 +123,15 @@ const LoginScreen: FC<Props> = ({ navigation }) => {
             <Text style={{ color: Colors.OffWhite }}>IIT Bhubaneswar</Text>
           </View>
           <View style={styles.buttonContainer}>
-            <MainButton onPress={loginHandler} styleText={{fontSize: 22}}>Login with Google</MainButton>
-            <Text onPress={bypassHandler} style={styles.adminText}>Admin</Text>
+            <MainButton onPress={loginHandler} styleText={{ fontSize: 22 }}>
+              Login
+            </MainButton>
+            <Text onPress={bypassHandler} style={styles.adminText}>
+              Admin
+            </Text>
           </View>
           <Pressable style={styles.bottom} onPress={creditNavigator}>
-            <Text style={styles.bottomText}>Credits</Text>
+            <Text style={styles.bottomText}>Development Credits</Text>
           </Pressable>
         </View>
       </ImageBackground>
@@ -183,7 +187,7 @@ const styles = StyleSheet.create({
     borderRadius: 135,
   },
   bottom: {
-    marginBottom: 40,
+    marginBottom: 60,
   },
   bottomText: {
     fontSize: 20,
@@ -192,7 +196,7 @@ const styles = StyleSheet.create({
   adminText: {
     fontSize: 20,
     color: Colors.red,
-    marginBottom: 20,
+    marginBottom: 40,
     // borderWidth: 1,
     // borderColor: Colors.OffWhite,
     // borderRadius: 30,

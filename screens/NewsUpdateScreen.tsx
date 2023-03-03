@@ -3,7 +3,7 @@ import { KeyboardAvoidingView, ScrollView, StyleSheet } from "react-native";
 import { TextInput } from "react-native-paper";
 import MainButton from "../components/MainButton";
 import Colors from "../constants/Colors";
-import { addDoc, collection } from "firebase/firestore";
+import { setDoc, doc } from "firebase/firestore";
 import { db } from "../firestoreConfig";
 
 const NewsUpdateScreen = () => {
@@ -20,7 +20,7 @@ const NewsUpdateScreen = () => {
       imageDriveLink: `https://drive.google.com/uc?id=${imageLink}`,
       link: link,
     };
-    await addDoc(collection(db, "news"), news);
+    await setDoc(doc(db, "news", news.title), news);
     alert("News Published");
   };
   return (

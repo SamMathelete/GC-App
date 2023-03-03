@@ -37,6 +37,8 @@ import AddScoreScreen from "./screens/AddScoreScreen";
 import AddCarouselImageScreen from "./screens/AddCarouselImageScreen";
 import TeamScoreScreen from "./screens/TeamScoreScreen";
 import NewsUpdateScreen from "./screens/NewsUpdateScreen";
+import DeleteNewsScreen from "./screens/EditNewsScreen";
+import EditCarouselImage from "./screens/EditCarouselImages";
 
 interface TeamScoreType {
   eventName: string;
@@ -82,6 +84,8 @@ type RootParamList = {
     teamScoreList: TeamScoreType[];
   };
   NewsUpdateScreen: undefined;
+  DeleteNewsScreen: undefined;
+  EditCarouselImage: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootParamList>();
@@ -90,9 +94,9 @@ const Tabs = createBottomTabNavigator<RootParamList>();
 const Tabbed = (): JSX.Element => {
   const navigate = useNavigation<NativeStackNavigationProp<RootParamList>>();
 
-const notificationNavigate = () => {
-  navigate.navigate("NotificationScreen");
-};
+  const notificationNavigate = () => {
+    navigate.navigate("NotificationScreen");
+  };
 
   return (
     <Tabs.Navigator
@@ -145,7 +149,6 @@ const notificationNavigate = () => {
             <Ionicons name="home" color={color} size={size} />
           ),
         }}
-        
       />
       <Tabs.Screen
         name="RankingScreen"
@@ -377,6 +380,28 @@ export default function App() {
               component={NewsUpdateScreen}
               options={{
                 title: "News Update",
+                headerStyle: {
+                  backgroundColor: Colors.purpleDark,
+                },
+                headerTintColor: Colors.OffWhite,
+              }}
+            />
+            <Stack.Screen
+              name="DeleteNewsScreen"
+              component={DeleteNewsScreen}
+              options={{
+                title: "Delete News",
+                headerStyle: {
+                  backgroundColor: Colors.purpleDark,
+                },
+                headerTintColor: Colors.OffWhite,
+              }}
+            />
+            <Stack.Screen
+              name="EditCarouselImage"
+              component={EditCarouselImage}
+              options={{
+                title: "Delete Carousel Image",
                 headerStyle: {
                   backgroundColor: Colors.purpleDark,
                 },

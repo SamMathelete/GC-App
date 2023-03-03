@@ -1,7 +1,7 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { FC, useContext, useState } from "react";
 import { Provider } from "react-native-paper";
-import { StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import MainButton from "../components/MainButton";
 import { AuthContext } from "../store/google-auth";
 import Colors from "../constants/Colors";
@@ -14,6 +14,8 @@ type RootParamList = {
   SendNotificationScreen: undefined;
   AddCarouselImageScreen: undefined;
   NewsUpdateScreen: undefined;
+  DeleteNewsScreen: undefined;
+  EditCarouselImage: undefined;
 };
 
 type Props = NativeStackScreenProps<RootParamList, "AdminHome">;
@@ -102,9 +104,25 @@ const AdminScreen: FC<Props> = ({ navigation }) => {
     navigation.navigate("NewsUpdateScreen");
   };
 
+  const onDeleteNews = () => {
+    console.log("Delete News");
+    navigation.navigate("DeleteNewsScreen");
+  };
+
+  const onDeleteCarouselImage = () => {
+    console.log("Edit Carousel Image");
+    navigation.navigate("EditCarouselImage");
+  };
+
   return (
     <Provider>
-      <View style={styles.container}>
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={{
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
         <View>
           <ScheduledEvent
             visible={scheduledEventModal}
@@ -131,11 +149,17 @@ const AdminScreen: FC<Props> = ({ navigation }) => {
           <MainButton style={styles.buttons} onPress={onAddCarouselImage}>
             Add Carousel Image
           </MainButton>
+          <MainButton style={styles.buttons} onPress={onDeleteCarouselImage}>
+            Delete Carousel Image
+          </MainButton>
           <MainButton style={styles.buttons} onPress={onAddNews}>
             Add News
           </MainButton>
+          <MainButton style={styles.buttons} onPress={onDeleteNews}>
+            Delete News
+          </MainButton>
         </View>
-      </View>
+      </ScrollView>
     </Provider>
   );
 };
@@ -146,8 +170,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.OffWhite,
-    alignItems: "center",
-    justifyContent: "center",
   },
   textContainer: {
     flex: 1,
