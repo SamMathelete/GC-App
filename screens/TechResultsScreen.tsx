@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { doc, getDocs, collection } from "firebase/firestore";
 import { db } from "../firestoreConfig";
 import EventResultCard from "../components/EventResultCard";
@@ -24,29 +24,31 @@ const TechResultsScreen = () => {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.heading}>Tech Results</Text>
-      {techResults.map((result) => (
-        <EventResultCard
-          key={result.id}
-          heading={result.name}
-          result={[
-            {
-              rank: 1,
-              name: result.winner,
-            },
-            {
-              rank: 2,
-              name: result.runner1,
-            },
-            {
-              rank: 3,
-              name: result.runner2,
-            },
-          ]}
-        />
-      ))}
-    </View>
+    <ScrollView>
+      <View style={styles.container}>
+        <Text style={styles.heading}>Tech Results</Text>
+        {techResults.map((result) => (
+          <EventResultCard
+            key={result.id}
+            heading={result.name}
+            result={[
+              {
+                rank: 1,
+                name: result.winner,
+              },
+              {
+                rank: 2,
+                name: result.runner1,
+              },
+              {
+                rank: 3,
+                name: result.runner2,
+              },
+            ]}
+          />
+        ))}
+      </View>
+    </ScrollView>
   );
 };
 

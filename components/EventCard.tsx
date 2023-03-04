@@ -76,17 +76,28 @@ const EventCard: FC<Props> = ({ style, eventInfo }) => {
     );
   };
 
+  const Dimensions = useWindowDimensions();
+  const width = Dimensions.width;
+
   return (
     <Pressable
       onPress={() => {
         setIsPressed(true);
         setModalVisible(true);
-        
       }}
       style={[styles.rootContainer, style]}
     >
-      <View style={styles.topView}>
-        <Text style={styles.eventName}>{eventInfo?.title}</Text>
+      <View
+        style={[
+          styles.topView,
+          {
+            width: width * 0.95,
+          },
+        ]}
+      >
+        <Text style={[styles.eventName, { width: width * 0.8 }]}>
+          {eventInfo?.title}
+        </Text>
         <Pressable
           android_ripple={{ color: "#FF4D00" }}
           onPress={() => {

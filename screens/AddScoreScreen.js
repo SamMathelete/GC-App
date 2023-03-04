@@ -47,7 +47,7 @@ const AddScoreScreen = () => {
   const teams = [
     {
       label: "CSE",
-      value: "CS",
+      value: "CSE",
     },
     {
       label: "ECE+META",

@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from "react";
-import { FlatList, Text, View, Image } from "react-native";
+import { FlatList, Text, View, Image, ScrollView } from "react-native";
 import { StyleSheet } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 
 import { TEAM_RANKINGS } from "../data/ranking";
 import TeamItem from "../components/TeamItem";
@@ -26,6 +26,8 @@ const RankingScreen: FC = () => {
 
   const [ranking, setRanking] = useState([]);
 
+  const isFocused = useIsFocused();
+
   useEffect(() => {
     const fetchData = async () => {
       const colRef = collection(db, "leaderboard");
@@ -42,7 +44,7 @@ const RankingScreen: FC = () => {
     };
 
     fetchData();
-  }, []);
+  }, [isFocused]);
 
   if (isLoading) {
     return (
@@ -170,21 +172,27 @@ const RankingScreen: FC = () => {
           </Text>
         </View>
       </LinearGradient>
-      <View style={styles.leaderboard}>
-        <FlatList
-          data={LEADERBOARD}
-          keyExtractor={(item) => item.branch}
-          renderItem={({ item, index }) => (
-            <TeamItem
-              teamInfo={item}
-              index={index + 4}
-              onClick={() => {
-                onBranchClickHandler(item.branch, item.points, item.logo);
-              }}
-            />
-          )}
-        />
-      </View>
+      <ScrollView
+        style={{
+          width: "100%",
+        }}
+      >
+        <View style={styles.leaderboard}>
+          <FlatList
+            data={LEADERBOARD}
+            keyExtractor={(item) => item.branch}
+            renderItem={({ item, index }) => (
+              <TeamItem
+                teamInfo={item}
+                index={index + 4}
+                onClick={() => {
+                  onBranchClickHandler(item.branch, item.points, item.logo);
+                }}
+              />
+            )}
+          />
+        </View>
+      </ScrollView>
     </View>
   );
 };
@@ -250,7 +258,7 @@ const styles = StyleSheet.create({
     height: 165,
     width: 165,
     resizeMode: "contain",
-    backgroundColor: Colors.purpleDark
+    backgroundColor: Colors.purpleDark,
   },
   imageViewSilver: {
     overflow: "hidden",

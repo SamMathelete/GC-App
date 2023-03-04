@@ -126,10 +126,10 @@ const SportsResultsScreen: FC = () => {
     );
   } else {
     return (
-      <View style={styles.rootContainer}>
-        <Text style={styles.heading}>Past Live Events</Text>
-        <View style={{ margin: 10 }} />
-        <ScrollView>
+      <ScrollView>
+        <View style={styles.rootContainer}>
+          <Text style={styles.heading}>Past Live Events</Text>
+          <View style={{ margin: 10 }} />
           <Text style={styles.heading}>Football</Text>
           {FootballEvents.map((event: any) => (
             <Football
@@ -316,8 +316,8 @@ const SportsResultsScreen: FC = () => {
               height: 100,
             }}
           />
-        </ScrollView>
-      </View>
+        </View>
+      </ScrollView>
     );
   }
 };
