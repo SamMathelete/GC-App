@@ -39,6 +39,8 @@ import TeamScoreScreen from "./screens/TeamScoreScreen";
 import NewsUpdateScreen from "./screens/NewsUpdateScreen";
 import DeleteNewsScreen from "./screens/EditNewsScreen";
 import EditCarouselImage from "./screens/EditCarouselImages";
+import NotificationScreen from "./screens/NotificationScreen";
+import DeleteNotificationsScreen from "./screens/DeleteNotificationsScreen";
 
 interface TeamScoreType {
   eventName: string;
@@ -86,6 +88,8 @@ type RootParamList = {
   NewsUpdateScreen: undefined;
   DeleteNewsScreen: undefined;
   EditCarouselImage: undefined;
+  NotficationScreen: undefined;
+  DeleteNotificationsScreen: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootParamList>();
@@ -402,6 +406,28 @@ export default function App() {
               component={EditCarouselImage}
               options={{
                 title: "Delete Carousel Image",
+                headerStyle: {
+                  backgroundColor: Colors.purpleDark,
+                },
+                headerTintColor: Colors.OffWhite,
+              }}
+            />
+            <Stack.Screen
+              name="NotificationScreen"
+              component={NotificationScreen}
+              options={{
+                title: "Notifications",
+                headerStyle: {
+                  backgroundColor: Colors.purpleDark,
+                },
+                headerTintColor: Colors.OffWhite,
+              }}
+            />
+            <Stack.Screen
+              name="DeleteNotificationsScreen"
+              component={DeleteNotificationsScreen}
+              options={{
+                title: "Delete Notifications",
                 headerStyle: {
                   backgroundColor: Colors.purpleDark,
                 },

@@ -33,6 +33,7 @@ import TableTennis from "../components/SportsUpdateCards/TableTennis";
 type RootParamsList = {
   HomeScreen: undefined;
   LoginScreen: undefined;
+  NotificationScreen: undefined;
 };
 
 type Props = BottomTabScreenProps<RootParamsList, "HomeScreen">;
@@ -146,6 +147,10 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
     setMenuVisible(false);
   };
 
+  const openNotification = () => {
+    navigation.navigate("NotificationScreen");
+  };
+
   const logout = () => {
     ctx.logout();
     AsyncStorage.removeItem("token");
@@ -161,21 +166,29 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
 
   navigation.setOptions({
     headerRight: () => (
-      <Menu
-        visible={menuVisible}
-        onDismiss={closeMenu}
-        anchor={
-          <IconButton
-            icon="menu"
-            size={30}
-            onPress={openMenu}
-            iconColor="white"
-          />
-        }
-      >
-        <Menu.Item onPress={openRuleBook} title="RuleBook" />
-        <Menu.Item onPress={logout} title="Log Out" />
-      </Menu>
+      <View style={{ flexDirection: "row", justifyContent: "center" }}>
+        <IconButton
+          icon="bell"
+          size={30}
+          onPress={openNotification}
+          iconColor="white"
+        />
+        <Menu
+          visible={menuVisible}
+          onDismiss={closeMenu}
+          anchor={
+            <IconButton
+              icon="menu"
+              size={30}
+              onPress={openMenu}
+              iconColor="white"
+            />
+          }
+        >
+          <Menu.Item onPress={openRuleBook} title="RuleBook" />
+          <Menu.Item onPress={logout} title="Log Out" />
+        </Menu>
+      </View>
     ),
   });
 

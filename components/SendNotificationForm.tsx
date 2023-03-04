@@ -6,12 +6,20 @@ import Colors from "../constants/Colors";
 import * as Notifications from "expo-notifications";
 import { useNotifications } from "../hooks/useNotifications";
 import { db } from "../firestoreConfig";
-import { getDocs, collection } from "firebase/firestore";
+import { getDocs, collection, setDoc, doc } from "firebase/firestore";
 const SendNotificationForm: FC = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const { sendPushNotification } = useNotifications();
   const [list, setList] = useState([]);
+
+  const saveNotification = async () => {
+    await setDoc(doc(db, "notifications", `${title}_${description}`), {
+      title: title,
+      description: description,
+    });
+  };
+
   const buttonHandler = () => {
     const getTokens = async () => {
       const list1 = [];
@@ -29,6 +37,7 @@ const SendNotificationForm: FC = () => {
       sendPushNotification(obj.token, title, description);
       console.log(obj.token);
     });
+    saveNotification();
     alert("Notification Sent");
     // sendPushNotification("ExponentPushToken[-cWnFPKPynVSGS_mRDYLnK]",title,description)
   };
