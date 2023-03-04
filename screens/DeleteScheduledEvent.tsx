@@ -1,4 +1,11 @@
-import { Alert, Pressable, StyleSheet, Text, View } from "react-native";
+import {
+  Alert,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { getDocs, collection, deleteDoc, doc } from "firebase/firestore";
 import { FC, useEffect, useState, useContext } from "react";
 import { db } from "../firestoreConfig";
@@ -70,10 +77,13 @@ const DeleteScheduledEvent = () => {
   console.log(events);
 
   return (
-    <View
+    <ScrollView
       style={{
         flex: 1,
+      }}
+      contentContainerStyle={{
         alignItems: "center",
+        justifyContent: "center",
       }}
     >
       {events.map((event) => {
@@ -85,7 +95,7 @@ const DeleteScheduledEvent = () => {
           />
         );
       })}
-    </View>
+    </ScrollView>
   );
 };
 

@@ -154,7 +154,7 @@ const AdminScreen: FC<Props> = ({ navigation }) => {
             Add Scheduled Event
           </MainButton>
           <MainButton style={styles.buttons} onPress={onDeleteScheduledEvent}>
-            Delete Scheduled Event
+            Delete Sch. Event
           </MainButton>
           <MainButton style={styles.buttons} onPress={onAddLiveEvent}>
             Add Live Event

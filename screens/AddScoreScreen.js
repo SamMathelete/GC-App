@@ -118,7 +118,7 @@ const AddScoreScreen = () => {
           />
           <View style={styles.input}>
             <DropDown
-              label={"Type"}
+              label={"Team"}
               mode={"outlined"}
               value={title}
               setValue={setTitle}
