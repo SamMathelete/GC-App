@@ -4,7 +4,7 @@
     "slug": "gc-app",
     "version": "12.1.rc",
     "orientation": "portrait",
-    "icon": "./assets/Images/gclogo.png",
+    "icon": "./assets/Images/icon.png",
     "scheme": "com.samthemathlete.gcapp",
     "userInterfaceStyle": "light",
     "splash": {
@@ -22,7 +22,7 @@
     "android": {
       "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/Images/gclogo.png",
+        "foregroundImage": "./assets/Images/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.samthemathlete.gcapp"

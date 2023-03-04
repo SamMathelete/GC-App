@@ -78,7 +78,7 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
 
     const cricketEvents = [];
     for (const event of events) {
-      if (data[event].type === "Cricket") {
+      if (data[event].type === "Cricket" && data[event].isLive === true) {
         cricketEvents.push(data[event]);
       }
     }
@@ -86,7 +86,7 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
 
     const footballEvents = [];
     for (const event of events) {
-      if (data[event].type === "Football") {
+      if (data[event].type === "Football" && data[event].isLive === true) {
         footballEvents.push(data[event]);
       }
     }
@@ -94,7 +94,7 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
 
     const basketballEvents = [];
     for (const event of events) {
-      if (data[event].type === "Basketball") {
+      if (data[event].type === "Basketball" && data[event].isLive === true) {
         basketballEvents.push(data[event]);
       }
     }
@@ -102,7 +102,7 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
 
     const volleyballEvents = [];
     for (const event of events) {
-      if (data[event].type === "Volleyball") {
+      if (data[event].type === "Volleyball" && data[event].isLive === true) {
         volleyballEvents.push(data[event]);
       }
     }
@@ -110,7 +110,7 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
 
     const tennisEvents = [];
     for (const event of events) {
-      if (data[event].type === "Tennis") {
+      if (data[event].type === "Tennis" && data[event].isLive === true) {
         tennisEvents.push(data[event]);
       }
     }
@@ -118,7 +118,7 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
 
     const tableTennisEvents = [];
     for (const event of events) {
-      if (data[event].type === "TableTennis") {
+      if (data[event].type === "TableTennis" && data[event].isLive === true) {
         tableTennisEvents.push(data[event]);
       }
     }
@@ -325,46 +325,44 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
                 />
               ))}
               <Text style={styles.heading}>Cricket</Text>
-              {CricketEvents.length === 0 ? (
-                <Text>No Live Events Running Now</Text>
-              ) : (
-                CricketEvents.map((event: any) => (
-                  <Cricket
-                    key={event.id}
-                    matchName={event.matchName}
-                    team1={{
-                      teamName: event.team1,
-                      logo: event.team1Logo,
-                    }}
-                    team1Score={parseInt(event.score1)}
-                    team1Wickets={parseInt(event.wickets1)}
-                    team2={{
-                      teamName: event.team2,
-                      logo: event.team2Logo,
-                    }}
-                    team2Score={parseInt(event.score2)}
-                    team2Wickets={parseInt(event.wickets2)}
-                    venue={event.venue}
-                    striker={{
-                      playerName: event.striker,
-                      runs: parseInt(event.strikerScore),
-                      balls: parseInt(event.strikerBalls),
-                    }}
-                    nonStriker={{
-                      playerName: event.nonStriker,
-                      runs: parseInt(event.nonStrikerScore),
-                      balls: parseInt(event.nonStrikerBalls),
-                    }}
-                    bowler={{
-                      playerName: event.bowler,
-                      runs: parseInt(event.bowlerRuns),
-                      wickets: parseInt(event.bowlerWickets),
-                    }}
-                    overs={parseFloat(event.overs)}
-                    battingTeam={event.battingTeam}
-                  />
-                ))
-              )}
+
+              {CricketEvents.map((event: any) => (
+                <Cricket
+                  key={event.id}
+                  matchName={event.matchName}
+                  team1={{
+                    teamName: event.team1,
+                    logo: event.team1Logo,
+                  }}
+                  team1Score={parseInt(event.score1)}
+                  team1Wickets={parseInt(event.wickets1)}
+                  team2={{
+                    teamName: event.team2,
+                    logo: event.team2Logo,
+                  }}
+                  team2Score={parseInt(event.score2)}
+                  team2Wickets={parseInt(event.wickets2)}
+                  venue={event.venue}
+                  striker={{
+                    playerName: event.striker,
+                    runs: parseInt(event.strikerScore),
+                    balls: parseInt(event.strikerBalls),
+                  }}
+                  nonStriker={{
+                    playerName: event.nonStriker,
+                    runs: parseInt(event.nonStrikerScore),
+                    balls: parseInt(event.nonStrikerBalls),
+                  }}
+                  bowler={{
+                    playerName: event.bowler,
+                    runs: parseInt(event.bowlerRuns),
+                    wickets: parseInt(event.bowlerWickets),
+                  }}
+                  overs={parseFloat(event.overs)}
+                  battingTeam={event.battingTeam}
+                />
+              ))}
+
               <Text style={styles.heading}>Basketball</Text>
               {BasketballEvents.map((event: any) => (
                 <Basketball

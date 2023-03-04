@@ -43,6 +43,7 @@ import NotificationScreen from "./screens/NotificationScreen";
 import DeleteNotificationsScreen from "./screens/DeleteNotificationsScreen";
 import ResultsScreen from "./screens/ResultsScreen";
 import EventResultFormScreen from "./screens/EventResultFormScreen";
+import DeleteScheduledEvent from "./screens/DeleteScheduledEvent";
 
 interface TeamScoreType {
   eventName: string;
@@ -94,6 +95,7 @@ type RootParamList = {
   DeleteNotificationsScreen: undefined;
   ResultsScreen: undefined;
   EventResultFormScreen: undefined;
+  DeleteScheduledEvent: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootParamList>();
@@ -149,22 +151,22 @@ const Tabbed = (): JSX.Element => {
         }}
       />
       <Tabs.Screen
-        name="HomeScreen"
-        component={HomeScreen}
-        options={{
-          title: "Home",
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="home" color={color} size={size} />
-          ),
-        }}
-      />
-      <Tabs.Screen
         name="RankingScreen"
         component={RankingScreen}
         options={{
           title: "Rankings",
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="podium" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="HomeScreen"
+        component={HomeScreen}
+        options={{
+          title: "Home",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="home" color={color} size={size} />
           ),
         }}
       />
@@ -456,6 +458,17 @@ export default function App() {
               component={EventResultFormScreen}
               options={{
                 title: "Add Event Result",
+                headerStyle: {
+                  backgroundColor: Colors.purpleDark,
+                },
+                headerTintColor: Colors.OffWhite,
+              }}
+            />
+            <Stack.Screen
+              name="DeleteScheduledEvent"
+              component={DeleteScheduledEvent}
+              options={{
+                title: "Delete Scheduled Event",
                 headerStyle: {
                   backgroundColor: Colors.purpleDark,
                 },

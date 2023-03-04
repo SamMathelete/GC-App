@@ -10,7 +10,7 @@ import {
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import Colors from "../../constants/Colors";
 import { View, StyleSheet, ScrollView } from "react-native";
-import { collection, addDoc } from "firebase/firestore";
+import { setDoc, doc } from "firebase/firestore";
 import { db } from "../../firestoreConfig";
 import Emails from "./Emails";
 
@@ -68,25 +68,34 @@ const ScheduledEvent: React.FC<Props> = ({ visible, setVisible }) => {
     setVisible(false);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     console.log(title, description);
-    addDoc(collection(db, "scheduled-events"), {
-      title: title,
-      description: description,
-      guidelines: guidelines,
-      emails: emails,
-      date: date,
-      time: time,
-      venue: venue,
-      isHeld: false,
-      stream: stream,
-      link: registerLink,
-    })
-      .then((ref) => console.log("Event Added with id: ", ref.id))
-      .then(() => hideModal())
-      .catch((err) => {
-        console.log("Error adding event: ", err);
+    try {
+      await setDoc(doc(db, "scheduled-events", title), {
+        title: title,
+        description: description,
+        guidelines: guidelines,
+        emails: emails,
+        date: date,
+        time: time,
+        venue: venue,
+        isHeld: false,
+        stream: stream,
+        link: registerLink,
       });
+      // .then((ref) => console.log("Event Added with id: ", ref.id))
+      // .then(() => {
+      //   hideModal();
+      //   alert("Event Added Successfully");
+      // })
+      // .catch((err) => {
+      //   console.log("Error adding event: ", err);
+      // });
+      alert("Event Added Successfully");
+      hideModal();
+    } catch (err) {
+      console.log("Error adding event: ", err);
+    }
   };
 
   return (
@@ -251,6 +260,7 @@ const styles = StyleSheet.create({
   textInput: {
     backgroundColor: Colors.OffWhite,
     marginBottom: 20,
+    color: "black",
   },
   buttonContainer: {
     margin: 10,

@@ -18,6 +18,7 @@ type RootParamList = {
   EditCarouselImage: undefined;
   DeleteNotificationsScreen: undefined;
   EventResultFormScreen: undefined;
+  DeleteScheduledEvent: undefined;
 };
 
 type Props = NativeStackScreenProps<RootParamList, "AdminHome">;
@@ -28,6 +29,7 @@ const allowedEmails = [
   "21ec01021@iitbbs.ac.in",
   "21cs01061@iitbbs.ac.in",
   "21mm02005@iitbbs.ac.in",
+  "21me02005@iitbbs.ac.in",
   "vpresident.sg@iitbbs.ac.in",
   "gsecsnt.sg@iitbbs.ac.in",
   "ugrep.sg@iitbbs.ac.in",
@@ -56,7 +58,7 @@ const allowedEmails = [
   "secytabletennis.sg@iitbbs.ac.in",
   "secybadminton.sg@iitbbs.ac.in",
   "secyboardgames.sg@iitbbs.ac.in",
-  "secygym.sg@iitbbs.ac.in",
+  "20me01015@iitbbs.ac.in",
   "coord.wissenaire@iitbbs.ac.in",
   "coord.almafiesta@iitbbs.ac.in",
   "coord.esummit@iitbbs.ac.in",
@@ -126,6 +128,11 @@ const AdminScreen: FC<Props> = ({ navigation }) => {
     navigation.navigate("EventResultFormScreen");
   };
 
+  const onDeleteScheduledEvent = () => {
+    console.log("Delete Scheduled Event");
+    navigation.navigate("DeleteScheduledEvent");
+  };
+
   return (
     <Provider>
       <ScrollView
@@ -145,6 +152,9 @@ const AdminScreen: FC<Props> = ({ navigation }) => {
             onPress={() => setScheduledEventModal(true)}
           >
             Add Scheduled Event
+          </MainButton>
+          <MainButton style={styles.buttons} onPress={onDeleteScheduledEvent}>
+            Delete Scheduled Event
           </MainButton>
           <MainButton style={styles.buttons} onPress={onAddLiveEvent}>
             Add Live Event

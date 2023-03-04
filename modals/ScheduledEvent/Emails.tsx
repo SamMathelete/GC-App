@@ -88,6 +88,7 @@ const styles = StyleSheet.create({
   },
   singleEmailText: {
     flexGrow: 1,
+    color: "black",
     backgroundColor: Colors.OffWhite,
     width: 240,
   },
