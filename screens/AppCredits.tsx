@@ -70,6 +70,14 @@ const AppCredits = () => {
               Students' Gymkhana, IIT Bhubaneswar
             </Text>
           </View>
+          <View style={styles.textContainer}>
+            <Text style={styles.bigText}>Shashwat Singh</Text>
+            <Text style={styles.smallText}>Secretary</Text>
+            <Text style={styles.smallText}>Web and Design Society</Text>
+            <Text style={styles.smallText}>
+              Students' Gymkhana, IIT Bhubaneswar
+            </Text>
+          </View>
         </View>
         <View
           style={{
