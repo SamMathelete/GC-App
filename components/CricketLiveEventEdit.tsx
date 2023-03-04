@@ -4,6 +4,7 @@ import {
   KeyboardAvoidingView,
   ScrollView,
   StyleSheet,
+  Text,
 } from "react-native";
 import { TextInput } from "react-native-paper";
 import MainButton from "./MainButton";
@@ -81,6 +82,7 @@ const CricketLiveEventEdit: FC<Props> = (props) => {
   const [bowlerRuns, setBowlerRuns] = useState(props.bowlerRuns);
   const [bowlerWickets, setBowlerWickets] = useState(props.bowlerWickets);
   const [venue, setVenue] = useState(props.venue);
+  const [isLive, setIsLive] = useState(true);
 
   // const [isLoading, setIsLoading] = useState(false);
 
@@ -135,7 +137,9 @@ const CricketLiveEventEdit: FC<Props> = (props) => {
   };
 
   const deleteHandler = async () => {
-    await deleteDoc(doc(db, "liveEvents", props.id));
+    await updateDoc(doc(db, "liveEvents", props.id), {
+      isLive: false,
+    });
     // fetch(
     //   `https://gc-app-76138-default-rtdb.firebaseio.com/liveEvents/${props.id}.json`,
     //   {
@@ -168,6 +172,7 @@ const CricketLiveEventEdit: FC<Props> = (props) => {
     bowlerWickets: "",
     team1Logo: require("../assets/Images/teamImage.png"),
     team2Logo: require("../assets/Images/teamImage.png"),
+    isLive: true,
   });
 
   const fetchLiveEvent = async () => {
@@ -202,6 +207,7 @@ const CricketLiveEventEdit: FC<Props> = (props) => {
     setTeam1(matchData.team1);
     setTeam2(matchData.team2);
     setVenue(matchData.venue);
+    setIsLive(matchData.isLive);
   }, [matchData]);
 
   let logo1;
@@ -263,6 +269,14 @@ const CricketLiveEventEdit: FC<Props> = (props) => {
       break;
     default:
       logo2 = require("../assets/Images/teamImage.png");
+  }
+
+  if (!isLive) {
+    return (
+      <View style={styles.rootContainer}>
+        <Text style={styles.text}>Event Ended</Text>
+      </View>
+    );
   }
 
   return (
@@ -549,6 +563,16 @@ const CricketLiveEventEdit: FC<Props> = (props) => {
 };
 
 const styles = StyleSheet.create({
+  rootContainer: {
+    flex: 1,
+    backgroundColor: Colors.OffWhite,
+  },
+  text: {
+    fontSize: 20,
+    color: Colors.red,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
   input: {
     width: 300,
     height: 50,

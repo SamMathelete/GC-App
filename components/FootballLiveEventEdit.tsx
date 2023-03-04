@@ -4,6 +4,7 @@ import {
   KeyboardAvoidingView,
   ScrollView,
   StyleSheet,
+  Text,
 } from "react-native";
 import { TextInput } from "react-native-paper";
 import MainButton from "./MainButton";
@@ -62,6 +63,7 @@ const FootballLiveEventEdit: FC<Props> = (props) => {
   const [penaltyscore1, setPenaltyscore1] = useState(props.penaltyscore1);
   const [penaltyscore2, setPenaltyscore2] = useState(props.penaltyscore2);
   const [showDropDown, setShowDropDown] = useState(false);
+  const [isLive, setIsLive] = useState(true);
 
   const navigation = useNavigation<NativeStackScreenProps<RootParamList>>();
 
@@ -96,7 +98,9 @@ const FootballLiveEventEdit: FC<Props> = (props) => {
   };
 
   const deleteHandler = async () => {
-    await deleteDoc(doc(db, "liveEvents", props.id));
+    await updateDoc(doc(db, "liveEvents", props.id), {
+      isLive: false,
+    });
     // fetch(
     //   `https://gc-app-76138-default-rtdb.firebaseio.com/liveEvents/${props.id}.json`,
     //   {
@@ -121,6 +125,7 @@ const FootballLiveEventEdit: FC<Props> = (props) => {
     matchTime: "",
     team1Logo: require("../assets/Images/teamImage.png"),
     team2Logo: require("../assets/Images/teamImage.png"),
+    isLive: true,
   });
 
   const fetchLiveEvent = async () => {
@@ -147,6 +152,7 @@ const FootballLiveEventEdit: FC<Props> = (props) => {
     setIsPenalty(matchData.isPenalty);
     setPenaltyscore1(matchData.penaltyscore1);
     setPenaltyscore2(matchData.penaltyscore2);
+    setIsLive(matchData.isLive);
   }, [matchData]);
 
   let logo1;
@@ -208,6 +214,14 @@ const FootballLiveEventEdit: FC<Props> = (props) => {
       break;
     default:
       logo2 = require("../assets/Images/teamImage.png");
+  }
+
+  if (!isLive) {
+    return (
+      <View style={styles.rootContainer}>
+        <Text style={styles.text}>Event Ended</Text>
+      </View>
+    );
   }
 
   return (
@@ -355,6 +369,16 @@ const FootballLiveEventEdit: FC<Props> = (props) => {
 };
 
 const styles = StyleSheet.create({
+  rootContainer: {
+    flex: 1,
+    backgroundColor: Colors.OffWhite,
+  },
+  text: {
+    fontSize: 20,
+    color: Colors.red,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
   input: {
     width: 310,
     height: 50,

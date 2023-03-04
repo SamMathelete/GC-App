@@ -4,6 +4,7 @@ import {
   KeyboardAvoidingView,
   ScrollView,
   StyleSheet,
+  Text,
 } from "react-native";
 import { TextInput } from "react-native-paper";
 import MainButton from "./MainButton";
@@ -58,6 +59,7 @@ const BasketballLiveEventEdit: FC<Props> = (props) => {
   const [score2, setScore2] = useState(props.score2);
   const [venue, setVenue] = useState(props.venue);
   const [matchTime, setMatchTime] = useState(props.matchTime);
+  const [isLive, setIsLive] = useState(true);
 
   const navigation = useNavigation<NativeStackScreenProps<RootParamList>>();
   //   const [isPenalty, setIsPenalty] = useState(props.isPenalty);
@@ -93,7 +95,9 @@ const BasketballLiveEventEdit: FC<Props> = (props) => {
   };
 
   const deleteHandler = async () => {
-    await deleteDoc(doc(db, "liveEvents", props.id));
+    await updateDoc(doc(db, "liveEvents", props.id), {
+      isLive: false,
+    });
     // fetch(
     //   `https://gc-app-76138-default-rtdb.firebaseio.com/liveEvents/${props.id}.json`,
     //   {
@@ -101,6 +105,7 @@ const BasketballLiveEventEdit: FC<Props> = (props) => {
     //   }
     // );
     alert("Event Ended Successfully!");
+    setIsLive(false);
     navigation.navigate("LiveEventEditScreen");
   };
 
@@ -118,6 +123,7 @@ const BasketballLiveEventEdit: FC<Props> = (props) => {
     matchTime: "",
     team1Logo: require("../assets/Images/teamImage.png"),
     team2Logo: require("../assets/Images/teamImage.png"),
+    isLive: true,
   });
 
   const fetchLiveEvent = async () => {
@@ -142,6 +148,7 @@ const BasketballLiveEventEdit: FC<Props> = (props) => {
     setTeam2(matchData.team2);
     setVenue(matchData.venue);
     setMatchTime(matchData.matchTime);
+    setIsLive(matchData.isLive);
     // setIsPenalty(matchData.isPenalty);
     // setPenaltyscore1(matchData.penaltyscore1);
     // setPenaltyscore2(matchData.penaltyscore2);
@@ -206,6 +213,14 @@ const BasketballLiveEventEdit: FC<Props> = (props) => {
       break;
     default:
       logo2 = require("../assets/Images/teamImage.png");
+  }
+
+  if (!isLive) {
+    return (
+      <View style={styles.rootContainer}>
+        <Text style={styles.text}>Event Ended</Text>
+      </View>
+    );
   }
 
   return (
@@ -353,6 +368,16 @@ const BasketballLiveEventEdit: FC<Props> = (props) => {
 };
 
 const styles = StyleSheet.create({
+  rootContainer: {
+    flex: 1,
+    backgroundColor: Colors.OffWhite,
+  },
+  text: {
+    fontSize: 20,
+    color: Colors.red,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
   input: {
     width: 310,
     height: 50,

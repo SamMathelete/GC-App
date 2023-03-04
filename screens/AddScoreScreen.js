@@ -1,5 +1,5 @@
-import { StyleSheet } from "react-native";
-import { FC, useState } from "react";
+import { StyleSheet, Text } from "react-native";
+import { FC, useState, useContext } from "react";
 import { View, KeyboardAvoidingView, ScrollView } from "react-native";
 import DropDown from "react-native-paper-dropdown";
 import { TextInput } from "react-native-paper";
@@ -14,10 +14,29 @@ import {
   collection,
 } from "firebase/firestore";
 import { db } from "../firestoreConfig";
+import { AuthContext } from "../store/google-auth";
 
 // Atomically increment the population of the city by 50.
 
+const allowedEmails = [
+  "21ec01021@iitbbs.ac.in",
+  "vpresident.sg@iitbbs.ac.in",
+  "gsecsnt.sg@iitbbs.ac.in",
+  "ugrep.sg@iitbbs.ac.in",
+  "gseccul.sg@iitbbs.ac.in",
+  "gsecsports.sg@iitbbs.ac.in",
+];
+
 const AddScoreScreen = () => {
+  const ctx = useContext(AuthContext);
+  if (!allowedEmails.includes(ctx.email)) {
+    return (
+      <View style={styles.rootContainer}>
+        <Text>You are not authorized to view this page</Text>
+      </View>
+    );
+  }
+
   const [title, setTitle] = useState("");
   const [eventName, setEventName] = useState("");
   const [description, setDescription] = useState("");

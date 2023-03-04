@@ -207,6 +207,7 @@ const LiveEventCreationForm: FC = () => {
       penaltyscore2: 0,
       setscore1: 0,
       setscore2: 0,
+      isLive: true,
     };
     console.log(liveEvent);
     try {
