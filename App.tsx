@@ -41,6 +41,8 @@ import DeleteNewsScreen from "./screens/EditNewsScreen";
 import EditCarouselImage from "./screens/EditCarouselImages";
 import NotificationScreen from "./screens/NotificationScreen";
 import DeleteNotificationsScreen from "./screens/DeleteNotificationsScreen";
+import ResultsScreen from "./screens/ResultsScreen";
+import EventResultFormScreen from "./screens/EventResultFormScreen";
 
 interface TeamScoreType {
   eventName: string;
@@ -90,6 +92,8 @@ type RootParamList = {
   EditCarouselImage: undefined;
   NotficationScreen: undefined;
   DeleteNotificationsScreen: undefined;
+  ResultsScreen: undefined;
+  EventResultFormScreen: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootParamList>();
@@ -169,6 +173,19 @@ const Tabbed = (): JSX.Element => {
         component={ScheduleScreen}
         options={{
           title: "Schedule",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="calendar" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="ResultsScreen"
+        component={ResultsScreen}
+        options={{
+          title: "Results",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="trophy" color={color} size={size} />
+          ),
         }}
       />
     </Tabs.Navigator>
@@ -428,6 +445,17 @@ export default function App() {
               component={DeleteNotificationsScreen}
               options={{
                 title: "Delete Notifications",
+                headerStyle: {
+                  backgroundColor: Colors.purpleDark,
+                },
+                headerTintColor: Colors.OffWhite,
+              }}
+            />
+            <Stack.Screen
+              name="EventResultFormScreen"
+              component={EventResultFormScreen}
+              options={{
+                title: "Add Event Result",
                 headerStyle: {
                   backgroundColor: Colors.purpleDark,
                 },

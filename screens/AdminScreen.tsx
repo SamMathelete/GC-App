@@ -17,6 +17,7 @@ type RootParamList = {
   DeleteNewsScreen: undefined;
   EditCarouselImage: undefined;
   DeleteNotificationsScreen: undefined;
+  EventResultFormScreen: undefined;
 };
 
 type Props = NativeStackScreenProps<RootParamList, "AdminHome">;
@@ -120,6 +121,11 @@ const AdminScreen: FC<Props> = ({ navigation }) => {
     navigation.navigate("DeleteNotificationsScreen");
   };
 
+  const onAddEventResult = () => {
+    console.log("Add Event Result");
+    navigation.navigate("EventResultFormScreen");
+  };
+
   return (
     <Provider>
       <ScrollView
@@ -166,6 +172,9 @@ const AdminScreen: FC<Props> = ({ navigation }) => {
           </MainButton>
           <MainButton style={styles.buttons} onPress={onDeleteNews}>
             Delete News
+          </MainButton>
+          <MainButton style={styles.buttons} onPress={onAddEventResult}>
+            Add Event Result
           </MainButton>
         </View>
       </ScrollView>

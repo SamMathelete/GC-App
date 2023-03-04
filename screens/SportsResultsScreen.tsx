@@ -13,25 +13,12 @@ import Basketball from "../components/SportsUpdateCards/Basketball";
 import Volleyball from "../components/SportsUpdateCards/Volleyball";
 import Tennis from "../components/SportsUpdateCards/Tennis";
 import TableTennis from "../components/SportsUpdateCards/TableTennis";
-import MainButton from "../components/MainButton";
-import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
-import { IconButton } from "react-native-paper";
 import { useIsFocused } from "@react-navigation/native";
-import { collection, DocumentData, getDocs } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firestoreConfig";
+import EventResultCard from "../components/EventResultCard";
 
-type RootParamList = {
-  LiveUpdates: undefined;
-  Cricket: undefined;
-  Football: undefined;
-  Basketball: undefined;
-  Volleyball: undefined;
-  Tennis: undefined;
-};
-
-type Props = BottomTabScreenProps<RootParamList, "LiveUpdates">;
-
-const LiveUpdatesScreen: FC<Props> = ({ navigation }) => {
+const SportsResultsScreen: FC = () => {
   const [CricketEvents, setCricketEvents] = useState<any>([]);
   const [FootballEvents, setFootballEvents] = useState<any>([]);
   const [BasketballEvents, setBasketballEvents] = useState<any>([]);
@@ -53,7 +40,7 @@ const LiveUpdatesScreen: FC<Props> = ({ navigation }) => {
     const events = Object.keys(data);
     const cricketEvents = [];
     for (const event of events) {
-      if (data[event].type === "Cricket" && data[event].isLive === true) {
+      if (data[event].type === "Cricket" && data[event].isLive === false) {
         cricketEvents.push(data[event]);
       }
     }
@@ -61,7 +48,7 @@ const LiveUpdatesScreen: FC<Props> = ({ navigation }) => {
 
     const footballEvents = [];
     for (const event of events) {
-      if (data[event].type === "Football" && data[event].isLive === true) {
+      if (data[event].type === "Football" && data[event].isLive === false) {
         footballEvents.push(data[event]);
       }
     }
@@ -69,7 +56,7 @@ const LiveUpdatesScreen: FC<Props> = ({ navigation }) => {
 
     const basketballEvents = [];
     for (const event of events) {
-      if (data[event].type === "Basketball" && data[event].isLive === true) {
+      if (data[event].type === "Basketball" && data[event].isLive === false) {
         basketballEvents.push(data[event]);
       }
     }
@@ -77,7 +64,7 @@ const LiveUpdatesScreen: FC<Props> = ({ navigation }) => {
 
     const volleyballEvents = [];
     for (const event of events) {
-      if (data[event].type === "Volleyball" && data[event].isLive === true) {
+      if (data[event].type === "Volleyball" && data[event].isLive === false) {
         volleyballEvents.push(data[event]);
       }
     }
@@ -85,7 +72,7 @@ const LiveUpdatesScreen: FC<Props> = ({ navigation }) => {
 
     const tennisEvents = [];
     for (const event of events) {
-      if (data[event].type === "Tennis" && data[event].isLive === true) {
+      if (data[event].type === "Tennis" && data[event].isLive === false) {
         tennisEvents.push(data[event]);
       }
     }
@@ -93,7 +80,7 @@ const LiveUpdatesScreen: FC<Props> = ({ navigation }) => {
 
     const tableTennisEvents = [];
     for (const event of events) {
-      if (data[event].type === "TableTennis" && data[event].isLive === true) {
+      if (data[event].type === "TableTennis" && data[event].isLive === false) {
         tableTennisEvents.push(data[event]);
       }
     }
@@ -102,24 +89,24 @@ const LiveUpdatesScreen: FC<Props> = ({ navigation }) => {
     setIsLoading(false);
   };
 
-  useEffect(() => {
-    fetchLiveUpdates();
-  }, [isFocused]);
+  const [nonLiveEvents, setNonLiveEvents] = useState<any>([]);
 
-  const refreshHandler = () => {
-    fetchLiveUpdates();
+  const nonLiveFetch = async () => {
+    const cr = [];
+    const collRef = collection(db, "results");
+    const snapshot = await getDocs(collRef);
+    snapshot.forEach((doc) => {
+      if (doc.data().type === "Sports") {
+        cr.push(doc.data());
+      }
+    });
+    setNonLiveEvents(cr);
   };
 
-  navigation.setOptions({
-    headerRight: () => (
-      <IconButton
-        icon="refresh"
-        size={30}
-        onPress={refreshHandler}
-        iconColor="white"
-      />
-    ),
-  });
+  useEffect(() => {
+    fetchLiveUpdates();
+    nonLiveFetch();
+  }, [isFocused]);
 
   if (isLoading) {
     return (
@@ -140,6 +127,8 @@ const LiveUpdatesScreen: FC<Props> = ({ navigation }) => {
   } else {
     return (
       <View style={styles.rootContainer}>
+        <Text style={styles.heading}>Past Live Events</Text>
+        <View style={{ margin: 10 }} />
         <ScrollView>
           <Text style={styles.heading}>Football</Text>
           {FootballEvents.map((event: any) => (
@@ -289,6 +278,41 @@ const LiveUpdatesScreen: FC<Props> = ({ navigation }) => {
           <View
             style={{
               flex: 1,
+              height: 20,
+            }}
+          />
+          <Text style={styles.heading}>Non-Live Results</Text>
+          <View style={{ margin: 10 }} />
+          <View
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            {nonLiveEvents.map((result) => (
+              <EventResultCard
+                key={result.id}
+                heading={result.name}
+                result={[
+                  {
+                    rank: 1,
+                    name: result.winner,
+                  },
+                  {
+                    rank: 2,
+                    name: result.runner1,
+                  },
+                  {
+                    rank: 3,
+                    name: result.runner2,
+                  },
+                ]}
+              />
+            ))}
+          </View>
+          <View
+            style={{
+              flex: 1,
               height: 100,
             }}
           />
@@ -320,4 +344,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LiveUpdatesScreen;
+export default SportsResultsScreen;
