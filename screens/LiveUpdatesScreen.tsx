@@ -12,6 +12,7 @@ import Cricket from "../components/SportsUpdateCards/Cricket";
 import Basketball from "../components/SportsUpdateCards/Basketball";
 import Volleyball from "../components/SportsUpdateCards/Volleyball";
 import Tennis from "../components/SportsUpdateCards/Tennis";
+import TableTennis from "../components/SportsUpdateCards/TableTennis";
 import MainButton from "../components/MainButton";
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import { IconButton } from "react-native-paper";
@@ -36,6 +37,7 @@ const LiveUpdatesScreen: FC<Props> = ({ navigation }) => {
   const [BasketballEvents, setBasketballEvents] = useState<any>([]);
   const [VolleyballEvents, setVolleyballEvents] = useState<any>([]);
   const [TennisEvents, setTennisEvents] = useState<any>([]);
+  const [TableTennisEvents, setTableTennisEvents] = useState<any>([]);
 
   const isFocused = useIsFocused();
 
@@ -88,6 +90,14 @@ const LiveUpdatesScreen: FC<Props> = ({ navigation }) => {
       }
     }
     setTennisEvents(tennisEvents);
+
+    const tableTennisEvents = [];
+    for (const event of events) {
+      if (data[event].type === "TableTennis") {
+        tableTennisEvents.push(data[event]);
+      }
+    }
+    setTableTennisEvents(tableTennisEvents);
 
     setIsLoading(false);
   };
@@ -237,6 +247,27 @@ const LiveUpdatesScreen: FC<Props> = ({ navigation }) => {
           <Text style={styles.heading}>Tennis</Text>
           {TennisEvents.map((event: any) => (
             <Tennis
+              key={event.id}
+              matchName={event.matchName}
+              team1={{
+                teamName: event.team1,
+                score: event.score1,
+                setScore: event.setscore1,
+                logo: event.team1Logo,
+              }}
+              team2={{
+                teamName: event.team2,
+                score: event.score2,
+                setScore: event.setscore2,
+                logo: event.team2Logo,
+              }}
+              time={event.matchTime}
+              venue={event.venue}
+            />
+          ))}
+          <Text style={styles.heading}>Table Tennis</Text>
+          {TableTennisEvents.map((event: any) => (
+            <TableTennis
               key={event.id}
               matchName={event.matchName}
               team1={{

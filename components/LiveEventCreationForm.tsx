@@ -94,6 +94,10 @@ const LiveEventCreationForm: FC = () => {
       label: "Tennis",
       value: "Tennis",
     },
+    {
+      label: "Table Tennis",
+      value: "TableTennis",
+    },
   ];
 
   let logo1: string;
@@ -335,7 +339,6 @@ const styles = StyleSheet.create({
     width: 300,
     height: 60,
     textAlign: "left",
-    backgroundColor: "transparent",
     borderBottomWidth: 2,
     paddingHorizontal: 16,
     marginBottom: 20,
