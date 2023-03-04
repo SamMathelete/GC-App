@@ -5,6 +5,7 @@ import {
   View,
   Pressable,
   DatePickerIOSComponent,
+  useWindowDimensions,
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -76,7 +77,14 @@ const EventCard: FC<Props> = ({ style, eventInfo }) => {
   };
 
   return (
-    <View style={[styles.rootContainer, style]}>
+    <Pressable
+      onPress={() => {
+        setIsPressed(true);
+        setModalVisible(true);
+        
+      }}
+      style={[styles.rootContainer, style]}
+    >
       <View style={styles.topView}>
         <Text style={styles.eventName}>{eventInfo?.title}</Text>
         <Pressable
@@ -161,7 +169,7 @@ const EventCard: FC<Props> = ({ style, eventInfo }) => {
           <Text style={styles.text}>{eventInfo?.venue}</Text>
         </View>
       </View>
-    </View>
+    </Pressable>
   );
 };
 
@@ -184,6 +192,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     padding: 10,
+    width: 340,
   },
   expanded: {
     padding: 10,
@@ -213,7 +222,7 @@ const styles = StyleSheet.create({
   },
   eventVenue: {
     color: Colors.OffWhite,
-    width: 55,
+    width: 130,
     justifyContent: "center",
     alignItems: "center",
   },

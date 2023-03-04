@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from "react";
 import { FlatList, Pressable, StyleSheet, View } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, useIsFocused } from "@react-navigation/native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import EventCard from "../components/EventCard";
 import {
@@ -39,11 +39,14 @@ const ScheduleScreen: FC = ({ navigation }) => {
     },
   });
 
+  const isFocused = useIsFocused();
+
   useEffect(() => {
     getDocs(collection(db, "scheduled-events")).then((snapshot) =>
       setScheduledEvents(snapshot.docs.map((doc) => doc.data()))
     );
-  }, []);
+    console.log("foc");
+  }, [isFocused]);
 
   const TechScreen = (): JSX.Element => {
     return (
