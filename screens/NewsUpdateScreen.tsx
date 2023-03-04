@@ -1,12 +1,38 @@
 import { useState } from "react";
-import { KeyboardAvoidingView, ScrollView, StyleSheet } from "react-native";
+import {
+  KeyboardAvoidingView,
+  ScrollView,
+  StyleSheet,
+  View,
+  Text,
+} from "react-native";
 import { TextInput } from "react-native-paper";
 import MainButton from "../components/MainButton";
 import Colors from "../constants/Colors";
 import { setDoc, doc } from "firebase/firestore";
 import { db } from "../firestoreConfig";
+import { AuthContext } from "../store/google-auth";
+import { useContext } from "react";
+
+const allowedEmails = [
+  "21ec01021@iitbbs.ac.in",
+  "vpresident.sg@iitbbs.ac.in",
+  "gsecsnt.sg@iitbbs.ac.in",
+  "ugrep.sg@iitbbs.ac.in",
+  "gseccul.sg@iitbbs.ac.in",
+  "gsecsports.sg@iitbbs.ac.in",
+];
 
 const NewsUpdateScreen = () => {
+  const ctx = useContext(AuthContext);
+  if (!allowedEmails.includes(ctx.email)) {
+    return (
+      <View style={styles.rootContainer}>
+        <Text>You are not authorized to view this page</Text>
+      </View>
+    );
+  }
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [imageDriveLink, setImageDriveLink] = useState("");
@@ -73,6 +99,12 @@ const NewsUpdateScreen = () => {
 };
 
 const styles = StyleSheet.create({
+  rootContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: Colors.OffWhite,
+  },
   input: {
     width: 300,
     height: 60,
