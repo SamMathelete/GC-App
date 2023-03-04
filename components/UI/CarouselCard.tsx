@@ -9,7 +9,7 @@ const Card: FC<Props> = ({ item, index }) => {
       <View>
         <Image
           style={{
-            height: 280,
+            width: 380,
             borderRadius: 50,
             aspectRatio: 4 / 3,
           }}
@@ -30,10 +30,9 @@ const styles = StyleSheet.create({
     flex: 1,
     borderRadius: 24,
     backgroundColor: "white",
-    padding: 24,
     color: "black",
-    width: "90%",
-    height: 200,
+    width: 330,
+    aspectRatio: 4 / 3,
     elevation: 30,
     marginTop: "5%",
     marginBottom: 40,

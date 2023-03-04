@@ -91,6 +91,7 @@ const Calendar: React.FC<CalendarProps> = ({ events }) => {
     }
 
     const eventsForDate = getEventsForDate(selectedDate);
+    console.log(eventsForDate);
 
     if (eventsForDate.length === 0) {
       return (

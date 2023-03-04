@@ -236,7 +236,7 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
             onSnapToItem={(index) => setIndex(index)}
             contentContainerCustomStyle={{
               marginBottom: 40,
-              height: 300,
+              height: 330,
               alignItems: "center",
             }}
             autoplay={true}
