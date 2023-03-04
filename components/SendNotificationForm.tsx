@@ -22,21 +22,21 @@ const SendNotificationForm: FC = () => {
 
   const buttonHandler = () => {
     const getTokens = async () => {
-      const list1 = [];
+      const list = [];
       const col = collection(db, "notificationTokens");
       const listSnap = await getDocs(col);
       listSnap.forEach((doc) => {
-        if (Object.keys(doc.data()).length !== 0) list1.push(doc.data());
+        if (Object.keys(doc.data()).length !== 0) list.push(doc.data());
       });
       // console.log(list1)
-      setList(() => list1);
+      list.forEach((obj) => {
+        sendPushNotification(obj.token, title, description);
+        console.log(obj.token);
+      });
     };
     getTokens();
     // console.log(list)
-    list.forEach((obj) => {
-      sendPushNotification(obj.token, title, description);
-      console.log(obj.token);
-    });
+
     saveNotification();
     alert("Notification Sent");
     // sendPushNotification("ExponentPushToken[-cWnFPKPynVSGS_mRDYLnK]",title,description)
