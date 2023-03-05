@@ -12,6 +12,7 @@ import Colors from "../constants/Colors";
 import { collection, DocumentData, getDocs } from "firebase/firestore";
 import { db } from "../firestoreConfig";
 import { Ionicons } from "@expo/vector-icons";
+import SportsScheduleScreen from "./SportsScheduleScreen";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -83,16 +84,7 @@ const ScheduleScreen: FC = ({ navigation }) => {
   };
 
   const SportsScreen = (): JSX.Element => {
-    return (
-      <View style={styles.rootContainer}>
-        <View style={styles.eventList}>
-          <FlatList
-            data={scheduledEvents.filter((item) => item.stream === "Sports")}
-            renderItem={({ item }) => <EventCard eventInfo={item} />}
-          />
-        </View>
-      </View>
-    );
+    return <SportsScheduleScreen events={scheduledEvents} />;
   };
 
   return (

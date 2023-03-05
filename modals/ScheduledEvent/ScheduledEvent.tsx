@@ -25,7 +25,8 @@ const ScheduledEvent: React.FC<Props> = ({ visible, setVisible }) => {
   const [guidelines, setGuidelines] = useState("");
   const [emails, setEmails] = useState([""]);
   const [venue, setVenue] = useState("");
-  const [stream, setStream] = useState();
+  const [stream, setStream] = useState("");
+  const [sportsStreams, setSportsStreams] = useState("");
 
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
@@ -35,6 +36,7 @@ const ScheduledEvent: React.FC<Props> = ({ visible, setVisible }) => {
   const [registerLink, setRegisterLink] = useState("");
 
   const [streamModalVisible, setStreamModalVisible] = useState(false);
+  const [sportsModalVisible, setSportsModalVisible] = useState(false);
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -69,7 +71,7 @@ const ScheduledEvent: React.FC<Props> = ({ visible, setVisible }) => {
   };
 
   const handleSubmit = async () => {
-    const valid =
+    let valid =
       title.length > 0 &&
       description.length > 0 &&
       emails.length > 0 &&
@@ -77,7 +79,11 @@ const ScheduledEvent: React.FC<Props> = ({ visible, setVisible }) => {
       time.length > 0 &&
       venue.length > 0 &&
       registerLink.length > 0 &&
-      stream;
+      stream.length > 0;
+
+    if (stream === "Sports") {
+      valid = valid && sportsStreams.length > 0;
+    }
 
     if (!valid) {
       alert("Please fill all the fields");
@@ -96,6 +102,7 @@ const ScheduledEvent: React.FC<Props> = ({ visible, setVisible }) => {
         venue: venue,
         isHeld: false,
         stream: stream,
+        category: sportsStreams,
         link: registerLink,
       });
       // .then((ref) => console.log("Event Added with id: ", ref.id))
@@ -191,6 +198,86 @@ const ScheduledEvent: React.FC<Props> = ({ visible, setVisible }) => {
                   }}
                 />
               </Menu>
+              {stream === "Sports" && (
+                <Menu
+                  visible={streamModalVisible}
+                  anchor={
+                    <TextInput
+                      value={sportsStreams}
+                      onPressIn={() => setSportsModalVisible(true)}
+                      showSoftInputOnFocus={false}
+                      mode="outlined"
+                      style={styles.textInput}
+                      label="Stream"
+                    />
+                  }
+                  onDismiss={() => setSportsModalVisible(false)}
+                >
+                  <Menu.Item
+                    title="Football"
+                    onPress={() => {
+                      setSportsStreams("Football");
+                      setSportsModalVisible(false);
+                    }}
+                  />
+                  <Menu.Item
+                    title="Cricket"
+                    onPress={() => {
+                      setSportsStreams("Cricket");
+                      setSportsModalVisible(false);
+                    }}
+                  />
+                  <Menu.Item
+                    title="Basketball"
+                    onPress={() => {
+                      setSportsStreams("Basketball");
+                      setSportsModalVisible(false);
+                    }}
+                  />
+                  <Menu.Item
+                    title="Volleyball"
+                    onPress={() => {
+                      setSportsStreams("Volleyball");
+                      setSportsModalVisible(false);
+                    }}
+                  />
+                  <Menu.Item
+                    title="Table Tennis"
+                    onPress={() => {
+                      setSportsStreams("Table Tennis");
+                      setSportsModalVisible(false);
+                    }}
+                  />
+                  <Menu.Item
+                    title="Badminton"
+                    onPress={() => {
+                      setSportsStreams("Badminton");
+                      setSportsModalVisible(false);
+                    }}
+                  />
+                  <Menu.Item
+                    title="Chess"
+                    onPress={() => {
+                      setSportsStreams("Chess");
+                      setSportsModalVisible(false);
+                    }}
+                  />
+                  <Menu.Item
+                    title="Atheletics"
+                    onPress={() => {
+                      setSportsStreams("Atheletics");
+                      setSportsModalVisible(false);
+                    }}
+                  />
+                  <Menu.Item
+                    title="Gym"
+                    onPress={() => {
+                      setSportsStreams("Gym");
+                      setSportsModalVisible(false);
+                    }}
+                  />
+                </Menu>
+              )}
               <TextInput
                 mode="outlined"
                 label="Register Link"
