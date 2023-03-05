@@ -55,7 +55,8 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
   const Dimensions = useWindowDimensions();
   const windowWidth = Dimensions.width;
 
-  const rulebookUrl = "https://www.google.co.in";
+  const rulebookUrl =
+    "https://drive.google.com/drive/folders/1jmx73cIlFnGLau-jlo7B8k7eQGo0Vx60?usp=sharing";
   const isFocused = useIsFocused();
 
   const [CricketEvents, setCricketEvents] = useState<any>([]);
