@@ -58,23 +58,23 @@ const EventCard: FC<Props> = ({ style, eventInfo }) => {
   //     }
   // };
 
-  // const generateDateString = (date, time) => {
-  //   const dateObject = new Date(date);
-  //   const timeArray = time.split(":").map((item) => parseInt(item));
-  //   const hours = timeArray[0] >= 12 ? timeArray[0] - 12 : timeArray[0];
-  //   const op = timeArray[0] >= 12 ? "PM" : "AM";
-  //   return (
-  //     dateObject
-  //       .toDateString()
-  //       .substring(0, dateObject.toDateString().length - 5) +
-  //     ",  " +
-  //     hours.toString() +
-  //     ":" +
-  //     timeArray[1].toString().padStart(2, "0") +
-  //     " " +
-  //     op
-  //   );
-  // };
+  const generateDateString = (date, time) => {
+    const dateObject = new Date(date);
+    const timeArray = time.split(":").map((item) => parseInt(item));
+    const hours = timeArray[0] >= 12 ? timeArray[0] - 12 : timeArray[0];
+    const op = timeArray[0] >= 12 ? "PM" : "AM";
+    return (
+      dateObject
+        .toDateString()
+        .substring(0, dateObject.toDateString().length - 5) +
+      ",  " +
+      hours.toString() +
+      ":" +
+      timeArray[1].toString().padStart(2, "0") +
+      " " +
+      op
+    );
+  };
 
   const Dimensions = useWindowDimensions();
   const width = Dimensions.width;
@@ -172,9 +172,12 @@ const EventCard: FC<Props> = ({ style, eventInfo }) => {
       )}
       <View style={styles.bottomView}>
         <View style={styles.eventDate}>
-          <Text style={styles.text}>{`${
+          {/* <Text style={styles.text}>{`${
             eventInfo.date
-          } at ${eventInfo.time?.slice(0, 5)}`}</Text>
+          } at ${eventInfo.time?.slice(0, 5)}`}</Text> */}
+          <Text style={styles.text}>
+            {generateDateString(eventInfo.date, eventInfo.time)}
+          </Text>
         </View>
         <View style={styles.eventVenue}>
           <Text style={styles.text}>{eventInfo?.venue}</Text>

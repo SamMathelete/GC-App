@@ -69,6 +69,21 @@ const ScheduledEvent: React.FC<Props> = ({ visible, setVisible }) => {
   };
 
   const handleSubmit = async () => {
+    const valid =
+      title.length > 0 &&
+      description.length > 0 &&
+      emails.length > 0 &&
+      date.length > 0 &&
+      time.length > 0 &&
+      venue.length > 0 &&
+      registerLink.length > 0 &&
+      stream;
+
+    if (!valid) {
+      alert("Please fill all the fields");
+      return;
+    }
+
     console.log(title, description);
     try {
       await setDoc(doc(db, "scheduled-events", title), {
