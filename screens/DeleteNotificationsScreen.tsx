@@ -1,13 +1,18 @@
 import { FC, useEffect, useState, useContext } from "react";
 import { View, Text, Alert, StyleSheet } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { doc, getDocs, getDoc, collection, deleteDoc } from "firebase/firestore";
+import {
+  doc,
+  getDocs,
+  getDoc,
+  collection,
+  deleteDoc,
+} from "firebase/firestore";
 import { db } from "../firestoreConfig";
 import NotificationCard from "../components/EditableNotificationCard";
 import { useIsFocused } from "@react-navigation/native";
 import { AuthContext } from "../store/google-auth";
 import Colors from "../constants/Colors";
-
 
 const allowedEmails = [
   "21ec01021@iitbbs.ac.in",
@@ -20,30 +25,6 @@ const allowedEmails = [
 
 const DeleteNotificationsScreen = () => {
   const ctx = useContext(AuthContext);
-  const email = ctx?.email;
-  const [isAllowed, setIsAllowed] = useState(false);
-
-  const fetchEmailIds = async () => {
-    const res = await getDoc(doc(db, "admins", "adminEmails"));
-    let data = [];
-    data = res.data().email;
-    if (data.includes(email)) {
-      setIsAllowed(true);
-    }
-    console.log(data);
-  };
-  useEffect(() => {
-    fetchEmailIds();
-    // console.log(allowedEmails);
-  }, []);
-
-  if (email === null || !isAllowed) {
-    return (
-      <View style={styles.container}>
-        <Text>You are not authorized to access this page.</Text>
-      </View>
-    );
-  }
 
   const [notifications, setNotifications] = useState<any>([]);
   const isFocused = useIsFocused();
@@ -79,6 +60,31 @@ const DeleteNotificationsScreen = () => {
   useEffect(() => {
     fetchNotifications();
   }, [isFocused]);
+
+  const email = ctx?.email;
+  const [isAllowed, setIsAllowed] = useState(false);
+
+  const fetchEmailIds = async () => {
+    const res = await getDoc(doc(db, "admins", "adminEmails"));
+    let data = [];
+    data = res.data().email;
+    if (data.includes(email)) {
+      setIsAllowed(true);
+    }
+    console.log(data);
+  };
+  useEffect(() => {
+    fetchEmailIds();
+    // console.log(allowedEmails);
+  }, []);
+
+  if (email === null || !isAllowed) {
+    return (
+      <View style={styles.container}>
+        <Text>You are not authorized to access this page.</Text>
+      </View>
+    );
+  }
 
   return (
     <View

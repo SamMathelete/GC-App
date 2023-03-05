@@ -6,11 +6,16 @@ import {
   Text,
   View,
 } from "react-native";
-import { getDocs,getDoc, collection, deleteDoc, doc } from "firebase/firestore";
+import {
+  getDocs,
+  getDoc,
+  collection,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
 import { FC, useEffect, useState, useContext } from "react";
 import { db } from "../firestoreConfig";
 import { AuthContext } from "../store/google-auth";
-
 
 interface Props {
   name: string;
@@ -56,6 +61,19 @@ const EventCard: FC<Props> = ({ name, refresh }) => {
 
 const DeleteScheduledEvent = () => {
   const ctx = useContext(AuthContext);
+
+  const [events, setEvents] = useState<any>([]);
+
+  const fetchEvents = async () => {
+    const snapshot = await getDocs(collection(db, "scheduled-events"));
+    const data = snapshot.docs.map((doc) => doc.data());
+    setEvents(() => data);
+  };
+
+  useEffect(() => {
+    fetchEvents();
+  }, []);
+
   const email = ctx?.email;
   const [isAllowed, setIsAllowed] = useState(false);
 
@@ -80,17 +98,6 @@ const DeleteScheduledEvent = () => {
       </View>
     );
   }
-  const [events, setEvents] = useState<any>([]);
-
-  const fetchEvents = async () => {
-    const snapshot = await getDocs(collection(db, "scheduled-events"));
-    const data = snapshot.docs.map((doc) => doc.data());
-    setEvents(() => data);
-  };
-
-  useEffect(() => {
-    fetchEvents();
-  }, []);
 
   console.log(events);
 

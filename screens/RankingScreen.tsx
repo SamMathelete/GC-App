@@ -10,7 +10,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import { db } from "../firestoreConfig";
-import { getDocs } from "firebase/firestore";
+import { getDocs, getDoc, doc } from "firebase/firestore";
 import { collection } from "firebase/firestore";
 import { ActivityIndicator } from "react-native-paper";
 import { getExpoPushTokenAsync } from "expo-notifications";
@@ -25,6 +25,8 @@ const RankingScreen: FC = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const [ranking, setRanking] = useState([]);
+  const [date, setDate] = useState([]);
+  const [time, setTime] = useState([]);
 
   const isFocused = useIsFocused();
 
@@ -38,11 +40,29 @@ const RankingScreen: FC = () => {
         console.log(doc.data());
         docsList.push(doc.data());
       });
-      console.log(docsList);
+      // console.log(docsList);
       setRanking(docsList);
       setIsLoading(false);
     };
 
+    const fetchTime = async () => {
+      const docRef = doc(db, "leaderboard-last-update", "last-updated");
+      const docSnap = await getDoc(docRef);
+      const date = docSnap.data().timestamp.toDate().toDateString();
+      const time = docSnap
+        .data()
+        .timestamp.toDate()
+        .toLocaleTimeString("en-US", {
+          hour: "numeric",
+          minute: "numeric",
+          hour12: true,
+        });
+      setDate(date);
+      setTime(time);
+      console.log(date);
+      console.log(time);
+    };
+    fetchTime();
     fetchData();
   }, [isFocused]);
 
@@ -73,7 +93,7 @@ const RankingScreen: FC = () => {
           docsList.push(doc.data());
         }
       });
-      console.log(docsList);
+      // console.log(docsList);
       navigation.navigate("TeamScoreScreen", {
         teamName: branch,
         teamTotalScore: score,
@@ -191,6 +211,12 @@ const RankingScreen: FC = () => {
               />
             )}
           />
+          <View style={styles.centerSmall}>
+            <Text style={styles.italic}>Last Updated on</Text>
+            <Text style={styles.italic}>
+              {date} at {time}
+            </Text>
+          </View>
         </View>
         <View
           style={{
@@ -337,5 +363,14 @@ const styles = StyleSheet.create({
     alignItems: "stretch",
     marginBottom: 10,
     paddingBottom: 10,
+  },
+  centerSmall: {
+    alignItems: "center",
+    justifyContent: "center",
+    marginVertical: 10,
+  },
+  italic: {
+    fontStyle: "italic",
+    color: Colors.purpleDark,
   },
 });

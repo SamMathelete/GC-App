@@ -15,7 +15,6 @@ import { AuthContext } from "../store/google-auth";
 import { useContext } from "react";
 import { useEffect } from "react";
 
-
 const allowedEmails = [
   "21ec01021@iitbbs.ac.in",
   "vpresident.sg@iitbbs.ac.in",
@@ -27,6 +26,24 @@ const allowedEmails = [
 
 const NewsUpdateScreen = () => {
   const ctx = useContext(AuthContext);
+
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [imageDriveLink, setImageDriveLink] = useState("");
+  const [link, setLink] = useState("");
+
+  const buttonHandler = async () => {
+    const imageLink = imageDriveLink.slice(32, 65);
+    const news = {
+      title: title,
+      description: description,
+      imageDriveLink: `https://drive.google.com/uc?id=${imageLink}`,
+      link: link,
+    };
+    await setDoc(doc(db, "news", news.title), news);
+    alert("News Published");
+  };
+
   const email = ctx?.email;
   const [isAllowed, setIsAllowed] = useState(false);
 
@@ -52,22 +69,6 @@ const NewsUpdateScreen = () => {
     );
   }
 
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [imageDriveLink, setImageDriveLink] = useState("");
-  const [link, setLink] = useState("");
-
-  const buttonHandler = async () => {
-    const imageLink = imageDriveLink.slice(32, 65);
-    const news = {
-      title: title,
-      description: description,
-      imageDriveLink: `https://drive.google.com/uc?id=${imageLink}`,
-      link: link,
-    };
-    await setDoc(doc(db, "news", news.title), news);
-    alert("News Published");
-  };
   return (
     <ScrollView>
       <KeyboardAvoidingView style={styles.container}>

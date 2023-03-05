@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 import { db } from "../firestoreConfig";
 import { doc, getDoc } from "firebase/firestore";
 
-
 const allowedEmails = [
   "21ec01021@iitbbs.ac.in",
   "vpresident.sg@iitbbs.ac.in",
@@ -19,6 +18,7 @@ const allowedEmails = [
 
 const EventResultFormScreen: FC = () => {
   const ctx = useContext(AuthContext);
+
   const email = ctx?.email;
   const [isAllowed, setIsAllowed] = useState(false);
 
@@ -43,6 +43,7 @@ const EventResultFormScreen: FC = () => {
       </View>
     );
   }
+
   return (
     <View style={styles.rootContainer}>
       <EventResultForm />

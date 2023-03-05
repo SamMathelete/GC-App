@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Text, View, StyleSheet, Image } from "react-native";
+import { Text, View, StyleSheet, Image, Pressable } from "react-native";
 import Colors from "../constants/Colors";
 
 interface Props {
@@ -17,7 +17,7 @@ interface Props {
 const TeamItem: FC<Props> = ({ style, teamInfo, index, onClick }) => {
   console.log(teamInfo);
   return (
-    <View style={styles.teamItem} onTouchEnd={onClick}>
+    <View style={styles.teamItem}>
       <View style={[styles.team, style]}>
         <View style={styles.teamLogoView}>
           <Image
@@ -27,11 +27,21 @@ const TeamItem: FC<Props> = ({ style, teamInfo, index, onClick }) => {
             style={styles.teamLogo}
           />
         </View>
-        <Text style={styles.teamName}>{teamInfo.branch}</Text>
-        <View style={styles.scoreView}>
-          {/* <Text style={styles.teamScoreHeading}>Score:</Text> */}
-          <Text style={styles.teamScore}>{teamInfo.points}</Text>
-        </View>
+        <Pressable
+          style={{
+            flex: 1,
+            flexDirection: "row",
+            justifyContent: "space-between",
+            paddingLeft: 20,
+          }}
+          onPress={onClick}
+        >
+          <Text style={styles.teamName}>{teamInfo.branch}</Text>
+          <View style={styles.scoreView}>
+            {/* <Text style={styles.teamScoreHeading}>Score:</Text> */}
+            <Text style={styles.teamScore}>{teamInfo.points}</Text>
+          </View>
+        </Pressable>
       </View>
     </View>
   );

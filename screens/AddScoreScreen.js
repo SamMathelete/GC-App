@@ -1,5 +1,5 @@
 import { StyleSheet, Text } from "react-native";
-import { FC, useState, useContext } from "react";
+import { FC, useState, useContext, useEffect } from "react";
 import { View, KeyboardAvoidingView, ScrollView } from "react-native";
 import DropDown from "react-native-paper-dropdown";
 import { TextInput } from "react-native-paper";
@@ -11,11 +11,12 @@ import {
   updateDoc,
   increment,
   addDoc,
+  setDoc,
   collection,
+  Timestamp,
 } from "firebase/firestore";
 import { db } from "../firestoreConfig";
 import { AuthContext } from "../store/google-auth";
-import { useEffect } from "react";
 import { getDoc } from "firebase/firestore";
 
 // Atomically increment the population of the city by 50.
@@ -33,6 +34,13 @@ const AddScoreScreen = () => {
   const ctx = useContext(AuthContext);
   const email = ctx?.email;
   const [isAllowed, setIsAllowed] = useState(false);
+  const [showDropDown, setShowDropDown] = useState(false);
+  const [title, setTitle] = useState("");
+  const [eventName, setEventName] = useState("");
+  const [description, setDescription] = useState("");
+  const [isLoding, setIsLoding] = useState(false);
+
+  const [type, setType] = useState("");
 
   const fetchEmailIds = async () => {
     const res = await getDoc(doc(db, "admins", "adminEmails"));
@@ -55,13 +63,6 @@ const AddScoreScreen = () => {
       </View>
     );
   }
-
-  const [title, setTitle] = useState("");
-  const [eventName, setEventName] = useState("");
-  const [description, setDescription] = useState("");
-  const [isLoding, setIsLoding] = useState(false);
-
-  const [type, setType] = useState("");
 
   const teams = [
     {
@@ -97,9 +98,9 @@ const AddScoreScreen = () => {
       value: "PHD",
     },
   ];
-  const [showDropDown, setShowDropDown] = useState(false);
 
   const onSubmitHandler = async () => {
+    const timestamp = Timestamp.now();
     console.log(title, description);
     // setIsLoding(true);
     const score = doc(db, "leaderboard", title);
@@ -113,6 +114,11 @@ const AddScoreScreen = () => {
     await updateDoc(score, {
       points: increment(description),
     });
+
+    await setDoc(doc(db, "leaderboard-last-update", "last-updated"), {
+      timestamp: timestamp,
+    });
+
     setDescription("");
     setTitle("");
     setIsLoding(false);

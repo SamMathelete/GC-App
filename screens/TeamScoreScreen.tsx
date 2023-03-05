@@ -73,11 +73,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   headerSmallText: {
-    fontSize: 20,
+    fontSize: 15,
     fontWeight: "bold",
   },
   headerBigText: {
-    fontSize: 30,
+    fontSize: 22,
     fontWeight: "bold",
   },
   scoreContainer: {
