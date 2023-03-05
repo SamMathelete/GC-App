@@ -200,7 +200,7 @@ const ScheduledEvent: React.FC<Props> = ({ visible, setVisible }) => {
               </Menu>
               {stream === "Sports" && (
                 <Menu
-                  visible={streamModalVisible}
+                  visible={sportsModalVisible}
                   anchor={
                     <TextInput
                       value={sportsStreams}
@@ -208,7 +208,7 @@ const ScheduledEvent: React.FC<Props> = ({ visible, setVisible }) => {
                       showSoftInputOnFocus={false}
                       mode="outlined"
                       style={styles.textInput}
-                      label="Stream"
+                      label="Sports Category"
                     />
                   }
                   onDismiss={() => setSportsModalVisible(false)}
