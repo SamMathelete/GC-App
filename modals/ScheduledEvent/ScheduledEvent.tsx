@@ -276,6 +276,20 @@ const ScheduledEvent: React.FC<Props> = ({ visible, setVisible }) => {
                       setSportsModalVisible(false);
                     }}
                   />
+                  <Menu.Item
+                    title="Tennis"
+                    onPress={() => {
+                      setSportsStreams("Tennis");
+                      setSportsModalVisible(false);
+                    }}
+                  />
+                  <Menu.Item
+                    title="Other"
+                    onPress={() => {
+                      setSportsStreams("Other");
+                      setSportsModalVisible(false);
+                    }}
+                  />
                 </Menu>
               )}
               <TextInput

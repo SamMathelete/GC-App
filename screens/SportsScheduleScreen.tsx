@@ -18,6 +18,7 @@ const SportsScheduleScreen: FC<Props> = ({ events }) => {
   const [ChessEvents, setChessEvents] = useState([]);
   const [AthleticsEvents, setAthleticsEvents] = useState([]);
   const [GymEvents, setGymEvents] = useState([]);
+  const [OtherEvents, setOtherEvents] = useState([]);
 
   const fetchData = () => {
     const ftbl = [];
@@ -30,6 +31,7 @@ const SportsScheduleScreen: FC<Props> = ({ events }) => {
     const chss = [];
     const athlts = [];
     const gym = [];
+    const otherEvents = [];
     events.forEach((event) => {
       if (event.category === "Football") {
         ftbl.push(event);
@@ -51,6 +53,8 @@ const SportsScheduleScreen: FC<Props> = ({ events }) => {
         athlts.push(event);
       } else if (event.category === "Gym") {
         gym.push(event);
+      } else if (event.type === "Sports") {
+        otherEvents.push(event);
       }
     });
     setFootballEvents(ftbl);
@@ -63,6 +67,7 @@ const SportsScheduleScreen: FC<Props> = ({ events }) => {
     setChessEvents(chss);
     setAthleticsEvents(athlts);
     setGymEvents(gym);
+    setOtherEvents(otherEvents);
   };
 
   useEffect(() => {
@@ -102,6 +107,18 @@ const SportsScheduleScreen: FC<Props> = ({ events }) => {
         ))}
         <Text style={styles.heading}>Gym</Text>
         {GymEvents.map((event: any) => (
+          <EventCard key={event.title} eventInfo={event} />
+        ))}
+        <Text style={styles.heading}>Chess</Text>
+        {ChessEvents.map((event: any) => (
+          <EventCard key={event.title} eventInfo={event} />
+        ))}
+        <Text style={styles.heading}>Athletics</Text>
+        {AthleticsEvents.map((event: any) => (
+          <EventCard key={event.title} eventInfo={event} />
+        ))}
+        <Text style={styles.heading}>Other</Text>
+        {OtherEvents.map((event: any) => (
           <EventCard key={event.title} eventInfo={event} />
         ))}
         <View
