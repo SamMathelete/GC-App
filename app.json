@@ -2,7 +2,7 @@
   "expo": {
     "name": "GC '23",
     "slug": "gc-app",
-    "version": "12.1.rc",
+    "version": "15.1.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "scheme": "com.samthemathlete.gcapp",
