@@ -48,11 +48,12 @@ const ScheduleScreen: FC = ({ navigation }) => {
     console.log("foc");
   }, [isFocused]);
 
-  //sort scheduled events by date
-  scheduledEvents.sort((a, b) => {
-    console.log(a.date.localeCompare(b.date));
-    return -1 * a.date.localeCompare(b.date);
-  });
+  if (scheduledEvents.length > 0) {
+    scheduledEvents.sort((a, b) => {
+      console.log(a.date.localeCompare(b.date));
+      return -1 * a.date.localeCompare(b.date);
+    });
+  }
 
   const TechScreen = (): JSX.Element => {
     return (
