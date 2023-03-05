@@ -49,11 +49,11 @@ const SportsScheduleScreen: FC<Props> = ({ events }) => {
         tbltns.push(event);
       } else if (event.category === "Chess") {
         chss.push(event);
-      } else if (event.category === "Athletics") {
+      } else if (event.category === "Atheletics") {
         athlts.push(event);
       } else if (event.category === "Gym") {
         gym.push(event);
-      } else if (event.type === "Sports") {
+      } else if (event.category === "Other") {
         otherEvents.push(event);
       }
     });
