@@ -15,6 +15,8 @@ import {
 } from "firebase/firestore";
 import { db } from "../firestoreConfig";
 import { AuthContext } from "../store/google-auth";
+import { useEffect } from "react";
+import { getDoc } from "firebase/firestore";
 
 // Atomically increment the population of the city by 50.
 
@@ -29,10 +31,27 @@ const allowedEmails = [
 
 const AddScoreScreen = () => {
   const ctx = useContext(AuthContext);
-  if (!allowedEmails.includes(ctx.email)) {
+  const email = ctx?.email;
+  const [isAllowed, setIsAllowed] = useState(false);
+
+  const fetchEmailIds = async () => {
+    const res = await getDoc(doc(db, "admins", "adminEmails"));
+    let data = [];
+    data = res.data().email;
+    if (data.includes(email)) {
+      setIsAllowed(true);
+    }
+    console.log(data);
+  };
+  useEffect(() => {
+    fetchEmailIds();
+    // console.log(allowedEmails);
+  }, []);
+
+  if (email === null || !isAllowed) {
     return (
-      <View style={styles.rootContainer}>
-        <Text>You are not authorized to view this page</Text>
+      <View style={styles.container}>
+        <Text>You are not authorized to access this page.</Text>
       </View>
     );
   }

@@ -1,11 +1,13 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { FC, useContext, useState } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import { Provider } from "react-native-paper";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import MainButton from "../components/MainButton";
 import { AuthContext } from "../store/google-auth";
 import Colors from "../constants/Colors";
 import ScheduledEvent from "../modals/ScheduledEvent/ScheduledEvent";
+import { db } from "../firestoreConfig";
+import { collection, doc, getDoc, setDoc } from "firebase/firestore";
 
 type RootParamList = {
   AdminHome: undefined;
@@ -23,62 +25,53 @@ type RootParamList = {
 
 type Props = NativeStackScreenProps<RootParamList, "AdminHome">;
 
-const allowedEmails = [
-  "21cs02006@iitbbs.ac.in",
-  "21ec01054@iitbbs.ac.in",
-  "21ec01021@iitbbs.ac.in",
-  "21cs01061@iitbbs.ac.in",
-  "21mm02005@iitbbs.ac.in",
-  "21me02005@iitbbs.ac.in",
-  "vpresident.sg@iitbbs.ac.in",
-  "gsecsnt.sg@iitbbs.ac.in",
-  "ugrep.sg@iitbbs.ac.in",
-  "secyfebs.sg@iitbbs.ac.in",
-  "secyrobotics.sg@iitbbs.ac.in",
-  "secyastronomy.sg@iitbbs.ac.in",
-  "secyprogsoc.sg@iitbbs.ac.in",
-  "secyweb.sg@iitbbs.ac.in",
-  "gseccul.sg@iitbbs.ac.in",
-  "secydance.sg@iitbbs.ac.in",
-  "secysfs.sg@iitbbs.ac.in",
-  "quizclub@iitbbs.ac.in",
-  "secyfinearts.sg@iitbbs.ac.in",
-  "secydrams.sg@iitbbs.ac.in",
-  "secylitsoc.sg@iitbbs.ac.in",
-  "secycinesoc.sg@iitbbs.ac.in",
-  "secymusic.sg@iitbbs.ac.in",
-  "clix.photosoc@iitbbs.ac.in",
-  "gsecsports.sg@iitbbs.ac.in",
-  "secyathletics.sg@iitbbs.ac.in",
-  "secybasketball.sg@iitbbs.ac.in",
-  "secyvolleyball.sg@iitbbs.ac.in",
-  "secytennis.sg@iitbbs.ac.in",
-  "secycricket.sg@iitbbs.ac.in",
-  "secyfootball.sg@iitbbs.ac.in",
-  "secytabletennis.sg@iitbbs.ac.in",
-  "secybadminton.sg@iitbbs.ac.in",
-  "secyboardgames.sg@iitbbs.ac.in",
-  "20me01015@iitbbs.ac.in",
-  "coord.wissenaire@iitbbs.ac.in",
-  "coord.almafiesta@iitbbs.ac.in",
-  "coord.esummit@iitbbs.ac.in",
-  "coord.ashvamedha@iitbbs.ac.in",
-];
+// const allowedEmails = [
+//   "21cs02006@iitbbs.ac.in",
+//   "21ec01054@iitbbs.ac.in",
+//   "21ec01021@iitbbs.ac.in",
+//   "21cs01061@iitbbs.ac.in",
+//   "21mm02005@iitbbs.ac.in",
+//   "21me02005@iitbbs.ac.in",
+//   "vpresident.sg@iitbbs.ac.in",
+//   "gsecsnt.sg@iitbbs.ac.in",
+//   "ugrep.sg@iitbbs.ac.in",
+//   "secyfebs.sg@iitbbs.ac.in",
+//   "secyrobotics.sg@iitbbs.ac.in",
+//   "secyastronomy.sg@iitbbs.ac.in",
+//   "secyprogsoc.sg@iitbbs.ac.in",
+//   "secyweb.sg@iitbbs.ac.in",
+//   "gseccul.sg@iitbbs.ac.in",
+//   "secydance.sg@iitbbs.ac.in",
+//   "secysfs.sg@iitbbs.ac.in",
+//   "quizclub@iitbbs.ac.in",
+//   "secyfinearts.sg@iitbbs.ac.in",
+//   "secydrams.sg@iitbbs.ac.in",
+//   "secylitsoc.sg@iitbbs.ac.in",
+//   "secycinesoc.sg@iitbbs.ac.in",
+//   "secymusic.sg@iitbbs.ac.in",
+//   "clix.photosoc@iitbbs.ac.in",
+//   "gsecsports.sg@iitbbs.ac.in",
+//   "secyathletics.sg@iitbbs.ac.in",
+//   "secybasketball.sg@iitbbs.ac.in",
+//   "secyvolleyball.sg@iitbbs.ac.in",
+//   "secytennis.sg@iitbbs.ac.in",
+//   "secycricket.sg@iitbbs.ac.in",
+//   "secyfootball.sg@iitbbs.ac.in",
+//   "secytabletennis.sg@iitbbs.ac.in",
+//   "secybadminton.sg@iitbbs.ac.in",
+//   "secyboardgames.sg@iitbbs.ac.in",
+//   "20me01015@iitbbs.ac.in",
+//   "coord.wissenaire@iitbbs.ac.in",
+//   "coord.almafiesta@iitbbs.ac.in",
+//   "coord.esummit@iitbbs.ac.in",
+//   "coord.ashvamedha@iitbbs.ac.in",
+// ];
 
 const AdminScreen: FC<Props> = ({ navigation }) => {
   const ctx = useContext(AuthContext);
   //   const [email, setEmail] = useState<string | null>(null);
   const [scheduledEventModal, setScheduledEventModal] = useState(false);
 
-  const email = ctx?.email;
-
-  if (email === null || !allowedEmails.includes(email)) {
-    return (
-      <View style={styles.container}>
-        <Text>You are not authorized to access this page.</Text>
-      </View>
-    );
-  }
 
   const onAddLiveEvent = () => {
     console.log("Add Live Event");
@@ -132,6 +125,31 @@ const AdminScreen: FC<Props> = ({ navigation }) => {
     console.log("Delete Scheduled Event");
     navigation.navigate("DeleteScheduledEvent");
   };
+  const email = ctx?.email;
+
+  const [isAllowed, setIsAllowed] = useState(false);
+
+  const fetchEmailIds = async () => {
+    const res = await getDoc(doc(db, "admins", "elevatedAdmins"));
+    let data = [];
+    data = res.data().email;
+    if (data.includes(email)) {
+      setIsAllowed(true);
+    }
+    console.log(data);
+  };
+  useEffect(() => {
+    fetchEmailIds();
+    // console.log(allowedEmails);
+  }, []);
+
+  if (email === null || !isAllowed) {
+    return (
+      <View style={styles.container}>
+        <Text>You are not authorized to access this page.</Text>
+      </View>
+    );
+  }
 
   return (
     <Provider>

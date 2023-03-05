@@ -192,6 +192,11 @@ const RankingScreen: FC = () => {
             )}
           />
         </View>
+        <View
+          style={{
+            height: 100,
+          }}
+        />
       </ScrollView>
     </View>
   );
