@@ -165,15 +165,15 @@ const AdminScreen: FC<Props> = ({ navigation }) => {
             visible={scheduledEventModal}
             setVisible={setScheduledEventModal}
           />
-          <MainButton
+          {/* <MainButton
             style={styles.buttons}
             onPress={() => setScheduledEventModal(true)}
           >
             Add Scheduled Event
-          </MainButton>
-          <MainButton style={styles.buttons} onPress={onDeleteScheduledEvent}>
+          </MainButton> */}
+          {/* <MainButton style={styles.buttons} onPress={onDeleteScheduledEvent}>
             Delete Sch. Event
-          </MainButton>
+          </MainButton> */}
           <MainButton style={styles.buttons} onPress={onAddLiveEvent}>
             Add Live Event
           </MainButton>

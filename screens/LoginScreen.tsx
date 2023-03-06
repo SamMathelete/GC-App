@@ -18,6 +18,10 @@ import * as Google from "expo-auth-session/providers/google";
 
 import { AuthContext } from "../store/google-auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import {db} from "../firestoreConfig"
+import { setDoc, doc } from "firebase/firestore";
+
+import ScheduledEventsJSON from "../data/scheduled-events.json";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -34,6 +38,7 @@ type Props = NativeStackScreenProps<RootStackParamList, "LoginScreen">;
 const LoginScreen: FC<Props> = ({ navigation }) => {
   const [admin, setAdmin] = useState(false);
   const ctx = useContext(AuthContext);
+  // console.log(ScheduledEvents);
 
   const [request, response, promptAsync] = Google.useAuthRequest({
     expoClientId:
@@ -87,6 +92,16 @@ const LoginScreen: FC<Props> = ({ navigation }) => {
     ctx.emailSetter(emailID);
   };
 
+  const toBackend =async () => {
+      let scheduledEvents = [];
+  for (var i in ScheduledEventsJSON){
+    scheduledEvents.push(ScheduledEventsJSON[i]);
+  }
+    await setDoc(doc(db,"scheduled-events-array","events-array"),{
+      events : scheduledEvents
+    })
+  }
+
   useEffect(() => {
     if (response?.type === "success") {
       const { authentication } = response;
@@ -126,6 +141,9 @@ const LoginScreen: FC<Props> = ({ navigation }) => {
             <MainButton onPress={loginHandler} styleText={{ fontSize: 22 }}>
               Login
             </MainButton>
+            {/* <MainButton onPress={toBackend} styleText={{ fontSize: 22 }}>
+              Push
+            </MainButton> */}
             <Text onPress={bypassHandler} style={styles.adminText}>
               Admin
             </Text>

@@ -9,21 +9,27 @@ import {
   DUMMY_SPORTS_EVENTS,
 } from "../data/events";
 import Colors from "../constants/Colors";
-import { collection, DocumentData, getDocs } from "firebase/firestore";
+import { collection, DocumentData, getDoc, getDocs,doc } from "firebase/firestore";
 import { db } from "../firestoreConfig";
 import { Ionicons } from "@expo/vector-icons";
 import SportsScheduleScreen from "./SportsScheduleScreen";
+import ScheduledEventsJSON from "../data/scheduled-events.json";
 
 const Tab = createMaterialTopTabNavigator();
 
 const ScheduleScreen: FC = ({ navigation }) => {
   const [scheduledEvents, setScheduledEvents] = useState<DocumentData>([]);
+  // let scheduledEvents = [];
+  // for (var i in ScheduledEventsJSON){
+  //   scheduledEvents.push(ScheduledEventsJSON[i]);
+  // }
 
   const calendarNavigate = () => {
     navigation.navigate("CalendarScreen", {
       events: scheduledEvents,
     });
   };
+  // console.log(ScheduledEvents);
 
   navigation.setOptions({
     tabBarIcon: ({ color, size }) => (
@@ -43,10 +49,14 @@ const ScheduleScreen: FC = ({ navigation }) => {
   const isFocused = useIsFocused();
 
   useEffect(() => {
-    getDocs(collection(db, "scheduled-events")).then((snapshot) =>
-      setScheduledEvents(snapshot.docs.map((doc) => doc.data()))
-    );
-    console.log("foc");
+    // getDocs(collection(db, "scheduled-events")).then((snapshot) =>
+    //   setScheduledEvents(snapshot.docs.map((doc) => doc.data()))
+    // );
+    // console.log("foc");
+    getDoc(doc(db,"scheduled-events-array","events-array")).then((snap)=>{
+      setScheduledEvents(snap.data().events);
+     } // setScheduledEvents(snap.events);}
+    )
   }, [isFocused]);
 
   //sort scheduled events by date
