@@ -34,6 +34,7 @@ export const useNotifications = () => {
       );
       const notificationsList = await getDoc(notificationCollection);
       const notificationsArray = notificationsList.data()?.tokens;
+      if (notificationsArray.includes(token)) return;
       notificationsArray.push(token);
       await updateDoc(notificationCollection, {
         tokens: notificationsArray,

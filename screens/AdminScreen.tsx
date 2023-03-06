@@ -72,7 +72,6 @@ const AdminScreen: FC<Props> = ({ navigation }) => {
   //   const [email, setEmail] = useState<string | null>(null);
   const [scheduledEventModal, setScheduledEventModal] = useState(false);
 
-
   const onAddLiveEvent = () => {
     console.log("Add Live Event");
     navigation.navigate("LiveEventCreationScreen");
@@ -183,9 +182,9 @@ const AdminScreen: FC<Props> = ({ navigation }) => {
           <MainButton style={styles.buttons} onPress={onSendNotification}>
             Send Notification
           </MainButton>
-          <MainButton style={styles.buttons} onPress={onDeleteNotifications}>
+          {/* <MainButton style={styles.buttons} onPress={onDeleteNotifications}>
             Delete Notifications
-          </MainButton>
+          </MainButton> */}
           <MainButton style={styles.buttons} onPress={onAddScore}>
             Add Score
           </MainButton>

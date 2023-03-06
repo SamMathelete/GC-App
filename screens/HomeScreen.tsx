@@ -177,12 +177,12 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
   navigation.setOptions({
     headerRight: () => (
       <View style={{ flexDirection: "row", justifyContent: "center" }}>
-        <IconButton
+        {/* <IconButton
           icon="bell"
           size={30}
           onPress={openNotification}
           iconColor="white"
-        />
+        /> */}
         <Menu
           visible={menuVisible}
           onDismiss={closeMenu}
