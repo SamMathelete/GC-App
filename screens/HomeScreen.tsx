@@ -29,6 +29,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { collection, getDoc, getDocs } from "firebase/firestore";
 import { db } from "../firestoreConfig";
 import TableTennis from "../components/SportsUpdateCards/TableTennis";
+import Badminton from "../components/SportsUpdateCards/Badminton";
 
 type RootParamsList = {
   HomeScreen: undefined;
@@ -65,6 +66,7 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
   const [VolleyballEvents, setVolleyballEvents] = useState<any>([]);
   const [TennisEvents, setTennisEvents] = useState<any>([]);
   const [TableTennisEvents, setTableTennisEvents] = useState<any>([]);
+  const [BadmintonEvents, setBadmintonEvents] = useState<any>([]);
 
   const ctx = useContext(AuthContext);
 
@@ -124,6 +126,13 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
       }
     }
     setTableTennisEvents(tableTennisEvents);
+
+    const badmintonEvents = [];
+    for (const event of events) {
+      if (data[event].type === "Badminton" && data[event].isLive === true) {
+        badmintonEvents.push(data[event]);
+      }
+    }
 
     setIsLiveNowLoading(false);
   };
@@ -432,6 +441,27 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
               <Text style={styles.heading}>Table Tennis</Text>
               {TableTennisEvents.map((event: any) => (
                 <TableTennis
+                  key={event.id}
+                  matchName={event.matchName}
+                  team1={{
+                    teamName: event.team1,
+                    score: event.score1,
+                    setScore: event.setscore1,
+                    logo: event.team1Logo,
+                  }}
+                  team2={{
+                    teamName: event.team2,
+                    score: event.score2,
+                    setScore: event.setscore2,
+                    logo: event.team2Logo,
+                  }}
+                  time={event.matchTime}
+                  venue={event.venue}
+                />
+              ))}
+              <Text style={styles.heading}>Badminton</Text>
+              {BadmintonEvents.map((event: any) => (
+                <Badminton
                   key={event.id}
                   matchName={event.matchName}
                   team1={{

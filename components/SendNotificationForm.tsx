@@ -6,12 +6,11 @@ import Colors from "../constants/Colors";
 import * as Notifications from "expo-notifications";
 import { useNotifications } from "../hooks/useNotifications";
 import { db } from "../firestoreConfig";
-import { getDocs, collection, setDoc, doc } from "firebase/firestore";
+import { getDoc, setDoc, doc } from "firebase/firestore";
 const SendNotificationForm: FC = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const { sendPushNotification } = useNotifications();
-  const [list, setList] = useState([]);
 
   const saveNotification = async () => {
     await setDoc(doc(db, "notifications", `${title}_${description}`), {
@@ -22,16 +21,18 @@ const SendNotificationForm: FC = () => {
 
   const buttonHandler = () => {
     const getTokens = async () => {
-      const list = [];
-      const col = collection(db, "notificationTokens");
-      const listSnap = await getDocs(col);
-      listSnap.forEach((doc) => {
-        if (Object.keys(doc.data()).length !== 0) list.push(doc.data());
-      });
+      const docSnap = doc(
+        db,
+        "notificationTokensArray",
+        "WJsdZ7yVfxTR4oSJ474T"
+      );
+      const listSnap = await getDoc(docSnap);
+      console.log(listSnap.data());
+      const list = listSnap.data().tokens;
       // console.log(list1)
-      list.forEach((obj) => {
-        sendPushNotification(obj.token, title, description);
-        console.log(obj.token);
+      list.forEach((token) => {
+        sendPushNotification(token, title, description);
+        console.log(token);
       });
     };
     getTokens();
