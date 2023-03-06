@@ -44,6 +44,8 @@ import DeleteNotificationsScreen from "./screens/DeleteNotificationsScreen";
 import ResultsScreen from "./screens/ResultsScreen";
 import EventResultFormScreen from "./screens/EventResultFormScreen";
 import DeleteScheduledEvent from "./screens/DeleteScheduledEvent";
+import TableTennisLiveEditScreen from "./screens/TableTennisLiveEditScreen";
+import BadmintonLiveEditScreen from "./screens/BadmintonLiveEditScreen";
 
 interface TeamScoreType {
   eventName: string;
@@ -77,6 +79,12 @@ type RootParamList = {
     id: string;
   };
   TennisLiveEditScreen: {
+    id: string;
+  };
+  TableTennisLiveEditScreen: {
+    id: string;
+  };
+  BadmintonLiveEditScreen: {
     id: string;
   };
   LiveEventEditScreen: undefined;
@@ -335,6 +343,28 @@ export default function App() {
             <Stack.Screen
               name="TennisLiveEditScreen"
               component={TennisLiveEditScreen}
+              options={{
+                title: "Edit Live Event",
+                headerStyle: {
+                  backgroundColor: Colors.purpleDark,
+                },
+                headerTintColor: Colors.OffWhite,
+              }}
+            />
+            <Stack.Screen
+              name="BadmintonLiveEditScreen"
+              component={BadmintonLiveEditScreen}
+              options={{
+                title: "Edit Live Event",
+                headerStyle: {
+                  backgroundColor: Colors.purpleDark,
+                },
+                headerTintColor: Colors.OffWhite,
+              }}
+            />
+            <Stack.Screen
+              name="TableTennisLiveEditScreen"
+              component={TableTennisLiveEditScreen}
               options={{
                 title: "Edit Live Event",
                 headerStyle: {

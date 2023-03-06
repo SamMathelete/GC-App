@@ -1,5 +1,3 @@
-import { useNavigation } from "@react-navigation/native";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { FC } from "react";
 import {
   Image,
@@ -7,7 +5,6 @@ import {
   StyleSheet,
   Text,
   View,
-  Pressable,
 } from "react-native";
 import Colors from "../../constants/Colors";
 
@@ -26,27 +23,9 @@ interface Props {
   venue: string;
 }
 
-type RootParamList = {
-  TennisLiveEditScreen: {
-    id: string;
-  };
-};
-
-const TableTennis: FC<Props> = ({ matchName, team1, team2, time, venue }) => {
-  const navigation = useNavigation<NativeStackScreenProps<RootParamList>>();
-
-  const newMatchName = matchName.includes(".")
-    ? matchName.replace(".", "")
-    : matchName;
-
-  const id = `TableTennis_${newMatchName}`;
-
-  const editEvent = () => {
-    navigation.navigate("TableTennisLiveEditScreen", { id });
-  };
-
+const Badminton: FC<Props> = ({ matchName, team1, team2, time, venue }) => {
   return (
-    <Pressable style={styles.rootContainer} onPress={editEvent}>
+    <View style={styles.rootContainer}>
       <Text style={styles.titleText}>{matchName}</Text>
       <Text style={styles.venueText}>{venue}</Text>
       <View style={styles.mainContainer}>
@@ -77,11 +56,11 @@ const TableTennis: FC<Props> = ({ matchName, team1, team2, time, venue }) => {
           <Text style={styles.subText}>{team2.teamName}</Text>
         </View>
       </View>
-    </Pressable>
+    </View>
   );
 };
 
-export default TableTennis;
+export default Badminton;
 
 const styles = StyleSheet.create({
   rootContainer: {
@@ -155,7 +134,6 @@ const styles = StyleSheet.create({
   },
   barContainer: {
     flexDirection: "row",
-    marginBottom: 15,
   },
   penaltyContainer: {
     marginVertical: 0,

@@ -19,6 +19,7 @@ import { IconButton } from "react-native-paper";
 import { useIsFocused } from "@react-navigation/native";
 import { collection, DocumentData, getDocs } from "firebase/firestore";
 import { db } from "../firestoreConfig";
+import Badminton from "../components/SportsUpdateCards/EditableBadmintonCard";
 
 type RootParamList = {
   LiveEventEditScreen: undefined;
@@ -38,6 +39,7 @@ const LiveUpdatesScreen: FC<Props> = ({ navigation }) => {
   const [VolleyballEvents, setVolleyballEvents] = useState<any>([]);
   const [TennisEvents, setTennisEvents] = useState<any>([]);
   const [TableTennisEvents, setTableTennisEvents] = useState<any>([]);
+  const [BadmintonEvents, setBadmintonEvents] = useState<any>([]);
 
   const [isLoading, setIsLoading] = useState<any>(false);
 
@@ -54,7 +56,7 @@ const LiveUpdatesScreen: FC<Props> = ({ navigation }) => {
     const events = Object.keys(data);
     const cricketEvents = [];
     for (const event of events) {
-      if (data[event].type === "Cricket") {
+      if (data[event].type === "Cricket" && data[event].isLive === true) {
         cricketEvents.push(data[event]);
       }
     }
@@ -62,7 +64,7 @@ const LiveUpdatesScreen: FC<Props> = ({ navigation }) => {
 
     const footballEvents = [];
     for (const event of events) {
-      if (data[event].type === "Football") {
+      if (data[event].type === "Football" && data[event].isLive === true) {
         footballEvents.push(data[event]);
       }
     }
@@ -70,7 +72,7 @@ const LiveUpdatesScreen: FC<Props> = ({ navigation }) => {
 
     const basketballEvents = [];
     for (const event of events) {
-      if (data[event].type === "Basketball") {
+      if (data[event].type === "Basketball" && data[event].isLive === true) {
         basketballEvents.push(data[event]);
       }
     }
@@ -78,7 +80,7 @@ const LiveUpdatesScreen: FC<Props> = ({ navigation }) => {
 
     const volleyballEvents = [];
     for (const event of events) {
-      if (data[event].type === "Volleyball") {
+      if (data[event].type === "Volleyball" && data[event].isLive === true) {
         volleyballEvents.push(data[event]);
       }
     }
@@ -86,7 +88,7 @@ const LiveUpdatesScreen: FC<Props> = ({ navigation }) => {
 
     const tennisEvents = [];
     for (const event of events) {
-      if (data[event].type === "Tennis") {
+      if (data[event].type === "Tennis" && data[event].isLive === true) {
         tennisEvents.push(data[event]);
       }
     }
@@ -94,11 +96,19 @@ const LiveUpdatesScreen: FC<Props> = ({ navigation }) => {
 
     const tableTennisEvents = [];
     for (const event of events) {
-      if (data[event].type === "TableTennis") {
+      if (data[event].type === "TableTennis" && data[event].isLive === true) {
         tableTennisEvents.push(data[event]);
       }
     }
     setTableTennisEvents(tableTennisEvents);
+
+    const badmintonEvents = [];
+    for (const event of events) {
+      if (data[event].type === "Badminton" && data[event].isLive === true) {
+        badmintonEvents.push(data[event]);
+      }
+    }
+    setBadmintonEvents(badmintonEvents);
 
     setIsLoading(false);
   };
@@ -269,6 +279,27 @@ const LiveUpdatesScreen: FC<Props> = ({ navigation }) => {
           <Text style={styles.heading}>Table Tennis</Text>
           {TableTennisEvents.map((event: any) => (
             <TableTennis
+              key={event.id}
+              matchName={event.matchName}
+              team1={{
+                teamName: event.team1,
+                score: event.score1,
+                setScore: event.setscore1,
+                logo: event.team1Logo,
+              }}
+              team2={{
+                teamName: event.team2,
+                score: event.score2,
+                setScore: event.setscore2,
+                logo: event.team2Logo,
+              }}
+              time={event.matchTime}
+              venue={event.venue}
+            />
+          ))}
+          <Text style={styles.heading}>Badminton</Text>
+          {BadmintonEvents.map((event: any) => (
+            <Badminton
               key={event.id}
               matchName={event.matchName}
               team1={{

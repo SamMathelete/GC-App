@@ -38,6 +38,7 @@ const LiveUpdatesScreen: FC<Props> = ({ navigation }) => {
   const [VolleyballEvents, setVolleyballEvents] = useState<any>([]);
   const [TennisEvents, setTennisEvents] = useState<any>([]);
   const [TableTennisEvents, setTableTennisEvents] = useState<any>([]);
+  const [BadmintonEvents, setBadmintonEvents] = useState<any>([]);
 
   const isFocused = useIsFocused();
 
@@ -98,6 +99,14 @@ const LiveUpdatesScreen: FC<Props> = ({ navigation }) => {
       }
     }
     setTableTennisEvents(tableTennisEvents);
+
+    const badmintonEvents = [];
+    for (const event of events) {
+      if (data[event].type === "Badminton" && data[event].isLive === true) {
+        badmintonEvents.push(data[event]);
+      }
+    }
+    setBadmintonEvents(badmintonEvents);
 
     setIsLoading(false);
   };

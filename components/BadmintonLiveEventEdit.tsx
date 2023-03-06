@@ -9,7 +9,7 @@ import {
 import { TextInput } from "react-native-paper";
 import MainButton from "./MainButton";
 import Colors from "../constants/Colors";
-import TableTennis from "./SportsUpdateCards/TableTennis";
+import Badminton from "./SportsUpdateCards/Badminton";
 import DropDown from "react-native-paper-dropdown";
 import CSE from "../assets/Images/CSE.png";
 import ECEMETA from "../assets/Images/ECEMETA.png";
@@ -50,7 +50,7 @@ type RootParamList = {
   LiveEventEditScreen: undefined;
 };
 
-const TableTennisLiveEventEdit: FC<Props> = (props) => {
+const BadmintonLiveEventEdit: FC<Props> = (props) => {
   const [matchName, setMatchName] = useState(props.matchName);
   const [team1, setTeam1] = useState(props.team1);
   const [team2, setTeam2] = useState(props.team2);
@@ -218,7 +218,7 @@ const TableTennisLiveEventEdit: FC<Props> = (props) => {
 
   return (
     <ScrollView>
-      <TableTennis
+      <Badminton
         matchName={matchName}
         team1={{
           teamName: team1,
@@ -417,4 +417,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TableTennisLiveEventEdit;
+export default BadmintonLiveEventEdit;

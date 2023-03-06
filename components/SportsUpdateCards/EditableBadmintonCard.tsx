@@ -32,17 +32,17 @@ type RootParamList = {
   };
 };
 
-const TableTennis: FC<Props> = ({ matchName, team1, team2, time, venue }) => {
+const Badminton: FC<Props> = ({ matchName, team1, team2, time, venue }) => {
   const navigation = useNavigation<NativeStackScreenProps<RootParamList>>();
 
   const newMatchName = matchName.includes(".")
     ? matchName.replace(".", "")
     : matchName;
 
-  const id = `TableTennis_${newMatchName}`;
+  const id = `Badminton_${newMatchName}`;
 
   const editEvent = () => {
-    navigation.navigate("TableTennisLiveEditScreen", { id });
+    navigation.navigate("BadmintonLiveEditScreen", { id });
   };
 
   return (
@@ -81,7 +81,7 @@ const TableTennis: FC<Props> = ({ matchName, team1, team2, time, venue }) => {
   );
 };
 
-export default TableTennis;
+export default Badminton;
 
 const styles = StyleSheet.create({
   rootContainer: {
