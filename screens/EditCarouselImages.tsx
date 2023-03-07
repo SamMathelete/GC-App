@@ -23,14 +23,6 @@ const allowedEmails = [
 const EditCarouselImage = () => {
   const ctx = useContext(AuthContext);
 
-  if (email === null || !isAllowed) {
-    return (
-      <View style={styles.container}>
-        <Text>You are not authorized to access this page.</Text>
-      </View>
-    );
-  }
-
   const [images, setImages] = useState([]);
 
   const fetchImages = async () => {
@@ -75,6 +67,14 @@ const EditCarouselImage = () => {
     fetchEmailIds();
     // console.log(allowedEmails);
   }, []);
+
+  if (email === null || !isAllowed) {
+    return (
+      <View style={styles.container}>
+        <Text>You are not authorized to access this page.</Text>
+      </View>
+    );
+  }
 
   return (
     <View
