@@ -9,7 +9,13 @@ import {
   DUMMY_SPORTS_EVENTS,
 } from "../data/events";
 import Colors from "../constants/Colors";
-import { collection, DocumentData, getDoc, getDocs,doc } from "firebase/firestore";
+import {
+  collection,
+  DocumentData,
+  getDoc,
+  getDocs,
+  doc,
+} from "firebase/firestore";
 import { db } from "../firestoreConfig";
 import { Ionicons } from "@expo/vector-icons";
 import SportsScheduleScreen from "./SportsScheduleScreen";
@@ -53,17 +59,18 @@ const ScheduleScreen: FC = ({ navigation }) => {
     //   setScheduledEvents(snapshot.docs.map((doc) => doc.data()))
     // );
     // console.log("foc");
-    getDoc(doc(db,"scheduled-events-array","events-array")).then((snap)=>{
-      setScheduledEvents(snap.data().events);
-     } // setScheduledEvents(snap.events);}
-    )
-  }, [isFocused]);
+    getDoc(doc(db, "scheduled-events-array", "events-array")).then(
+      (snap) => {
+        setScheduledEvents(snap.data().events);
+      } // setScheduledEvents(snap.events);}
+    );
+  }, []);
 
   //sort scheduled events by date
   if (scheduledEvents.length > 0) {
     scheduledEvents.sort((a, b) => {
       console.log(a.date.localeCompare(b.date));
-      return -1 * a.date.localeCompare(b.date);
+      return a.date.localeCompare(b.date);
     });
   }
 

@@ -26,7 +26,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useIsFocused } from "@react-navigation/native";
 import { AuthContext } from "../store/google-auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { collection, getDoc, getDocs } from "firebase/firestore";
+import { collection, getDoc, getDocs, onSnapshot } from "firebase/firestore";
 import { db } from "../firestoreConfig";
 import TableTennis from "../components/SportsUpdateCards/TableTennis";
 import Badminton from "../components/SportsUpdateCards/Badminton";
@@ -50,7 +50,7 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
 
   const [isLiveNowLoading, setIsLiveNowLoading] = useState<any>(false);
   const [carouselImages, setCarouselImages] = useState<CarouselImages[] | any>(
-    DUMMY_CAROUSEL_DATA
+    []
   );
 
   const Dimensions = useWindowDimensions();
@@ -70,82 +70,145 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
 
   const ctx = useContext(AuthContext);
 
-  const fetchLiveUpdates = async () => {
-    setIsLiveNowLoading(true);
-    const snapshot = await getDocs(collection(db, "liveEvents"));
-    // const response = await fetch(
-    //   "https://gc-app-76138-default-rtdb.firebaseio.com/liveEvents.json"
-    // );
-    const data = snapshot.docs.map((doc) => doc.data());
-    const events = Object.keys(data);
-
-    const cricketEvents = [];
-    for (const event of events) {
-      if (data[event].type === "Cricket" && data[event].isLive === true) {
-        cricketEvents.push(data[event]);
-      }
-    }
-    setCricketEvents(cricketEvents);
-
-    const footballEvents = [];
-    for (const event of events) {
-      if (data[event].type === "Football" && data[event].isLive === true) {
-        footballEvents.push(data[event]);
-      }
-    }
-    setFootballEvents(footballEvents);
-
-    const basketballEvents = [];
-    for (const event of events) {
-      if (data[event].type === "Basketball" && data[event].isLive === true) {
-        basketballEvents.push(data[event]);
-      }
-    }
-    setBasketballEvents(basketballEvents);
-
-    const volleyballEvents = [];
-    for (const event of events) {
-      if (data[event].type === "Volleyball" && data[event].isLive === true) {
-        volleyballEvents.push(data[event]);
-      }
-    }
-    setVolleyballEvents(volleyballEvents);
-
-    const tennisEvents = [];
-    for (const event of events) {
-      if (data[event].type === "Tennis" && data[event].isLive === true) {
-        tennisEvents.push(data[event]);
-      }
-    }
-    setTennisEvents(tennisEvents);
-
-    const tableTennisEvents = [];
-    for (const event of events) {
-      if (data[event].type === "TableTennis" && data[event].isLive === true) {
-        tableTennisEvents.push(data[event]);
-      }
-    }
-    setTableTennisEvents(tableTennisEvents);
-
-    const badmintonEvents = [];
-    for (const event of events) {
-      if (data[event].type === "Badminton" && data[event].isLive === true) {
-        badmintonEvents.push(data[event]);
-      }
-    }
-
-    setIsLiveNowLoading(false);
-  };
-
   useEffect(() => {
-    fetchLiveUpdates();
-    fetchCarouselData();
-    fetchNews();
-  }, [isFocused]);
+    const unsub = onSnapshot(collection(db, "liveEvents"), (snapshot) => {
+      console.log("Live Events Updated");
+      const data = snapshot.docs.map((doc) => doc.data());
+      const events = Object.keys(data);
+      const cricketEvents = [];
+      for (const event of events) {
+        if (data[event].type === "Cricket" && data[event].isLive === true) {
+          cricketEvents.push(data[event]);
+        }
+      }
+      setCricketEvents(cricketEvents);
 
-  const refreshHandler = () => {
-    fetchLiveUpdates();
-  };
+      const footballEvents = [];
+      for (const event of events) {
+        if (data[event].type === "Football" && data[event].isLive === true) {
+          footballEvents.push(data[event]);
+        }
+      }
+      setFootballEvents(footballEvents);
+
+      const basketballEvents = [];
+      for (const event of events) {
+        if (data[event].type === "Basketball" && data[event].isLive === true) {
+          basketballEvents.push(data[event]);
+        }
+      }
+      setBasketballEvents(basketballEvents);
+
+      const volleyballEvents = [];
+      for (const event of events) {
+        if (data[event].type === "Volleyball" && data[event].isLive === true) {
+          volleyballEvents.push(data[event]);
+        }
+      }
+      setVolleyballEvents(volleyballEvents);
+
+      const tennisEvents = [];
+      for (const event of events) {
+        if (data[event].type === "Tennis" && data[event].isLive === true) {
+          tennisEvents.push(data[event]);
+        }
+      }
+      setTennisEvents(tennisEvents);
+
+      const tableTennisEvents = [];
+      for (const event of events) {
+        if (data[event].type === "TableTennis" && data[event].isLive === true) {
+          tableTennisEvents.push(data[event]);
+        }
+      }
+      setTableTennisEvents(tableTennisEvents);
+
+      const badmintonEvents = [];
+      for (const event of events) {
+        if (data[event].type === "Badminton" && data[event].isLive === true) {
+          badmintonEvents.push(data[event]);
+        }
+      }
+      setBadmintonEvents(badmintonEvents);
+    });
+  }, []);
+
+  // const fetchLiveUpdates = async () => {
+  //   setIsLiveNowLoading(true);
+  //   const snapshot = await getDocs(collection(db, "liveEvents"));
+  //   // const response = await fetch(
+  //   //   "https://gc-app-76138-default-rtdb.firebaseio.com/liveEvents.json"
+  //   // );
+  //   const data = snapshot.docs.map((doc) => doc.data());
+  //   const events = Object.keys(data);
+
+  //   const cricketEvents = [];
+  //   for (const event of events) {
+  //     if (data[event].type === "Cricket" && data[event].isLive === true) {
+  //       cricketEvents.push(data[event]);
+  //     }
+  //   }
+  //   setCricketEvents(cricketEvents);
+
+  //   const footballEvents = [];
+  //   for (const event of events) {
+  //     if (data[event].type === "Football" && data[event].isLive === true) {
+  //       footballEvents.push(data[event]);
+  //     }
+  //   }
+  //   setFootballEvents(footballEvents);
+
+  //   const basketballEvents = [];
+  //   for (const event of events) {
+  //     if (data[event].type === "Basketball" && data[event].isLive === true) {
+  //       basketballEvents.push(data[event]);
+  //     }
+  //   }
+  //   setBasketballEvents(basketballEvents);
+
+  //   const volleyballEvents = [];
+  //   for (const event of events) {
+  //     if (data[event].type === "Volleyball" && data[event].isLive === true) {
+  //       volleyballEvents.push(data[event]);
+  //     }
+  //   }
+  //   setVolleyballEvents(volleyballEvents);
+
+  //   const tennisEvents = [];
+  //   for (const event of events) {
+  //     if (data[event].type === "Tennis" && data[event].isLive === true) {
+  //       tennisEvents.push(data[event]);
+  //     }
+  //   }
+  //   setTennisEvents(tennisEvents);
+
+  //   const tableTennisEvents = [];
+  //   for (const event of events) {
+  //     if (data[event].type === "TableTennis" && data[event].isLive === true) {
+  //       tableTennisEvents.push(data[event]);
+  //     }
+  //   }
+  //   setTableTennisEvents(tableTennisEvents);
+
+  //   const badmintonEvents = [];
+  //   for (const event of events) {
+  //     if (data[event].type === "Badminton" && data[event].isLive === true) {
+  //       badmintonEvents.push(data[event]);
+  //     }
+  //   }
+
+  //   setIsLiveNowLoading(false);
+  // };
+
+  // useEffect(() => {
+  //   fetchLiveUpdates();
+  //   fetchCarouselData();
+  //   fetchNews();
+  // }, [isFocused]);
+
+  // const refreshHandler = () => {
+  //   fetchLiveUpdates();
+  // };
 
   const [menuVisible, setMenuVisible] = useState(false);
 
@@ -177,12 +240,12 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
   navigation.setOptions({
     headerRight: () => (
       <View style={{ flexDirection: "row", justifyContent: "center" }}>
-        {/* <IconButton
+        <IconButton
           icon="bell"
           size={30}
           onPress={openNotification}
           iconColor="white"
-        /> */}
+        />
         <Menu
           visible={menuVisible}
           onDismiss={closeMenu}
@@ -202,32 +265,73 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
     ),
   });
 
-  const fetchCarouselData = async () => {
-    const snapshot = await getDocs(collection(db, "carouselImages"));
-    // const response = await fetch(
-    //   "https://gc-app-76138-default-rtdb.firebaseio.com/carouselImages.json"
-    // );
-    const data = await snapshot.docs.map((doc) => doc.data());
-    const images = Object.keys(data);
-    const carouselImages = [];
-    for (const image of images) {
-      carouselImages.push(data[image]);
-    }
-    setCarouselImages(carouselImages);
-  };
+  // const fetchCarouselData = async () => {
+  //   const snapshot = await getDocs(collection(db, "carouselImages"));
+  //   // const response = await fetch(
+  //   //   "https://gc-app-76138-default-rtdb.firebaseio.com/carouselImages.json"
+  //   // );
+  //   const data = await snapshot.docs.map((doc) => doc.data());
+  //   const images = Object.keys(data);
+  //   const carouselImages = [];
+  //   for (const image of images) {
+  //     carouselImages.push(data[image]);
+  //   }
+  //   setCarouselImages(carouselImages);
+  // };
 
   const [news, setNews] = useState<any>([]);
 
-  const fetchNews = async () => {
-    const snapshot = await getDocs(collection(db, "news"));
-    const data = await snapshot.docs.map((doc) => doc.data());
-    const news = Object.keys(data);
-    const newsData = [];
-    for (const n of news) {
-      newsData.push(data[n]);
-    }
-    setNews(newsData);
-  };
+  // const fetchNews = async () => {
+  //   const snapshot = await getDocs(collection(db, "news"));
+  //   const data = await snapshot.docs.map((doc) => doc.data());
+  //   const news = Object.keys(data);
+  //   const newsData = [];
+  //   for (const n of news) {
+  //     newsData.push(data[n]);
+  //   }
+  //   setNews(newsData);
+  // };
+
+  useEffect(() => {
+    // fetchCarouselData();
+    // fetchNews();
+    const unsubImage = onSnapshot(
+      collection(db, "carouselImages"),
+      (snapshot) => {
+        console.log("carouselImages");
+        const data = snapshot.docs.map((doc) => doc.data());
+        const images = Object.keys(data);
+        const carouselImages = [];
+        for (const image of images) {
+          carouselImages.push(data[image]);
+        }
+        setCarouselImages(carouselImages);
+      }
+    );
+    const unsubNews = onSnapshot(collection(db, "news"), (snapshot) => {
+      console.log("news");
+      const data = snapshot.docs.map((doc) => doc.data());
+      const news = Object.keys(data);
+      const newsData = [];
+      for (const n of news) {
+        newsData.push(data[n]);
+      }
+      setNews(newsData);
+    });
+  }, []);
+
+  if (carouselImages.length > 0) {
+    carouselImages.sort((a, b) => {
+      return -1 * a.date.localeCompare(b.date);
+    });
+  }
+
+  if (news.length > 0) {
+    news.sort((a, b) => {
+      return -1 * a.date.localeCompare(b.date);
+    });
+  }
+  // console.log(carouselImages);
 
   return (
     <View style={styles.rootContainer}>
@@ -300,12 +404,6 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
                 color={Colors.red}
               />
             </View>
-            <IconButton
-              icon="refresh"
-              iconColor={Colors.purpleLight}
-              size={30}
-              onPress={refreshHandler}
-            />
           </View>
           {isLiveNowLoading && (
             <ActivityIndicator size="large" color={Colors.red} />

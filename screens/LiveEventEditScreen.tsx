@@ -17,7 +17,12 @@ import MainButton from "../components/MainButton";
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import { IconButton } from "react-native-paper";
 import { useIsFocused } from "@react-navigation/native";
-import { collection, DocumentData, getDocs } from "firebase/firestore";
+import {
+  collection,
+  DocumentData,
+  getDocs,
+  onSnapshot,
+} from "firebase/firestore";
 import { db } from "../firestoreConfig";
 import Badminton from "../components/SportsUpdateCards/EditableBadmintonCard";
 
@@ -45,92 +50,154 @@ const LiveUpdatesScreen: FC<Props> = ({ navigation }) => {
 
   const isFocused = useIsFocused();
 
-  const fetchLiveUpdates = async () => {
-    setIsLoading(true);
-    const response = await getDocs(collection(db, "liveEvents"));
+  // const fetchLiveUpdates = async () => {
+  //   setIsLoading(true);
+  //   const response = await getDocs(collection(db, "liveEvents"));
 
-    // const response = await fetch(
-    //   "https://gc-app-76138-default-rtdb.firebaseio.com/liveEvents.json"
-    // );
-    const data = response.docs.map((doc) => doc.data());
-    const events = Object.keys(data);
-    const cricketEvents = [];
-    for (const event of events) {
-      if (data[event].type === "Cricket" && data[event].isLive === true) {
-        cricketEvents.push(data[event]);
-      }
-    }
-    setCricketEvents(cricketEvents);
+  //   // const response = await fetch(
+  //   //   "https://gc-app-76138-default-rtdb.firebaseio.com/liveEvents.json"
+  //   // );
+  //   const data = response.docs.map((doc) => doc.data());
+  //   const events = Object.keys(data);
+  //   const cricketEvents = [];
+  //   for (const event of events) {
+  //     if (data[event].type === "Cricket" && data[event].isLive === true) {
+  //       cricketEvents.push(data[event]);
+  //     }
+  //   }
+  //   setCricketEvents(cricketEvents);
 
-    const footballEvents = [];
-    for (const event of events) {
-      if (data[event].type === "Football" && data[event].isLive === true) {
-        footballEvents.push(data[event]);
-      }
-    }
-    setFootballEvents(footballEvents);
+  //   const footballEvents = [];
+  //   for (const event of events) {
+  //     if (data[event].type === "Football" && data[event].isLive === true) {
+  //       footballEvents.push(data[event]);
+  //     }
+  //   }
+  //   setFootballEvents(footballEvents);
 
-    const basketballEvents = [];
-    for (const event of events) {
-      if (data[event].type === "Basketball" && data[event].isLive === true) {
-        basketballEvents.push(data[event]);
-      }
-    }
-    setBasketballEvents(basketballEvents);
+  //   const basketballEvents = [];
+  //   for (const event of events) {
+  //     if (data[event].type === "Basketball" && data[event].isLive === true) {
+  //       basketballEvents.push(data[event]);
+  //     }
+  //   }
+  //   setBasketballEvents(basketballEvents);
 
-    const volleyballEvents = [];
-    for (const event of events) {
-      if (data[event].type === "Volleyball" && data[event].isLive === true) {
-        volleyballEvents.push(data[event]);
-      }
-    }
-    setVolleyballEvents(volleyballEvents);
+  //   const volleyballEvents = [];
+  //   for (const event of events) {
+  //     if (data[event].type === "Volleyball" && data[event].isLive === true) {
+  //       volleyballEvents.push(data[event]);
+  //     }
+  //   }
+  //   setVolleyballEvents(volleyballEvents);
 
-    const tennisEvents = [];
-    for (const event of events) {
-      if (data[event].type === "Tennis" && data[event].isLive === true) {
-        tennisEvents.push(data[event]);
-      }
-    }
-    setTennisEvents(tennisEvents);
+  //   const tennisEvents = [];
+  //   for (const event of events) {
+  //     if (data[event].type === "Tennis" && data[event].isLive === true) {
+  //       tennisEvents.push(data[event]);
+  //     }
+  //   }
+  //   setTennisEvents(tennisEvents);
 
-    const tableTennisEvents = [];
-    for (const event of events) {
-      if (data[event].type === "TableTennis" && data[event].isLive === true) {
-        tableTennisEvents.push(data[event]);
-      }
-    }
-    setTableTennisEvents(tableTennisEvents);
+  //   const tableTennisEvents = [];
+  //   for (const event of events) {
+  //     if (data[event].type === "TableTennis" && data[event].isLive === true) {
+  //       tableTennisEvents.push(data[event]);
+  //     }
+  //   }
+  //   setTableTennisEvents(tableTennisEvents);
 
-    const badmintonEvents = [];
-    for (const event of events) {
-      if (data[event].type === "Badminton" && data[event].isLive === true) {
-        badmintonEvents.push(data[event]);
-      }
-    }
-    setBadmintonEvents(badmintonEvents);
+  //   const badmintonEvents = [];
+  //   for (const event of events) {
+  //     if (data[event].type === "Badminton" && data[event].isLive === true) {
+  //       badmintonEvents.push(data[event]);
+  //     }
+  //   }
+  //   setBadmintonEvents(badmintonEvents);
 
-    setIsLoading(false);
-  };
+  //   setIsLoading(false);
+  // };
+
+  // useEffect(() => {
+  //   fetchLiveUpdates();
+  // }, [isFocused]);
 
   useEffect(() => {
-    fetchLiveUpdates();
-  }, [isFocused]);
+    const unsub = onSnapshot(collection(db, "liveEvents"), (snapshot) => {
+      const data = snapshot.docs.map((doc) => doc.data());
+      const events = Object.keys(data);
+      const cricketEvents = [];
+      for (const event of events) {
+        if (data[event].type === "Cricket" && data[event].isLive === true) {
+          cricketEvents.push(data[event]);
+        }
+      }
+      setCricketEvents(cricketEvents);
 
-  const refreshHandler = () => {
-    fetchLiveUpdates();
-  };
+      const footballEvents = [];
+      for (const event of events) {
+        if (data[event].type === "Football" && data[event].isLive === true) {
+          footballEvents.push(data[event]);
+        }
+      }
+      setFootballEvents(footballEvents);
 
-  navigation.setOptions({
-    headerRight: () => (
-      <IconButton
-        icon="refresh"
-        size={30}
-        onPress={refreshHandler}
-        iconColor="white"
-      />
-    ),
-  });
+      const basketballEvents = [];
+      for (const event of events) {
+        if (data[event].type === "Basketball" && data[event].isLive === true) {
+          basketballEvents.push(data[event]);
+        }
+      }
+      setBasketballEvents(basketballEvents);
+
+      const volleyballEvents = [];
+      for (const event of events) {
+        if (data[event].type === "Volleyball" && data[event].isLive === true) {
+          volleyballEvents.push(data[event]);
+        }
+      }
+      setVolleyballEvents(volleyballEvents);
+
+      const tennisEvents = [];
+      for (const event of events) {
+        if (data[event].type === "Tennis" && data[event].isLive === true) {
+          tennisEvents.push(data[event]);
+        }
+      }
+      setTennisEvents(tennisEvents);
+
+      const tableTennisEvents = [];
+      for (const event of events) {
+        if (data[event].type === "TableTennis" && data[event].isLive === true) {
+          tableTennisEvents.push(data[event]);
+        }
+      }
+      setTableTennisEvents(tableTennisEvents);
+
+      const badmintonEvents = [];
+      for (const event of events) {
+        if (data[event].type === "Badminton" && data[event].isLive === true) {
+          badmintonEvents.push(data[event]);
+        }
+      }
+      setBadmintonEvents(badmintonEvents);
+    });
+  }, []);
+
+  // const refreshHandler = () => {
+  //   fetchLiveUpdates();
+  // };
+
+  // navigation.setOptions({
+  //   headerRight: () => (
+  //     <IconButton
+  //       icon="refresh"
+  //       size={30}
+  //       onPress={refreshHandler}
+  //       iconColor="white"
+  //     />
+  //   ),
+  // });
 
   if (isLoading) {
     return (

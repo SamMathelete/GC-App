@@ -9,7 +9,7 @@ import {
 import { TextInput } from "react-native-paper";
 import MainButton from "../components/MainButton";
 import Colors from "../constants/Colors";
-import { setDoc, doc, getDoc } from "firebase/firestore";
+import { setDoc, doc, getDoc, Timestamp } from "firebase/firestore";
 import { db } from "../firestoreConfig";
 import { AuthContext } from "../store/google-auth";
 import { useContext } from "react";
@@ -39,6 +39,7 @@ const NewsUpdateScreen = () => {
       description: description,
       imageDriveLink: `https://drive.google.com/uc?id=${imageLink}`,
       link: link,
+      date: Timestamp.now().toDate().toLocaleDateString(),
     };
     await setDoc(doc(db, "news", news.title), news);
     alert("News Published");

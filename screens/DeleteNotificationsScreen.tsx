@@ -7,6 +7,7 @@ import {
   getDoc,
   collection,
   deleteDoc,
+  onSnapshot,
 } from "firebase/firestore";
 import { db } from "../firestoreConfig";
 import NotificationCard from "../components/EditableNotificationCard";
@@ -29,11 +30,11 @@ const DeleteNotificationsScreen = () => {
   const [notifications, setNotifications] = useState<any>([]);
   const isFocused = useIsFocused();
 
-  const fetchNotifications = async () => {
-    const snapshot = await getDocs(collection(db, "notifications"));
-    const data = snapshot.docs.map((doc) => doc.data());
-    setNotifications(() => data);
-  };
+  // const fetchNotifications = async () => {
+  //   const snapshot = await getDocs(collection(db, "notifications"));
+  //   const data = snapshot.docs.map((doc) => doc.data());
+  //   setNotifications(() => data);
+  // };
 
   const handleDelete = async (title, description) => {
     Alert.alert(
@@ -50,7 +51,7 @@ const DeleteNotificationsScreen = () => {
             const docRef = doc(db, "notifications", `${title}_${description}`);
             await deleteDoc(docRef);
             alert("Notification deleted successfully!");
-            fetchNotifications();
+            // fetchNotifications();
           },
         },
       ]
@@ -58,8 +59,15 @@ const DeleteNotificationsScreen = () => {
   };
 
   useEffect(() => {
-    fetchNotifications();
-  }, [isFocused]);
+    // fetchNotifications();
+    const unsub = onSnapshot(collection(db, "notifications"), (docsSnap) => {
+      const docsList = [];
+      docsSnap.forEach((doc) => {
+        docsList.push(doc.data());
+      });
+      setNotifications(docsList);
+    });
+  }, []);
 
   const email = ctx?.email;
   const [isAllowed, setIsAllowed] = useState(false);
@@ -84,6 +92,12 @@ const DeleteNotificationsScreen = () => {
         <Text>You are not authorized to access this page.</Text>
       </View>
     );
+  }
+
+  if (notifications.length > 0) {
+    notifications.sort((a, b) => {
+      return a.date.localeCompare(b.date);
+    });
   }
 
   return (

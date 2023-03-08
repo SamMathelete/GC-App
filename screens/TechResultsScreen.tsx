@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, ScrollView } from "react-native";
-import { doc, getDocs, collection } from "firebase/firestore";
+import { doc, getDocs, collection, onSnapshot } from "firebase/firestore";
 import { db } from "../firestoreConfig";
 import EventResultCard from "../components/EventResultCard";
 import { useState, useEffect } from "react";
@@ -7,20 +7,28 @@ import { useState, useEffect } from "react";
 const TechResultsScreen = () => {
   const [techResults, setTechResults] = useState([]);
 
-  const fetchResults = async () => {
-    const cr = [];
-    const collRef = collection(db, "results");
-    const snapshot = await getDocs(collRef);
-    snapshot.forEach((doc) => {
-      if (doc.data().type === "Tech") {
-        cr.push(doc.data());
-      }
-    });
-    setTechResults(cr);
-  };
+  // const fetchResults = async () => {
+  //   const cr = [];
+  //   const collRef = collection(db, "results");
+  //   const snapshot = await getDocs(collRef);
+  //   snapshot.forEach((doc) => {
+  //     if (doc.data().type === "Tech") {
+  //       cr.push(doc.data());
+  //     }
+  //   });
+  //   setTechResults(cr);
 
   useEffect(() => {
-    fetchResults();
+    const unsub = onSnapshot(collection(db, "results"), (docsSnap) => {
+      const docsList = [];
+      docsSnap.forEach((doc) => {
+        if (doc.data().type === "Tech") {
+          docsList.push(doc.data());
+        }
+      });
+      setTechResults(docsList);
+    });
+    // fetchResults();
   }, []);
 
   return (

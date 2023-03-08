@@ -10,7 +10,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import { db } from "../firestoreConfig";
-import { getDocs, getDoc, doc } from "firebase/firestore";
+import { getDocs, getDoc, doc, onSnapshot } from "firebase/firestore";
 import { collection } from "firebase/firestore";
 import { ActivityIndicator } from "react-native-paper";
 import { getExpoPushTokenAsync } from "expo-notifications";
@@ -31,10 +31,7 @@ const RankingScreen: FC = () => {
   const isFocused = useIsFocused();
 
   useEffect(() => {
-    const fetchData = async () => {
-      const colRef = collection(db, "leaderboard");
-      const docsSnap = await getDocs(colRef);
-      // console.log(docsSnap);
+    const unsub = onSnapshot(collection(db, "leaderboard"), (docsSnap) => {
       const docsList = [];
       docsSnap.forEach((doc) => {
         console.log(doc.data());
@@ -43,7 +40,7 @@ const RankingScreen: FC = () => {
       // console.log(docsList);
       setRanking(docsList);
       setIsLoading(false);
-    };
+    });
 
     const fetchTime = async () => {
       const docRef = doc(db, "leaderboard-last-update", "last-updated");
@@ -63,8 +60,7 @@ const RankingScreen: FC = () => {
       console.log(time);
     };
     fetchTime();
-    fetchData();
-  }, [isFocused]);
+  }, []);
 
   if (isLoading) {
     return (

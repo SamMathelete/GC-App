@@ -17,8 +17,14 @@ import MainButton from "../components/MainButton";
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import { IconButton } from "react-native-paper";
 import { useIsFocused } from "@react-navigation/native";
-import { collection, DocumentData, getDocs } from "firebase/firestore";
+import {
+  collection,
+  DocumentData,
+  getDocs,
+  onSnapshot,
+} from "firebase/firestore";
 import { db } from "../firestoreConfig";
+import Badminton from "../components/SportsUpdateCards/Badminton";
 
 type RootParamList = {
   LiveUpdates: undefined;
@@ -44,91 +50,154 @@ const LiveUpdatesScreen: FC<Props> = ({ navigation }) => {
 
   const [isLoading, setIsLoading] = useState<any>(false);
 
-  const fetchLiveUpdates = async () => {
-    setIsLoading(true);
-    const snapshot = await getDocs(collection(db, "liveEvents"));
-    // const response = await fetch(
-    //   "https://gc-app-76138-default-rtdb.firebaseio.com/liveEvents.json"
-    // );
-    const data = snapshot.docs.map((doc) => doc.data());
-    const events = Object.keys(data);
-    const cricketEvents = [];
-    for (const event of events) {
-      if (data[event].type === "Cricket" && data[event].isLive === true) {
-        cricketEvents.push(data[event]);
-      }
-    }
-    setCricketEvents(cricketEvents);
-
-    const footballEvents = [];
-    for (const event of events) {
-      if (data[event].type === "Football" && data[event].isLive === true) {
-        footballEvents.push(data[event]);
-      }
-    }
-    setFootballEvents(footballEvents);
-
-    const basketballEvents = [];
-    for (const event of events) {
-      if (data[event].type === "Basketball" && data[event].isLive === true) {
-        basketballEvents.push(data[event]);
-      }
-    }
-    setBasketballEvents(basketballEvents);
-
-    const volleyballEvents = [];
-    for (const event of events) {
-      if (data[event].type === "Volleyball" && data[event].isLive === true) {
-        volleyballEvents.push(data[event]);
-      }
-    }
-    setVolleyballEvents(volleyballEvents);
-
-    const tennisEvents = [];
-    for (const event of events) {
-      if (data[event].type === "Tennis" && data[event].isLive === true) {
-        tennisEvents.push(data[event]);
-      }
-    }
-    setTennisEvents(tennisEvents);
-
-    const tableTennisEvents = [];
-    for (const event of events) {
-      if (data[event].type === "TableTennis" && data[event].isLive === true) {
-        tableTennisEvents.push(data[event]);
-      }
-    }
-    setTableTennisEvents(tableTennisEvents);
-
-    const badmintonEvents = [];
-    for (const event of events) {
-      if (data[event].type === "Badminton" && data[event].isLive === true) {
-        badmintonEvents.push(data[event]);
-      }
-    }
-    setBadmintonEvents(badmintonEvents);
-
-    setIsLoading(false);
-  };
-
   useEffect(() => {
-    fetchLiveUpdates();
-  }, [isFocused]);
+    const unsub = onSnapshot(collection(db, "liveEvents"), (snapshot) => {
+      console.log("Live Events Updated");
+      const data = snapshot.docs.map((doc) => doc.data());
+      const events = Object.keys(data);
+      const cricketEvents = [];
+      for (const event of events) {
+        if (data[event].type === "Cricket" && data[event].isLive === true) {
+          cricketEvents.push(data[event]);
+        }
+      }
+      setCricketEvents(cricketEvents);
 
-  const refreshHandler = () => {
-    fetchLiveUpdates();
-  };
+      const footballEvents = [];
+      for (const event of events) {
+        if (data[event].type === "Football" && data[event].isLive === true) {
+          footballEvents.push(data[event]);
+        }
+      }
+      setFootballEvents(footballEvents);
 
-  navigation.setOptions({
-    headerRight: () => (
-      <IconButton
-        icon="refresh"
-        size={30}
-        onPress={refreshHandler}
-        iconColor="white"
-      />
-    ),
-  });
+      const basketballEvents = [];
+      for (const event of events) {
+        if (data[event].type === "Basketball" && data[event].isLive === true) {
+          basketballEvents.push(data[event]);
+        }
+      }
+      setBasketballEvents(basketballEvents);
+
+      const volleyballEvents = [];
+      for (const event of events) {
+        if (data[event].type === "Volleyball" && data[event].isLive === true) {
+          volleyballEvents.push(data[event]);
+        }
+      }
+      setVolleyballEvents(volleyballEvents);
+
+      const tennisEvents = [];
+      for (const event of events) {
+        if (data[event].type === "Tennis" && data[event].isLive === true) {
+          tennisEvents.push(data[event]);
+        }
+      }
+      setTennisEvents(tennisEvents);
+
+      const tableTennisEvents = [];
+      for (const event of events) {
+        if (data[event].type === "TableTennis" && data[event].isLive === true) {
+          tableTennisEvents.push(data[event]);
+        }
+      }
+      setTableTennisEvents(tableTennisEvents);
+
+      const badmintonEvents = [];
+      for (const event of events) {
+        if (data[event].type === "Badminton" && data[event].isLive === true) {
+          badmintonEvents.push(data[event]);
+        }
+      }
+      setBadmintonEvents(badmintonEvents);
+    });
+  }, []);
+
+  // const fetchLiveUpdates = async () => {
+  //   setIsLoading(true);
+  //   const snapshot = await getDocs(collection(db, "liveEvents"));
+  //   // const response = await fetch(
+  //   //   "https://gc-app-76138-default-rtdb.firebaseio.com/liveEvents.json"
+  //   // );
+  //   const data = snapshot.docs.map((doc) => doc.data());
+  //   const events = Object.keys(data);
+  //   const cricketEvents = [];
+  //   for (const event of events) {
+  //     if (data[event].type === "Cricket" && data[event].isLive === true) {
+  //       cricketEvents.push(data[event]);
+  //     }
+  //   }
+  //   setCricketEvents(cricketEvents);
+
+  //   const footballEvents = [];
+  //   for (const event of events) {
+  //     if (data[event].type === "Football" && data[event].isLive === true) {
+  //       footballEvents.push(data[event]);
+  //     }
+  //   }
+  //   setFootballEvents(footballEvents);
+
+  //   const basketballEvents = [];
+  //   for (const event of events) {
+  //     if (data[event].type === "Basketball" && data[event].isLive === true) {
+  //       basketballEvents.push(data[event]);
+  //     }
+  //   }
+  //   setBasketballEvents(basketballEvents);
+
+  //   const volleyballEvents = [];
+  //   for (const event of events) {
+  //     if (data[event].type === "Volleyball" && data[event].isLive === true) {
+  //       volleyballEvents.push(data[event]);
+  //     }
+  //   }
+  //   setVolleyballEvents(volleyballEvents);
+
+  //   const tennisEvents = [];
+  //   for (const event of events) {
+  //     if (data[event].type === "Tennis" && data[event].isLive === true) {
+  //       tennisEvents.push(data[event]);
+  //     }
+  //   }
+  //   setTennisEvents(tennisEvents);
+
+  //   const tableTennisEvents = [];
+  //   for (const event of events) {
+  //     if (data[event].type === "TableTennis" && data[event].isLive === true) {
+  //       tableTennisEvents.push(data[event]);
+  //     }
+  //   }
+  //   setTableTennisEvents(tableTennisEvents);
+
+  //   const badmintonEvents = [];
+  //   for (const event of events) {
+  //     if (data[event].type === "Badminton" && data[event].isLive === true) {
+  //       badmintonEvents.push(data[event]);
+  //     }
+  //   }
+  //   setBadmintonEvents(badmintonEvents);
+
+  //   setIsLoading(false);
+  // };
+
+  // useEffect(() => {
+  //   fetchLiveUpdates();
+  // }, [isFocused]);
+
+  // const refreshHandler = () => {
+  //   fetchLiveUpdates();
+  // };
+
+  // navigation.setOptions({
+  //   headerRight: () => (
+  //     <IconButton
+  //       icon="refresh"
+  //       size={30}
+  //       onPress={refreshHandler}
+  //       iconColor="white"
+  //     />
+  //   ),
+  // });
 
   if (isLoading) {
     return (
@@ -277,6 +346,27 @@ const LiveUpdatesScreen: FC<Props> = ({ navigation }) => {
           <Text style={styles.heading}>Table Tennis</Text>
           {TableTennisEvents.map((event: any) => (
             <TableTennis
+              key={event.id}
+              matchName={event.matchName}
+              team1={{
+                teamName: event.team1,
+                score: event.score1,
+                setScore: event.setscore1,
+                logo: event.team1Logo,
+              }}
+              team2={{
+                teamName: event.team2,
+                score: event.score2,
+                setScore: event.setscore2,
+                logo: event.team2Logo,
+              }}
+              time={event.matchTime}
+              venue={event.venue}
+            />
+          ))}
+          <Text style={styles.heading}>Badminton</Text>
+          {BadmintonEvents.map((event: any) => (
+            <Badminton
               key={event.id}
               matchName={event.matchName}
               team1={{

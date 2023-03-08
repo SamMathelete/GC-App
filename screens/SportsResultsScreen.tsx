@@ -14,9 +14,10 @@ import Volleyball from "../components/SportsUpdateCards/Volleyball";
 import Tennis from "../components/SportsUpdateCards/Tennis";
 import TableTennis from "../components/SportsUpdateCards/TableTennis";
 import { useIsFocused } from "@react-navigation/native";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, onSnapshot } from "firebase/firestore";
 import { db } from "../firestoreConfig";
 import EventResultCard from "../components/EventResultCard";
+import Badminton from "../components/SportsUpdateCards/Badminton";
 
 const SportsResultsScreen: FC = () => {
   const [CricketEvents, setCricketEvents] = useState<any>([]);
@@ -25,88 +26,158 @@ const SportsResultsScreen: FC = () => {
   const [VolleyballEvents, setVolleyballEvents] = useState<any>([]);
   const [TennisEvents, setTennisEvents] = useState<any>([]);
   const [TableTennisEvents, setTableTennisEvents] = useState<any>([]);
+  const [BadmintonEvents, setBadmintonEvents] = useState<any>([]);
 
   const isFocused = useIsFocused();
 
   const [isLoading, setIsLoading] = useState<any>(false);
 
-  const fetchLiveUpdates = async () => {
-    setIsLoading(true);
-    const snapshot = await getDocs(collection(db, "liveEvents"));
-    // const response = await fetch(
-    //   "https://gc-app-76138-default-rtdb.firebaseio.com/liveEvents.json"
-    // );
-    const data = snapshot.docs.map((doc) => doc.data());
-    const events = Object.keys(data);
-    const cricketEvents = [];
-    for (const event of events) {
-      if (data[event].type === "Cricket" && data[event].isLive === false) {
-        cricketEvents.push(data[event]);
-      }
-    }
-    setCricketEvents(cricketEvents);
+  // const fetchLiveUpdates = async () => {
+  //   setIsLoading(true);
+  //   const snapshot = await getDocs(collection(db, "liveEvents"));
+  //   // const response = await fetch(
+  //   //   "https://gc-app-76138-default-rtdb.firebaseio.com/liveEvents.json"
+  //   // );
+  //   const data = snapshot.docs.map((doc) => doc.data());
+  //   const events = Object.keys(data);
+  //   const cricketEvents = [];
+  //   for (const event of events) {
+  //     if (data[event].type === "Cricket" && data[event].isLive === false) {
+  //       cricketEvents.push(data[event]);
+  //     }
+  //   }
+  //   setCricketEvents(cricketEvents);
 
-    const footballEvents = [];
-    for (const event of events) {
-      if (data[event].type === "Football" && data[event].isLive === false) {
-        footballEvents.push(data[event]);
-      }
-    }
-    setFootballEvents(footballEvents);
+  //   const footballEvents = [];
+  //   for (const event of events) {
+  //     if (data[event].type === "Football" && data[event].isLive === false) {
+  //       footballEvents.push(data[event]);
+  //     }
+  //   }
+  //   setFootballEvents(footballEvents);
 
-    const basketballEvents = [];
-    for (const event of events) {
-      if (data[event].type === "Basketball" && data[event].isLive === false) {
-        basketballEvents.push(data[event]);
-      }
-    }
-    setBasketballEvents(basketballEvents);
+  //   const basketballEvents = [];
+  //   for (const event of events) {
+  //     if (data[event].type === "Basketball" && data[event].isLive === false) {
+  //       basketballEvents.push(data[event]);
+  //     }
+  //   }
+  //   setBasketballEvents(basketballEvents);
 
-    const volleyballEvents = [];
-    for (const event of events) {
-      if (data[event].type === "Volleyball" && data[event].isLive === false) {
-        volleyballEvents.push(data[event]);
-      }
-    }
-    setVolleyballEvents(volleyballEvents);
+  //   const volleyballEvents = [];
+  //   for (const event of events) {
+  //     if (data[event].type === "Volleyball" && data[event].isLive === false) {
+  //       volleyballEvents.push(data[event]);
+  //     }
+  //   }
+  //   setVolleyballEvents(volleyballEvents);
 
-    const tennisEvents = [];
-    for (const event of events) {
-      if (data[event].type === "Tennis" && data[event].isLive === false) {
-        tennisEvents.push(data[event]);
-      }
-    }
-    setTennisEvents(tennisEvents);
+  //   const tennisEvents = [];
+  //   for (const event of events) {
+  //     if (data[event].type === "Tennis" && data[event].isLive === false) {
+  //       tennisEvents.push(data[event]);
+  //     }
+  //   }
+  //   setTennisEvents(tennisEvents);
 
-    const tableTennisEvents = [];
-    for (const event of events) {
-      if (data[event].type === "TableTennis" && data[event].isLive === false) {
-        tableTennisEvents.push(data[event]);
-      }
-    }
-    setTableTennisEvents(tableTennisEvents);
+  //   const tableTennisEvents = [];
+  //   for (const event of events) {
+  //     if (data[event].type === "TableTennis" && data[event].isLive === false) {
+  //       tableTennisEvents.push(data[event]);
+  //     }
+  //   }
+  //   setTableTennisEvents(tableTennisEvents);
 
-    setIsLoading(false);
-  };
+  //   setIsLoading(false);
+  // };
 
   const [nonLiveEvents, setNonLiveEvents] = useState<any>([]);
 
-  const nonLiveFetch = async () => {
-    const cr = [];
-    const collRef = collection(db, "results");
-    const snapshot = await getDocs(collRef);
-    snapshot.forEach((doc) => {
-      if (doc.data().type === "Sports") {
-        cr.push(doc.data());
-      }
-    });
-    setNonLiveEvents(cr);
-  };
+  // const nonLiveFetch = async () => {
+  //   const cr = [];
+  //   const collRef = collection(db, "results");
+  //   const snapshot = await getDocs(collRef);
+  //   snapshot.forEach((doc) => {
+  //     if (doc.data().type === "Sports") {
+  //       cr.push(doc.data());
+  //     }
+  //   });
+  //   setNonLiveEvents(cr);
+  // };
 
   useEffect(() => {
-    fetchLiveUpdates();
-    nonLiveFetch();
-  }, [isFocused]);
+    const unsubLive = onSnapshot(collection(db, "liveEvents"), (snapshot) => {
+      const data = snapshot.docs.map((doc) => doc.data());
+      const events = Object.keys(data);
+      const cricketEvents = [];
+      for (const event of events) {
+        if (data[event].type === "Cricket" && data[event].isLive === false) {
+          cricketEvents.push(data[event]);
+        }
+      }
+      setCricketEvents(cricketEvents);
+
+      const footballEvents = [];
+      for (const event of events) {
+        if (data[event].type === "Football" && data[event].isLive === false) {
+          footballEvents.push(data[event]);
+        }
+      }
+      setFootballEvents(footballEvents);
+
+      const basketballEvents = [];
+      for (const event of events) {
+        if (data[event].type === "Basketball" && data[event].isLive === false) {
+          basketballEvents.push(data[event]);
+        }
+      }
+      setBasketballEvents(basketballEvents);
+
+      const volleyballEvents = [];
+      for (const event of events) {
+        if (data[event].type === "Volleyball" && data[event].isLive === false) {
+          volleyballEvents.push(data[event]);
+        }
+      }
+      setVolleyballEvents(volleyballEvents);
+
+      const tennisEvents = [];
+      for (const event of events) {
+        if (data[event].type === "Tennis" && data[event].isLive === false) {
+          tennisEvents.push(data[event]);
+        }
+      }
+      setTennisEvents(tennisEvents);
+
+      const tableTennisEvents = [];
+      for (const event of events) {
+        if (
+          data[event].type === "TableTennis" &&
+          data[event].isLive === false
+        ) {
+          tableTennisEvents.push(data[event]);
+        }
+      }
+      setTableTennisEvents(tableTennisEvents);
+
+      const badmintonEvents = [];
+      for (const event of events) {
+        if (data[event].type === "Badminton" && data[event].isLive === false) {
+          badmintonEvents.push(data[event]);
+        }
+      }
+      setBadmintonEvents(badmintonEvents);
+    });
+    const unsubNonLive = onSnapshot(collection(db, "results"), (docsSnap) => {
+      const docsList = [];
+      docsSnap.forEach((doc) => {
+        if (doc.data().type === "Sports") {
+          docsList.push(doc.data());
+        }
+      });
+      setNonLiveEvents(docsList);
+    });
+  }, []);
 
   if (isLoading) {
     return (
@@ -257,6 +328,27 @@ const SportsResultsScreen: FC = () => {
           <Text style={styles.heading}>Table Tennis</Text>
           {TableTennisEvents.map((event: any) => (
             <TableTennis
+              key={event.id}
+              matchName={event.matchName}
+              team1={{
+                teamName: event.team1,
+                score: event.score1,
+                setScore: event.setscore1,
+                logo: event.team1Logo,
+              }}
+              team2={{
+                teamName: event.team2,
+                score: event.score2,
+                setScore: event.setscore2,
+                logo: event.team2Logo,
+              }}
+              time={event.matchTime}
+              venue={event.venue}
+            />
+          ))}
+          <Text style={styles.heading}>Badminton</Text>
+          {BadmintonEvents.map((event: any) => (
+            <Badminton
               key={event.id}
               matchName={event.matchName}
               team1={{

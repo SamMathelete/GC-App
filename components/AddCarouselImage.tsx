@@ -10,7 +10,7 @@ import {
 import { TextInput } from "react-native-paper";
 import Colors from "../constants/Colors";
 import MainButton from "../components/MainButton";
-import { addDoc, collection, doc, setDoc } from "firebase/firestore";
+import { addDoc, collection, doc, setDoc, Timestamp } from "firebase/firestore";
 import { db } from "../firestoreConfig";
 
 const AddCarouselImage = () => {
@@ -30,6 +30,7 @@ const AddCarouselImage = () => {
       imageLink: imageLink,
       imageDriveLink: `https://drive.google.com/uc?id=${imageLink}`,
       imageTitle: imageTitle,
+      date: Timestamp.now().toDate().toLocaleDateString(),
     };
 
     try {
@@ -37,6 +38,7 @@ const AddCarouselImage = () => {
         doc(db, "carouselImages", imageLink),
         dataPost
       );
+      // console.log(dataPost);
       // const response = await fetch(
       //   "https://gc-app-76138-default-rtdb.firebaseio.com/carouselImages.json",
       //   {

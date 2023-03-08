@@ -6,7 +6,7 @@ import Colors from "../constants/Colors";
 import * as Notifications from "expo-notifications";
 import { useNotifications } from "../hooks/useNotifications";
 import { db } from "../firestoreConfig";
-import { getDoc, setDoc, doc } from "firebase/firestore";
+import { getDoc, setDoc, doc, Timestamp } from "firebase/firestore";
 const SendNotificationForm: FC = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -16,6 +16,7 @@ const SendNotificationForm: FC = () => {
     await setDoc(doc(db, "notifications", `${title}_${description}`), {
       title: title,
       description: description,
+      date: Timestamp.now().toDate().toLocaleDateString(),
     });
   };
 

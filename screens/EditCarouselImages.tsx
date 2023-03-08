@@ -4,10 +4,19 @@ import {
   collection,
   deleteDoc,
   doc,
+  onSnapshot,
 } from "firebase/firestore";
 import { db } from "../firestoreConfig";
 import { useEffect, useState, useContext } from "react";
-import { View, Text, Pressable, Alert, Image, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  Pressable,
+  Alert,
+  Image,
+  StyleSheet,
+  ScrollView,
+} from "react-native";
 import Colors from "../constants/Colors";
 import { AuthContext } from "../store/google-auth";
 
@@ -25,14 +34,24 @@ const EditCarouselImage = () => {
 
   const [images, setImages] = useState([]);
 
-  const fetchImages = async () => {
-    const imagesData = await getDocs(collection(db, "carouselImages"));
-    const data = imagesData.docs.map((doc) => doc.data());
-    setImages(() => data);
-  };
+  // const fetchImages = async () => {
+  //   const imagesData = await getDocs(collection(db, "carouselImages"));
+  //   const data = imagesData.docs.map((doc) => doc.data());
+  //   setImages(() => data);
+  // };
 
   useEffect(() => {
-    fetchImages();
+    // fetchImages();
+    const unsubImages = onSnapshot(
+      collection(db, "carouselImages"),
+      (docsSnap) => {
+        const docsList = [];
+        docsSnap.forEach((doc) => {
+          docsList.push(doc.data());
+        });
+        setImages(docsList);
+      }
+    );
   }, []);
 
   const deleteHandler = async (id) => {
@@ -81,6 +100,7 @@ const EditCarouselImage = () => {
       style={{
         height: "100%",
         alignItems: "center",
+        justifyContent: "center",
       }}
     >
       <Text
@@ -92,28 +112,34 @@ const EditCarouselImage = () => {
       >
         Carousel Images
       </Text>
-      {images.map((item) => {
-        return (
-          <Pressable
-            key={item.imageLink}
-            style={{
-              height: 150,
-              width: "100%",
-              margin: 10,
-            }}
-            onPress={deleteHandler.bind(this, item.imageLink)}
-          >
-            <Image
-              source={{ uri: item.imageDriveLink }}
+      <ScrollView
+        style={{
+          width: "100%",
+        }}
+      >
+        {images.map((item) => {
+          return (
+            <Pressable
+              key={item.imageLink}
               style={{
+                height: 150,
                 width: "100%",
-                height: "100%",
-                resizeMode: "cover",
+                marginVertical: 10,
               }}
-            />
-          </Pressable>
-        );
-      })}
+              onPress={deleteHandler.bind(this, item.imageLink)}
+            >
+              <Image
+                source={{ uri: item.imageDriveLink }}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  resizeMode: "cover",
+                }}
+              />
+            </Pressable>
+          );
+        })}
+      </ScrollView>
     </View>
   );
 };
