@@ -25,7 +25,8 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.samthemathlete.gcapp"
+      "package": "com.samthemathlete.gcapp",
+      "versionCode": 2
     },
     "web": {
       "favicon": "./assets/favicon.png"
