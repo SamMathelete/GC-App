@@ -26,7 +26,7 @@
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.samthemathlete.gcapp",
-      "versionCode": 3
+      "versionCode": 2
     },
     "web": {
       "favicon": "./assets/favicon.png"

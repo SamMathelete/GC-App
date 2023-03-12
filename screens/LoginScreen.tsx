@@ -18,7 +18,7 @@ import * as Google from "expo-auth-session/providers/google";
 
 import { AuthContext } from "../store/google-auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { db } from "../firestoreConfig";
+import {db} from "../firestoreConfig"
 import { setDoc, doc } from "firebase/firestore";
 
 import ScheduledEventsJSON from "../data/scheduled-events.json";
@@ -92,15 +92,15 @@ const LoginScreen: FC<Props> = ({ navigation }) => {
     ctx.emailSetter(emailID);
   };
 
-  const toBackend = async () => {
-    let scheduledEvents = [];
-    for (var i in ScheduledEventsJSON) {
-      scheduledEvents.push(ScheduledEventsJSON[i]);
-    }
-    await setDoc(doc(db, "scheduled-events-array", "events-array"), {
-      events: scheduledEvents,
-    });
-  };
+  const toBackend =async () => {
+      let scheduledEvents = [];
+  for (var i in ScheduledEventsJSON){
+    scheduledEvents.push(ScheduledEventsJSON[i]);
+  }
+    await setDoc(doc(db,"scheduled-events-array","events-array"),{
+      events : scheduledEvents
+    })
+  }
 
   useEffect(() => {
     if (response?.type === "success") {
@@ -115,10 +115,6 @@ const LoginScreen: FC<Props> = ({ navigation }) => {
       }
     }
   }, [response]);
-
-  const homeHandler = () => {
-    navigation.navigate("Tabbed");
-  };
 
   return (
     <View style={styles.container}>
@@ -142,15 +138,15 @@ const LoginScreen: FC<Props> = ({ navigation }) => {
             <Text style={{ color: Colors.OffWhite }}>IIT Bhubaneswar</Text>
           </View>
           <View style={styles.buttonContainer}>
-            <MainButton onPress={homeHandler} styleText={{ fontSize: 22 }}>
+            <MainButton onPress={loginHandler} styleText={{ fontSize: 22 }}>
               Login
             </MainButton>
             {/* <MainButton onPress={toBackend} styleText={{ fontSize: 22 }}>
               Push
             </MainButton> */}
-            {/* <Text onPress={bypassHandler} style={styles.adminText}>
+            <Text onPress={bypassHandler} style={styles.adminText}>
               Admin
-            </Text> */}
+            </Text>
           </View>
           <Pressable style={styles.bottom} onPress={creditNavigator}>
             <Text style={styles.bottomText}>Development Credits</Text>
@@ -209,8 +205,7 @@ const styles = StyleSheet.create({
     borderRadius: 135,
   },
   bottom: {
-    marginBottom: 80,
-    marginTop: 40,
+    marginBottom: 60,
   },
   bottomText: {
     fontSize: 20,
