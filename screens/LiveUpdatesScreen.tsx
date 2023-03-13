@@ -52,7 +52,6 @@ const LiveUpdatesScreen: FC<Props> = ({ navigation }) => {
 
   useEffect(() => {
     const unsub = onSnapshot(collection(db, "liveEvents"), (snapshot) => {
-      console.log("Live Events Updated");
       const data = snapshot.docs.map((doc) => doc.data());
       const events = Object.keys(data);
       const cricketEvents = [];

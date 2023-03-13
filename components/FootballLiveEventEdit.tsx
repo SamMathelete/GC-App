@@ -134,7 +134,6 @@ const FootballLiveEventEdit: FC<Props> = (props) => {
     // );
     const data = await getDoc(doc(db, "liveEvents", props.id));
     setMatchData(data.data());
-    console.log(data);
   };
 
   useEffect(() => {

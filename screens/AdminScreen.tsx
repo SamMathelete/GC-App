@@ -73,17 +73,14 @@ const AdminScreen: FC<Props> = ({ navigation }) => {
   const [scheduledEventModal, setScheduledEventModal] = useState(false);
 
   const onAddLiveEvent = () => {
-    console.log("Add Live Event");
     navigation.navigate("LiveEventCreationScreen");
   };
 
   const onUpdateLiveEvents = () => {
-    console.log("Update Live Events");
     navigation.navigate("LiveEventEditScreen");
   };
 
   const onSendNotification = () => {
-    console.log("Send Notification");
     navigation.navigate("SendNotificationScreen");
   };
   const onAddScore = () => {
@@ -91,37 +88,30 @@ const AdminScreen: FC<Props> = ({ navigation }) => {
   };
 
   const onAddCarouselImage = () => {
-    console.log("Add Carousel Image");
     navigation.navigate("AddCarouselImageScreen");
   };
 
   const onAddNews = () => {
-    console.log("Add News");
     navigation.navigate("NewsUpdateScreen");
   };
 
   const onDeleteNews = () => {
-    console.log("Delete News");
     navigation.navigate("DeleteNewsScreen");
   };
 
   const onDeleteCarouselImage = () => {
-    console.log("Edit Carousel Image");
     navigation.navigate("EditCarouselImage");
   };
 
   const onDeleteNotifications = () => {
-    console.log("Delete Notifications");
     navigation.navigate("DeleteNotificationsScreen");
   };
 
   const onAddEventResult = () => {
-    console.log("Add Event Result");
     navigation.navigate("EventResultFormScreen");
   };
 
   const onDeleteScheduledEvent = () => {
-    console.log("Delete Scheduled Event");
     navigation.navigate("DeleteScheduledEvent");
   };
   const email = ctx?.email;
@@ -135,11 +125,10 @@ const AdminScreen: FC<Props> = ({ navigation }) => {
     if (data.includes(email)) {
       setIsAllowed(true);
     }
-    console.log(data);
   };
   useEffect(() => {
     fetchEmailIds();
-    // console.log(allowedEmails);
+    //
   }, []);
 
   if (email === null || !isAllowed) {

@@ -20,7 +20,7 @@ type Props = NativeStackScreenProps<RootParamList, "TeamScoreScreen">;
 
 const TeamScoreScreen: FC<Props> = ({ route }) => {
   const { teamName, logo, teamTotalScore, teamScoreList } = route.params;
-  console.log(logo);
+
   return (
     <ScrollView style={styles.rootContainer}>
       <View style={styles.headerContainer}>

@@ -15,7 +15,6 @@ const NewsItem: FC<Props> = ({ title, description, link, thumbnail }) => {
     if (supported) {
       Linking.openURL(link);
     } else {
-      console.log("Can't open URL");
     }
   };
   return (

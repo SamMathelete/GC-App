@@ -26,7 +26,7 @@ export const useNotifications = () => {
         return;
       }
       const token = (await Notifications.getExpoPushTokenAsync()).data;
-      console.log("Token: ", token);
+
       const notificationCollection = doc(
         db,
         "notificationTokensArray",

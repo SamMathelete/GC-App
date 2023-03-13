@@ -131,9 +131,8 @@ const BasketballLiveEventEdit: FC<Props> = (props) => {
     //   `https://gc-app-76138-default-rtdb.firebaseio.com/liveEvents/${props.id}.json`
     // );
     const data = await getDoc(doc(db, "liveEvents", props.id));
-    console.log(data.data());
+
     setMatchData(data.data());
-    console.log(data);
   };
 
   useEffect(() => {

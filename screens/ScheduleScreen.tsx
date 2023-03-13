@@ -35,7 +35,7 @@ const ScheduleScreen: FC = ({ navigation }) => {
       events: scheduledEvents,
     });
   };
-  // console.log(ScheduledEvents);
+  //
 
   navigation.setOptions({
     tabBarIcon: ({ color, size }) => (
@@ -58,7 +58,7 @@ const ScheduleScreen: FC = ({ navigation }) => {
     // getDocs(collection(db, "scheduled-events")).then((snapshot) =>
     //   setScheduledEvents(snapshot.docs.map((doc) => doc.data()))
     // );
-    // console.log("foc");
+    //
     getDoc(doc(db, "scheduled-events-array", "events-array")).then(
       (snap) => {
         setScheduledEvents(snap.data().events);
@@ -69,7 +69,6 @@ const ScheduleScreen: FC = ({ navigation }) => {
   //sort scheduled events by date
   if (scheduledEvents.length > 0) {
     scheduledEvents.sort((a, b) => {
-      console.log(a.date.localeCompare(b.date));
       return a.date.localeCompare(b.date);
     });
   }

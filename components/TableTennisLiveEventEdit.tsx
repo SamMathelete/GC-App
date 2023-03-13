@@ -127,7 +127,6 @@ const TableTennisLiveEventEdit: FC<Props> = (props) => {
     //   `https://gc-app-76138-default-rtdb.firebaseio.com/liveEvents/${props.id}.json`
     // );
     setMatchData(data.data());
-    console.log(data);
   };
 
   useEffect(() => {

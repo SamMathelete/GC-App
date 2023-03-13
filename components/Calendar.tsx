@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   View,
   Text,
   TouchableOpacity,
   StyleSheet,
   ScrollView,
-} from 'react-native';
+} from "react-native";
 
 interface Event {
   date: string;
@@ -48,7 +48,7 @@ const Calendar: React.FC<CalendarProps> = ({ events }) => {
   };
 
   const renderCalendar = () => {
-    const today = new Date('2023-03-01');
+    const today = new Date("2023-03-01");
     const daysInMonth = new Date(today.getFullYear(), 3, 0).getDate() + 8;
     const firstDayOfMonth = new Date(today.getFullYear(), 3, 1).getDay();
 
@@ -97,15 +97,14 @@ const Calendar: React.FC<CalendarProps> = ({ events }) => {
     }
 
     const eventsForDate = getEventsForDate(selectedDate);
-    console.log(eventsForDate);
 
     if (eventsForDate.length === 0) {
       return (
         <Text
           style={{
-            color: 'white',
+            color: "white",
             fontSize: 20,
-            fontWeight: 'bold',
+            fontWeight: "bold",
             marginBottom: 20,
           }}
         >
@@ -119,9 +118,9 @@ const Calendar: React.FC<CalendarProps> = ({ events }) => {
         {/* <ScrollView> */}
         <Text
           style={{
-            color: 'white',
+            color: "white",
             fontSize: 20,
-            fontWeight: 'bold',
+            fontWeight: "bold",
             marginBottom: 20,
           }}
         >
@@ -129,18 +128,13 @@ const Calendar: React.FC<CalendarProps> = ({ events }) => {
         </Text>
         <ScrollView>
           {eventsForDate.map((event) => (
-            <TouchableOpacity
-              key={event.title}
-              onPress={() =>
-                console.log(`Navigating to event page: ${event.link}`)
-              }
-            >
+            <TouchableOpacity key={event.title}>
               <Text
                 style={{
                   fontSize: 16,
-                  fontWeight: 'bold',
+                  fontWeight: "bold",
                   marginBottom: 10,
-                  color: 'white',
+                  color: "white",
                 }}
               >
                 {event.title}
@@ -173,58 +167,58 @@ export default Calendar;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    backgroundColor: '#111358',
+    alignItems: "center",
+    backgroundColor: "#111358",
     paddingHorizontal: 20,
     paddingTop: 50,
   },
   heading: {
-    color: 'white',
+    color: "white",
     fontSize: 40,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 20,
   },
   calendar: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    flexDirection: "row",
+    flexWrap: "wrap",
     marginTop: 20,
   },
   weekRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    width: '100%',
+    flexDirection: "row",
+    justifyContent: "space-around",
+    width: "100%",
     marginBottom: 10,
   },
   dayCell: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     width: 40,
     height: 40,
     borderRadius: 20,
-    color: 'white',
+    color: "white",
   },
   highlightedDayCell: {
-    backgroundColor: 'blue',
+    backgroundColor: "blue",
   },
   dayText: {
     fontSize: 16,
-    fontWeight: 'bold',
-    color: 'white',
+    fontWeight: "bold",
+    color: "white",
   },
   events: {
     marginTop: 20,
   },
   noEventsText: {
-    color: 'white',
+    color: "white",
   },
   eventLinkText: {
-    color: 'white',
-    textDecorationLine: 'underline',
+    color: "white",
+    textDecorationLine: "underline",
   },
   eventsContainer: {
     marginTop: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     paddingBottom: 400,
   },
 });

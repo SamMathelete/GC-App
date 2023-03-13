@@ -72,7 +72,6 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
 
   useEffect(() => {
     const unsub = onSnapshot(collection(db, "liveEvents"), (snapshot) => {
-      console.log("Live Events Updated");
       const data = snapshot.docs.map((doc) => doc.data());
       const events = Object.keys(data);
       const cricketEvents = [];
@@ -298,7 +297,6 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
     const unsubImage = onSnapshot(
       collection(db, "carouselImages"),
       (snapshot) => {
-        console.log("carouselImages");
         const data = snapshot.docs.map((doc) => doc.data());
         const images = Object.keys(data);
         const carouselImages = [];
@@ -309,7 +307,6 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
       }
     );
     const unsubNews = onSnapshot(collection(db, "news"), (snapshot) => {
-      console.log("news");
       const data = snapshot.docs.map((doc) => doc.data());
       const news = Object.keys(data);
       const newsData = [];
@@ -331,7 +328,7 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
       return -1 * a.date.localeCompare(b.date);
     });
   }
-  // console.log(carouselImages);
+  //
 
   return (
     <View style={styles.rootContainer}>

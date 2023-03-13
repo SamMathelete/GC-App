@@ -34,10 +34,9 @@ const RankingScreen: FC = () => {
     const unsub = onSnapshot(collection(db, "leaderboard"), (docsSnap) => {
       const docsList = [];
       docsSnap.forEach((doc) => {
-        console.log(doc.data());
         docsList.push(doc.data());
       });
-      // console.log(docsList);
+      //
       setRanking(docsList);
       setIsLoading(false);
     });
@@ -56,8 +55,6 @@ const RankingScreen: FC = () => {
         });
       setDate(date);
       setTime(time);
-      console.log(date);
-      console.log(time);
     };
     fetchTime();
   }, []);
@@ -75,21 +72,20 @@ const RankingScreen: FC = () => {
   const LEADERBOARD = sortedTeamRanking.slice(3);
 
   const onBranchClickHandler = (branch, score, logo) => {
-    // console.log(branch)
+    //
     setIsLoading(true);
 
     const fetchData = async (branch, score, logo) => {
       const colRef = collection(db, branch);
       const docsSnap = await getDocs(colRef, branch);
-      // console.log(docsSnap);
+      //
       const docsList = [];
       docsSnap.forEach((doc) => {
-        console.log(doc.data());
         if (Object.keys(doc.data()).length !== 0) {
           docsList.push(doc.data());
         }
       });
-      // console.log(docsList);
+      //
       navigation.navigate("TeamScoreScreen", {
         teamName: branch,
         teamTotalScore: score,

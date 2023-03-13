@@ -213,7 +213,7 @@ const LiveEventCreationForm: FC = () => {
       setscore2: 0,
       isLive: true,
     };
-    console.log(liveEvent);
+
     try {
       setIsLoading(true);
       const docoll = doc(db, "liveEvents", liveEvent.id);
@@ -229,13 +229,11 @@ const LiveEventCreationForm: FC = () => {
       //   }
       // );
       setIsLoading(false);
-      console.log("Live Event Created");
+
       alert(
         `Live Event Created. You can now update the scores by going to Update Live Event Tab`
       );
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   const [showDropDown, setShowDropDown] = useState(false);

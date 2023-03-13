@@ -49,11 +49,10 @@ const AddScoreScreen = () => {
     if (data.includes(email)) {
       setIsAllowed(true);
     }
-    console.log(data);
   };
   useEffect(() => {
     fetchEmailIds();
-    // console.log(allowedEmails);
+    //
   }, []);
 
   if (email === null || !isAllowed) {
@@ -101,7 +100,7 @@ const AddScoreScreen = () => {
 
   const onSubmitHandler = async () => {
     const timestamp = Timestamp.now();
-    console.log(title, description);
+
     // setIsLoding(true);
     const score = doc(db, "leaderboard", title);
     const Event = collection(db, title);

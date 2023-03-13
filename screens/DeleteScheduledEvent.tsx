@@ -50,8 +50,6 @@ const EventCard: FC<Props> = ({ name, refresh }) => {
     ]);
   };
 
-  console.log(name);
-
   return (
     <Pressable onPress={deleteHandler.bind(this, name)} style={styles.card}>
       <Text style={styles.heading}>{name}</Text>
@@ -84,11 +82,10 @@ const DeleteScheduledEvent = () => {
     if (data.includes(email)) {
       setIsAllowed(true);
     }
-    console.log(data);
   };
   useEffect(() => {
     fetchEmailIds();
-    // console.log(allowedEmails);
+    //
   }, []);
 
   if (email === null || !isAllowed) {
@@ -98,8 +95,6 @@ const DeleteScheduledEvent = () => {
       </View>
     );
   }
-
-  console.log(events);
 
   return (
     <ScrollView

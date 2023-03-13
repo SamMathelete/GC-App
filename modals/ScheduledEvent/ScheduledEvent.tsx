@@ -90,7 +90,6 @@ const ScheduledEvent: React.FC<Props> = ({ visible, setVisible }) => {
       return;
     }
 
-    console.log(title, description);
     try {
       await setDoc(doc(db, "scheduled-events", title), {
         title: title,
@@ -105,19 +104,17 @@ const ScheduledEvent: React.FC<Props> = ({ visible, setVisible }) => {
         category: sportsStreams,
         link: registerLink,
       });
-      // .then((ref) => console.log("Event Added with id: ", ref.id))
+      // .then((ref) =>
       // .then(() => {
       //   hideModal();
       //   alert("Event Added Successfully");
       // })
       // .catch((err) => {
-      //   console.log("Error adding event: ", err);
+      //
       // });
       alert("Event Added Successfully");
       hideModal();
-    } catch (err) {
-      console.log("Error adding event: ", err);
-    }
+    } catch (err) {}
   };
 
   return (

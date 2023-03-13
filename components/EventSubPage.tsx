@@ -39,7 +39,6 @@ const EventSubPage: FC<Props> = ({
     if (supported) {
       Linking.openURL(eventInfo.link);
     } else {
-      console.log("Can't open URL");
     }
   };
 

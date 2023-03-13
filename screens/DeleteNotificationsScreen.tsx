@@ -79,11 +79,10 @@ const DeleteNotificationsScreen = () => {
     if (data.includes(email)) {
       setIsAllowed(true);
     }
-    console.log(data);
   };
   useEffect(() => {
     fetchEmailIds();
-    // console.log(allowedEmails);
+    //
   }, []);
 
   if (email === null || !isAllowed) {

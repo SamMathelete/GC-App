@@ -18,7 +18,7 @@ import * as Google from "expo-auth-session/providers/google";
 
 import { AuthContext } from "../store/google-auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {db} from "../firestoreConfig"
+import { db } from "../firestoreConfig";
 import { setDoc, doc } from "firebase/firestore";
 
 import ScheduledEventsJSON from "../data/scheduled-events.json";
@@ -38,7 +38,7 @@ type Props = NativeStackScreenProps<RootStackParamList, "LoginScreen">;
 const LoginScreen: FC<Props> = ({ navigation }) => {
   const [admin, setAdmin] = useState(false);
   const ctx = useContext(AuthContext);
-  // console.log(ScheduledEvents);
+  //
 
   const [request, response, promptAsync] = Google.useAuthRequest({
     expoClientId:
@@ -59,7 +59,6 @@ const LoginScreen: FC<Props> = ({ navigation }) => {
       ctx.emailSetter(email);
       navigation.navigate("AdminHome");
     } else {
-      console.log("No token");
       setAdmin(() => true);
       promptAsync();
     }
@@ -73,7 +72,6 @@ const LoginScreen: FC<Props> = ({ navigation }) => {
       ctx.emailSetter(email);
       navigation.navigate("Tabbed");
     } else {
-      console.log("No token");
       setAdmin(() => false);
       promptAsync();
     }
@@ -92,15 +90,15 @@ const LoginScreen: FC<Props> = ({ navigation }) => {
     ctx.emailSetter(emailID);
   };
 
-  const toBackend =async () => {
-      let scheduledEvents = [];
-  for (var i in ScheduledEventsJSON){
-    scheduledEvents.push(ScheduledEventsJSON[i]);
-  }
-    await setDoc(doc(db,"scheduled-events-array","events-array"),{
-      events : scheduledEvents
-    })
-  }
+  const toBackend = async () => {
+    let scheduledEvents = [];
+    for (var i in ScheduledEventsJSON) {
+      scheduledEvents.push(ScheduledEventsJSON[i]);
+    }
+    await setDoc(doc(db, "scheduled-events-array", "events-array"), {
+      events: scheduledEvents,
+    });
+  };
 
   useEffect(() => {
     if (response?.type === "success") {

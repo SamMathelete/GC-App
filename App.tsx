@@ -46,6 +46,7 @@ import EventResultFormScreen from "./screens/EventResultFormScreen";
 import DeleteScheduledEvent from "./screens/DeleteScheduledEvent";
 import TableTennisLiveEditScreen from "./screens/TableTennisLiveEditScreen";
 import BadmintonLiveEditScreen from "./screens/BadmintonLiveEditScreen";
+import { LogBox } from "react-native";
 
 interface TeamScoreType {
   eventName: string;
@@ -203,6 +204,9 @@ const Tabbed = (): JSX.Element => {
 };
 
 export default function App() {
+  LogBox.ignoreLogs(["Warning: ..."]);
+  LogBox.ignoreAllLogs();
+
   const { registerForPushNotificationsAsync, handleNotificationResponse } =
     useNotifications();
   useEffect(() => {

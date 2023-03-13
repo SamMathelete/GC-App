@@ -24,7 +24,6 @@ const AddCarouselImage = () => {
     }
 
     const imageLink = imageDriveLink.slice(32, 65);
-    console.log(imageLink);
 
     const dataPost = {
       imageLink: imageLink,
@@ -38,7 +37,7 @@ const AddCarouselImage = () => {
         doc(db, "carouselImages", imageLink),
         dataPost
       );
-      // console.log(dataPost);
+      //
       // const response = await fetch(
       //   "https://gc-app-76138-default-rtdb.firebaseio.com/carouselImages.json",
       //   {

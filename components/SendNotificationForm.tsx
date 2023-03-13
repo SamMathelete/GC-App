@@ -28,16 +28,15 @@ const SendNotificationForm: FC = () => {
         "WJsdZ7yVfxTR4oSJ474T"
       );
       const listSnap = await getDoc(docSnap);
-      console.log(listSnap.data());
+
       const list = listSnap.data().tokens;
-      // console.log(list1)
+      //
       list.forEach((token) => {
         sendPushNotification(token, title, description);
-        console.log(token);
       });
     };
     getTokens();
-    // console.log(list)
+    //
 
     saveNotification();
     alert("Notification Sent");

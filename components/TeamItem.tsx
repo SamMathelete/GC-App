@@ -15,7 +15,6 @@ interface Props {
   /** Currently it shows sample image itself for all items. if we take address through a function or something, it gives stack error*/
 }
 const TeamItem: FC<Props> = ({ style, teamInfo, index, onClick }) => {
-  console.log(teamInfo);
   return (
     <View style={styles.teamItem}>
       <View style={[styles.team, style]}>

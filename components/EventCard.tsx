@@ -54,7 +54,7 @@ const EventCard: FC<Props> = ({ style, eventInfo }) => {
   //     if (supported) {
   //         Linking.openURL(eventInfo.link);
   //     } else {
-  //         console.log("Can't open URL");
+  //
   //     }
   // };
 
