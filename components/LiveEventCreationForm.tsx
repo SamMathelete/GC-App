@@ -228,6 +228,9 @@ const LiveEventCreationForm: FC = () => {
       //     body: JSON.stringify(liveEvent),
       //   }
       // );
+      await setDoc(doc(db, "sportsCommentary", liveEvent.id), {
+        commentary: [],
+      });
       setIsLoading(false);
 
       alert(
