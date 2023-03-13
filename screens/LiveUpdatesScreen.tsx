@@ -5,6 +5,7 @@ import {
   StyleSheet,
   ActivityIndicator,
   Text,
+  Pressable,
 } from "react-native";
 import Football from "../components/SportsUpdateCards/Football";
 import Colors from "../constants/Colors";
@@ -33,6 +34,9 @@ type RootParamList = {
   Basketball: undefined;
   Volleyball: undefined;
   Tennis: undefined;
+  LiveCommentary: {
+    event: any;
+  };
 };
 
 type Props = BottomTabScreenProps<RootParamList, "LiveUpdates">;
@@ -111,6 +115,10 @@ const LiveUpdatesScreen: FC<Props> = ({ navigation }) => {
       setBadmintonEvents(badmintonEvents);
     });
   }, []);
+
+  const commentaryHandler = (event: any) => {
+    navigation.navigate("LiveCommentary", { event });
+  };
 
   // const fetchLiveUpdates = async () => {
   //   setIsLoading(true);
@@ -220,169 +228,218 @@ const LiveUpdatesScreen: FC<Props> = ({ navigation }) => {
         <ScrollView>
           <Text style={styles.heading}>Football</Text>
           {FootballEvents.map((event: any) => (
-            <Football
+            <Pressable
+              style={{
+                flex: 1,
+              }}
+              onPress={() => commentaryHandler(event)}
               key={event.id}
-              matchName={event.matchName}
-              team1={{
-                teamName: event.team1,
-                score: event.score1,
-                penaltyScore: event.penaltyscore1,
-                logo: event.team1Logo,
-              }}
-              team2={{
-                teamName: event.team2,
-                score: event.score2,
-                penaltyScore: event.penaltyscore2,
-                logo: event.team2Logo,
-              }}
-              isPenalty={event.isPenalty}
-              time={event.matchTime}
-              venue={event.venue}
-            />
+            >
+              <Football
+                matchName={event.matchName}
+                team1={{
+                  teamName: event.team1,
+                  score: event.score1,
+                  penaltyScore: event.penaltyscore1,
+                  logo: event.team1Logo,
+                }}
+                team2={{
+                  teamName: event.team2,
+                  score: event.score2,
+                  penaltyScore: event.penaltyscore2,
+                  logo: event.team2Logo,
+                }}
+                isPenalty={event.isPenalty}
+                time={event.matchTime}
+                venue={event.venue}
+              />
+            </Pressable>
           ))}
           <Text style={styles.heading}>Cricket</Text>
           {CricketEvents.map((event: any) => (
-            <Cricket
+            <Pressable
+              style={{
+                flex: 1,
+              }}
+              onPress={() => commentaryHandler(event)}
               key={event.id}
-              matchName={event.matchName}
-              team1={{
-                teamName: event.team1,
-                logo: event.team1Logo,
-              }}
-              team1Score={parseInt(event.score1)}
-              team1Wickets={parseInt(event.wickets1)}
-              team2={{
-                teamName: event.team2,
-                logo: event.team2Logo,
-              }}
-              team2Score={parseInt(event.score2)}
-              team2Wickets={parseInt(event.wickets2)}
-              venue={event.venue}
-              striker={{
-                playerName: event.striker,
-                runs: parseInt(event.strikerScore),
-                balls: parseInt(event.strikerBalls),
-              }}
-              nonStriker={{
-                playerName: event.nonStriker,
-                runs: parseInt(event.nonStrikerScore),
-                balls: parseInt(event.nonStrikerBalls),
-              }}
-              bowler={{
-                playerName: event.bowler,
-                runs: parseInt(event.bowlerRuns),
-                wickets: parseInt(event.bowlerWickets),
-              }}
-              overs={parseFloat(event.overs)}
-              battingTeam={event.battingTeam}
-            />
+            >
+              <Cricket
+                matchName={event.matchName}
+                team1={{
+                  teamName: event.team1,
+                  logo: event.team1Logo,
+                }}
+                team1Score={parseInt(event.score1)}
+                team1Wickets={parseInt(event.wickets1)}
+                team2={{
+                  teamName: event.team2,
+                  logo: event.team2Logo,
+                }}
+                team2Score={parseInt(event.score2)}
+                team2Wickets={parseInt(event.wickets2)}
+                venue={event.venue}
+                striker={{
+                  playerName: event.striker,
+                  runs: parseInt(event.strikerScore),
+                  balls: parseInt(event.strikerBalls),
+                }}
+                nonStriker={{
+                  playerName: event.nonStriker,
+                  runs: parseInt(event.nonStrikerScore),
+                  balls: parseInt(event.nonStrikerBalls),
+                }}
+                bowler={{
+                  playerName: event.bowler,
+                  runs: parseInt(event.bowlerRuns),
+                  wickets: parseInt(event.bowlerWickets),
+                }}
+                overs={parseFloat(event.overs)}
+                battingTeam={event.battingTeam}
+              />
+            </Pressable>
           ))}
           <Text style={styles.heading}>Basketball</Text>
           {BasketballEvents.map((event: any) => (
-            <Basketball
+            <Pressable
+              style={{
+                flex: 1,
+              }}
+              onPress={() => commentaryHandler(event)}
               key={event.id}
-              matchName={event.matchName}
-              team1={{
-                teamName: event.team1,
-                score: event.score1,
-                // penaltyScore: event.penaltyscore1,
-                logo: event.team1Logo,
-              }}
-              team2={{
-                teamName: event.team2,
-                score: event.score2,
-                // penaltyScore: event.penaltyscore2,
-                logo: event.team2Logo,
-              }}
-              // isPenalty={event.isPenalty}
-              time={event.matchTime}
-              venue={event.venue}
-            />
+            >
+              <Basketball
+                matchName={event.matchName}
+                team1={{
+                  teamName: event.team1,
+                  score: event.score1,
+                  // penaltyScore: event.penaltyscore1,
+                  logo: event.team1Logo,
+                }}
+                team2={{
+                  teamName: event.team2,
+                  score: event.score2,
+                  // penaltyScore: event.penaltyscore2,
+                  logo: event.team2Logo,
+                }}
+                // isPenalty={event.isPenalty}
+                time={event.matchTime}
+                venue={event.venue}
+              />
+            </Pressable>
           ))}
           <Text style={styles.heading}>Volleyball</Text>
           {VolleyballEvents.map((event: any) => (
-            <Volleyball
+            <Pressable
+              style={{
+                flex: 1,
+              }}
+              onPress={() => commentaryHandler(event)}
               key={event.id}
-              matchName={event.matchName}
-              team1={{
-                teamName: event.team1,
-                score: event.score1,
-                // penaltyScore: event.penaltyscore1,
-                logo: event.team1Logo,
-              }}
-              team2={{
-                teamName: event.team2,
-                score: event.score2,
-                // penaltyScore: event.penaltyscore2,
-                logo: event.team2Logo,
-              }}
-              // isPenalty={event.isPenalty}
-              time={event.matchTime}
-              venue={event.venue}
-            />
+            >
+              <Volleyball
+                matchName={event.matchName}
+                team1={{
+                  teamName: event.team1,
+                  score: event.score1,
+                  // penaltyScore: event.penaltyscore1,
+                  logo: event.team1Logo,
+                }}
+                team2={{
+                  teamName: event.team2,
+                  score: event.score2,
+                  // penaltyScore: event.penaltyscore2,
+                  logo: event.team2Logo,
+                }}
+                // isPenalty={event.isPenalty}
+                time={event.matchTime}
+                venue={event.venue}
+              />
+            </Pressable>
           ))}
           <Text style={styles.heading}>Tennis</Text>
           {TennisEvents.map((event: any) => (
-            <Tennis
+            <Pressable
+              style={{
+                flex: 1,
+              }}
+              onPress={() => commentaryHandler(event)}
               key={event.id}
-              matchName={event.matchName}
-              team1={{
-                teamName: event.team1,
-                score: event.score1,
-                setScore: event.setscore1,
-                logo: event.team1Logo,
-              }}
-              team2={{
-                teamName: event.team2,
-                score: event.score2,
-                setScore: event.setscore2,
-                logo: event.team2Logo,
-              }}
-              time={event.matchTime}
-              venue={event.venue}
-            />
+            >
+              <Tennis
+                matchName={event.matchName}
+                team1={{
+                  teamName: event.team1,
+                  score: event.score1,
+                  setScore: event.setscore1,
+                  logo: event.team1Logo,
+                }}
+                team2={{
+                  teamName: event.team2,
+                  score: event.score2,
+                  setScore: event.setscore2,
+                  logo: event.team2Logo,
+                }}
+                time={event.matchTime}
+                venue={event.venue}
+              />
+            </Pressable>
           ))}
           <Text style={styles.heading}>Table Tennis</Text>
           {TableTennisEvents.map((event: any) => (
-            <TableTennis
+            <Pressable
+              style={{
+                flex: 1,
+              }}
+              onPress={() => commentaryHandler(event)}
               key={event.id}
-              matchName={event.matchName}
-              team1={{
-                teamName: event.team1,
-                score: event.score1,
-                setScore: event.setscore1,
-                logo: event.team1Logo,
-              }}
-              team2={{
-                teamName: event.team2,
-                score: event.score2,
-                setScore: event.setscore2,
-                logo: event.team2Logo,
-              }}
-              time={event.matchTime}
-              venue={event.venue}
-            />
+            >
+              <TableTennis
+                matchName={event.matchName}
+                team1={{
+                  teamName: event.team1,
+                  score: event.score1,
+                  setScore: event.setscore1,
+                  logo: event.team1Logo,
+                }}
+                team2={{
+                  teamName: event.team2,
+                  score: event.score2,
+                  setScore: event.setscore2,
+                  logo: event.team2Logo,
+                }}
+                time={event.matchTime}
+                venue={event.venue}
+              />
+            </Pressable>
           ))}
           <Text style={styles.heading}>Badminton</Text>
           {BadmintonEvents.map((event: any) => (
-            <Badminton
+            <Pressable
+              style={{
+                flex: 1,
+              }}
+              onPress={() => commentaryHandler(event)}
               key={event.id}
-              matchName={event.matchName}
-              team1={{
-                teamName: event.team1,
-                score: event.score1,
-                setScore: event.setscore1,
-                logo: event.team1Logo,
-              }}
-              team2={{
-                teamName: event.team2,
-                score: event.score2,
-                setScore: event.setscore2,
-                logo: event.team2Logo,
-              }}
-              time={event.matchTime}
-              venue={event.venue}
-            />
+            >
+              <Badminton
+                matchName={event.matchName}
+                team1={{
+                  teamName: event.team1,
+                  score: event.score1,
+                  setScore: event.setscore1,
+                  logo: event.team1Logo,
+                }}
+                team2={{
+                  teamName: event.team2,
+                  score: event.score2,
+                  setScore: event.setscore2,
+                  logo: event.team2Logo,
+                }}
+                time={event.matchTime}
+                venue={event.venue}
+              />
+            </Pressable>
           ))}
           <View
             style={{

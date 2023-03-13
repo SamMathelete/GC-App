@@ -47,6 +47,7 @@ import DeleteScheduledEvent from "./screens/DeleteScheduledEvent";
 import TableTennisLiveEditScreen from "./screens/TableTennisLiveEditScreen";
 import BadmintonLiveEditScreen from "./screens/BadmintonLiveEditScreen";
 import { LogBox } from "react-native";
+import LiveCommentary from "./screens/LiveCommentary";
 
 interface TeamScoreType {
   eventName: string;
@@ -105,6 +106,9 @@ type RootParamList = {
   ResultsScreen: undefined;
   EventResultFormScreen: undefined;
   DeleteScheduledEvent: undefined;
+  LiveCommentary: {
+    event: any;
+  };
 };
 
 const Stack = createNativeStackNavigator<RootParamList>();
@@ -503,6 +507,17 @@ export default function App() {
               component={DeleteScheduledEvent}
               options={{
                 title: "Delete Scheduled Event",
+                headerStyle: {
+                  backgroundColor: Colors.purpleDark,
+                },
+                headerTintColor: Colors.OffWhite,
+              }}
+            />
+            <Stack.Screen
+              name="LiveCommentary"
+              component={LiveCommentary}
+              options={{
+                title: "Live Commentary",
                 headerStyle: {
                   backgroundColor: Colors.purpleDark,
                 },
